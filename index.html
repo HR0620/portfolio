@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Portfolio — 拡張可能なテンプレート</title>
+
+    <!-- 基本スタイル + カスタムプロパティで拡張しやすく -->
+    <style>
+        :root{
+            --bg: #0f1724;
+            --card: #0b1220;
+            --muted: #98a0b3;
+            --accent: #5eead4;
+            --text: #e6eef8;
+            --radius: 12px;
+            --gap: 20px;
+            --max-width: 1100px;
+        }
+        [data-theme="light"]{
+            --bg: #f6f8fb;
+            --card: #ffffff;
+            --muted: #556273;
+            --accent: #0ea5a4;
+            --text: #0b1220;
+        }
+
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background:linear-gradient(180deg,var(--bg),#071025 60%);
+            color:var(--text);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            display:flex;
+            justify-content:center;
+            padding:32px;
+        }
+        .container{
+            width:100%;
+            max-width:var(--max-width);
+        }
+
+        header{
+            display:flex;
+            gap:12px;
+            align-items:center;
+            justify-content:space-between;
+            margin-bottom:var(--gap);
+        }
+        .brand{display:flex;gap:12px;align-items:center}
+        .avatar{
+            width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7dd3fc);
+            display:flex;align-items:center;justify-content:center;font-weight:700;color:#062024;
+        }
+        nav{display:flex;gap:12px;align-items:center}
+        button,select,input{background:transparent;border:0;color:var(--text);font:inherit}
+        .controls{display:flex;gap:8px;align-items:center}
+
+        main{display:grid;grid-template-columns:1fr 360px;gap:var(--gap)}
+        @media (max-width:900px){main{grid-template-columns:1fr} .sidebar{order:2}}
+        .card{
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border:1px solid rgba(255,255,255,0.03);
+            padding:18px;
+            border-radius:var(--radius);
+        }
+
+        .hero{display:flex;flex-direction:column;gap:12px}
+        .hero h1{margin:0;font-size:clamp(20px,3vw,32px)}
+        .meta{color:var(--muted);font-size:14px}
+
+        /* Projects grid */
+        .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+        @media (max-width:700px){.projects{grid-template-columns:1fr}}
+        .project{
+            display:flex;flex-direction:column;gap:10px;background:var(--card);padding:12px;border-radius:10px;
+            border:1px solid rgba(0,0,0,0.25);
+        }
+        .project h3{margin:0;font-size:16px}
+        .project .desc{color:var(--muted);font-size:13px}
+        .tags{display:flex;gap:8px;flex-wrap:wrap}
+        .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
+
+        /* Sidebar */
+        .sidebar{display:flex;flex-direction:column;gap:12px}
+        .search{display:flex;gap:8px;align-items:center}
+        .filters{display:flex;gap:8px;flex-wrap:wrap}
+        .muted{color:var(--muted);font-size:13px}
+
+        footer{margin-top:var(--gap);text-align:center;color:var(--muted);font-size:13px}
+        a{color:var(--accent);text-decoration:none}
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="container">
+        <header>
+            <div class="brand">
+                <div class="avatar" aria-hidden="true">R</div>
+                <div>
+                    <div style="font-weight:700">Your Name</div>
+                    <div class="meta">Frontend Engineer / Designer</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <label class="muted" for="themeToggle">テーマ</label>
+                <select id="themeToggle" title="Toggle theme">
+                    <option value="dark">ダーク</option>
+                    <option value="light">ライト</option>
+                </select>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <div class="card hero">
+                    <h1>ポートフォリオ — 拡張可能なテンプレート</h1>
+                    <div class="meta">プロジェクトを追加・フィルタ・検索できる構造。コンポーネントとデータ駆動で拡張しやすくしています。</div>
+
+                    <div style="display:flex;gap:12px;align-items:center;margin-top:10px">
+                        <input id="quickSearch" placeholder="プロジェクトを検索…" style="flex:1;padding:10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)">
+                        <button id="newProjBtn" style="padding:10px 12px;border-radius:8px;background:var(--accent);color:#002021;border:0">新しいプロジェクトを追加</button>
+                    </div>
+
+                    <div id="projectsContainer" class="projects" aria-live="polite" style="margin-top:12px">
+                        <!-- プロジェクトカードはJSで注入 -->
+                    </div>
+
+                    <!-- テンプレート：プロジェクトカード -->
+                    <template id="project-template">
+                        <article class="project" role="article">
+                            <div style="display:flex;justify-content:space-between;align-items:center">
+                                <h3 class="title"></h3>
+                                <div class="meta small muted date"></div>
+                            </div>
+                            <div class="desc"></div>
+                            <div class="tags" aria-hidden="true"></div>
+                            <div style="display:flex;gap:8px;margin-top:8px">
+                                <a class="link" target="_blank" rel="noopener">詳細</a>
+                                <button class="edit" style="margin-left:auto;padding:6px 8px;border-radius:6px">編集</button>
+                                <button class="remove" style="padding:6px 8px;border-radius:6px">削除</button>
+                            </div>
+                        </article>
+                    </template>
+                </div>
+            </section>
+
+            <aside class="sidebar">
+                <div class="card">
+                    <div class="muted">フィルタ</div>
+                    <div class="filters" id="filters"></div>
+                </div>
+
+                <div class="card">
+                    <div class="muted">概要</div>
+                    <p class="muted" style="margin-top:8px">このテンプレートはプロジェクトの配列を扱い、追加・編集・削除、検索、タグフィルタリング、テーマ切り替えをサポートします。将来的にAPIやCMSに接続してデータ取得を差し替え可能です。</p>
+                </div>
+            </aside>
+        </main>
+
+        <footer>
+            ・ コンポーネント化（template）・データ駆動（projects array）で拡張しやすい設計
+        </footer>
+    </div>
+
+    <!-- 機能は小さなモジュールに分けているので拡張しやすい -->
+    <script>
+        // 初期データ（後で外部JSONやCMSに差し替え可能）
+        const projects = [
+            { id: cryptoRandomId(), title: "ポートフォリオサイト", desc: "レスポンシブでアクセシブルな個人サイト。", tags: ["HTML","CSS","JS"], date: "2024-06-01", url: "#" },
+            { id: cryptoRandomId(), title: "TODOアプリ", desc: "IndexedDBで永続化するタスク管理アプリ。", tags: ["PWA","JS"], date: "2024-04-15", url: "#" },
+            { id: cryptoRandomId(), title: "UIコンポーネントライブラリ", desc: "再利用可能なReactコンポーネント群。", tags: ["React","Design"], date: "2023-12-05", url: "#" }
+        ];
+
+        // state
+        let state = {
+            q: "",
+            tag: null,
+            list: projects.slice()
+        };
+
+        // utilities
+        function cryptoRandomId(){ return Math.random().toString(36).slice(2,9) }
+
+        function renderFilters() {
+            const allTags = Array.from(new Set(projects.flatMap(p=>p.tags))).sort();
+            const container = document.getElementById("filters");
+            container.innerHTML = "";
+            const allBtn = createFilterButton("すべて", null, true);
+            container.appendChild(allBtn);
+            allTags.forEach(tag => container.appendChild(createFilterButton(tag, tag)));
+        }
+
+        function createFilterButton(label, tagValue, active=false){
+            const btn = document.createElement("button");
+            btn.textContent = label;
+            btn.className = "tag";
+            btn.style.cursor = "pointer";
+            if(active) btn.style.border = `1px solid var(--accent)`;
+            btn.onclick = () => {
+                state.tag = tagValue;
+                document.querySelectorAll("#filters .tag").forEach(b => b.style.border = "0");
+                btn.style.border = `1px solid var(--accent)`;
+                renderProjects();
+            };
+            return btn;
+        }
+
+        // render projects based on state
+        function renderProjects(){
+            const container = document.getElementById("projectsContainer");
+            container.innerHTML = "";
+            const q = state.q.trim().toLowerCase();
+            const filtered = projects.filter(p=>{
+                const matchQ = q === "" || (p.title + " " + p.desc + " " + p.tags.join(" ")).toLowerCase().includes(q);
+                const matchTag = !state.tag || p.tags.includes(state.tag);
+                return matchQ && matchTag;
+            });
+            if(filtered.length === 0){
+                container.innerHTML = '<div class="muted">該当するプロジェクトがありません。</div>';
+                return;
+            }
+            const tpl = document.getElementById("project-template");
+            filtered.forEach(p => {
+                const clone = tpl.content.cloneNode(true);
+                clone.querySelector(".title").textContent = p.title;
+                clone.querySelector(".desc").textContent = p.desc;
+                clone.querySelector(".date").textContent = p.date;
+                const tagsEl = clone.querySelector(".tags");
+                p.tags.forEach(t => {
+                    const span = document.createElement("span");
+                    span.className = "tag";
+                    span.textContent = t;
+                    span.onclick = () => { state.tag = t; renderProjects(); };
+                    tagsEl.appendChild(span);
+                });
+                const link = clone.querySelector(".link");
+                link.href = p.url || "#";
+                const editBtn = clone.querySelector(".edit");
+                editBtn.onclick = () => editProject(p.id);
+                const removeBtn = clone.querySelector(".remove");
+                removeBtn.onclick = () => { removeProject(p.id); };
+                container.appendChild(clone);
+            });
+        }
+
+        // CRUD helpers
+        function addProject(project){
+            projects.unshift({ id: cryptoRandomId(), date: new Date().toISOString().slice(0,10), ...project });
+            renderFilters();
+            renderProjects();
+        }
+        function editProject(id){
+            const p = projects.find(x=>x.id===id);
+            if(!p) return;
+            const newTitle = prompt("タイトルを編集", p.title);
+            if(newTitle !== null) p.title = newTitle;
+            const newDesc = prompt("説明を編集", p.desc);
+            if(newDesc !== null) p.desc = newDesc;
+            renderFilters();
+            renderProjects();
+        }
+        function removeProject(id){
+            const idx = projects.findIndex(x=>x.id===id);
+            if(idx === -1) return;
+            if(!confirm("本当に削除しますか？")) return;
+            projects.splice(idx,1);
+            renderFilters();
+            renderProjects();
+        }
+
+        // UI wiring
+        document.getElementById("quickSearch").addEventListener("input", (e)=>{
+            state.q = e.target.value;
+            renderProjects();
+        });
+
+        document.getElementById("newProjBtn").addEventListener("click", ()=>{
+            const title = prompt("プロジェクト名");
+            if(!title) return;
+            const desc = prompt("説明") || "";
+            const tags = (prompt("タグ（カンマ区切り）") || "").split(",").map(x=>x.trim()).filter(Boolean);
+            const url = prompt("URL") || "#";
+            addProject({ title, desc, tags, url });
+        });
+
+        // theme toggle
+        const themeSelect = document.getElementById("themeToggle");
+        themeSelect.value = "dark";
+        themeSelect.addEventListener("change", (e)=>{
+            document.body.setAttribute("data-theme", e.target.value);
+        });
+
+        // 初期描画
+        renderFilters();
+        renderProjects();
+
+        // Expose small API for future extensions (外部スクリプトから呼べる)
+        window.PF = {
+            addProject,
+            editProject,
+            removeProject,
+            projects
+        };
+    </script>
+</body>
+</html></article></template></div>
