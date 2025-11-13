@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-theme="dark">
+    <nav>
+        <div class="menu">
+            <a href="index.html">トップページ</a>
+            <a href="notice.html">試験について</a>
+            <a href="result.html">試験結果</a>
+            <a href="ACT.html">過去問題</a>
+        </div>
+        <div class="shortcuts">
+            <button id="scrollToIntro">自己紹介へ</button>
+            <button id="scrollToProjects">作品一覧へ</button>
+        </div>
+    </nav>
     
     <div class="container">
         <header>
@@ -25,7 +37,7 @@
         </header>
 
         <main>
-            <section>
+            <section id="introduction">
                 <div class="card hero">
                     <h1 id="pageTitle"></h1>
                     <div id="pageMeta" class="meta"></div>
@@ -43,11 +55,7 @@
                             </div>
                             <div class="desc"></div>
                             <div class="tags" aria-hidden="true"></div>
-                            <div style="display:flex;gap:8px;margin-top:8px">
-                                <a class="link" target="_blank" rel="noopener"></a>
-                                <button class="edit" style="margin-left:auto;padding:6px 8px;border-radius:6px">編集</button>
-                                <button class="remove" style="padding:6px 8px;border-radius:6px">削除</button>
-                            </div>
+                            <div style="display:flex;gap:8px;margin-top:8px"></div>
                         </article>
                     </template>
                 </div>
@@ -69,5 +77,14 @@
     </div>
 
     <script src="js/script.js"></script>
+    <script>
+        document.getElementById('scrollToIntro').addEventListener('click', () => {
+            document.getElementById('introduction').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('scrollToProjects').addEventListener('click', () => {
+            document.getElementById('projectsContainer').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>

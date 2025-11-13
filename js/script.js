@@ -20,12 +20,11 @@ const i18n = {
         sidebar_summary_content: "This portfolio is designed to showcase your work. It is built using only HTML, CSS, and JavaScript, featuring a lightweight and easily extensible simple structure.",
         link_detail: "Details"
     }
-    // プロジェクト名、説明、タグは project 配列に残します
 };
 
-// 初期データ（ここに実際のプロジェクト情報を記述してください）
+// 📌 プロジェクトデータ
 const projects = [
-{ 
+    { 
         id: "p1", 
         title: { ja: "ポートフォリオサイト", en: "Portfolio Website" }, 
         desc: { ja: "レスポンシブでアクセシブルな個人サイト。ミニマルなデザインと高速な読み込みを実現。", en: "Responsive and accessible personal site. Minimal design and fast loading speed." }, 
@@ -62,21 +61,16 @@ const projects = [
 // 📌 2. 現在の言語状態とレンダリング関数
 let currentLang = 'ja'; // 初期言語を日本語に設定
 
-// ... (renderProjects 関数はそのまま)
-
 // ----------------------------------------------------
 // 📌 3. 多言語対応の描画ロジック
 // ----------------------------------------------------
 
-/**
- * HTML要素に言語データを適用し、テキストを更新する
- * @param {string} lang - 'ja' または 'en'
- */
+// HTML要素に言語データを適用し、テキストを更新する
 function applyLanguage(lang) {
     currentLang = lang;
     const data = i18n[lang];
 
-    // ① 固定テキストの更新
+    // 固定テキストの更新
     document.title = data.title;
     document.getElementById("pageTitle").textContent = data.title;
     document.getElementById("pageMeta").textContent = data.meta;
@@ -85,17 +79,16 @@ function applyLanguage(lang) {
     document.getElementById("sidebarSummaryTitle").textContent = data.sidebar_summary_title;
     document.getElementById("sidebarSummaryContent").textContent = data.sidebar_summary_content;
 
-    // ② プロジェクトカードの動的テキスト（リンクの「詳細」など）を再描画で更新
+    // プロジェクトカードの動的テキストを再描画で更新
     renderProjects();
     
-    // ③ 言語切り替えボタンの状態を更新
+    // 言語切り替えボタンの状態を更新
     document.getElementById('langToggle').textContent = lang === 'ja' ? 'English' : '日本語';
     document.getElementById('langToggle').setAttribute('aria-label', lang === 'ja' ? 'Switch to English' : '日本語に切り替える');
 }
 
-
-// プロジェクトをレンダリングする関数を少し修正（リンクテキストを言語データから取得）
-function renderProjects(){
+// プロジェクトをレンダリングする関数
+function renderProjects() {
     const container = document.getElementById("projectsContainer");
     const tpl = document.getElementById("project-template");
     container.innerHTML = "";
@@ -106,10 +99,9 @@ function renderProjects(){
     projects.forEach(p => {
         const clone = tpl.content.cloneNode(true);
         
-        // 修正点: title と desc を currentLang から取得する
+        // title と desc を currentLang から取得する
         clone.querySelector(".title").textContent = p.title[currentLang];
         clone.querySelector(".desc").textContent = p.desc[currentLang];
-        
         clone.querySelector(".date").textContent = p.date; // 日付は固定
         
         const tagsEl = clone.querySelector(".tags");
@@ -128,7 +120,7 @@ function renderProjects(){
     });
 }
 
-
+// ----------------------------------------------------
 // 📌 4. 初期描画
 // ----------------------------------------------------
 
