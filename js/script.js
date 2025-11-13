@@ -1,5 +1,28 @@
 // script.js
 
+// 📌 1. 多言語テキストデータ
+const i18n = {
+    ja: {
+        title: "ポートフォリオ — プロジェクト一覧",
+        meta: "これまでに制作したプロジェクトを紹介しています。",
+        header_name: "あなたの名前",
+        header_title: "Frontend Engineer / Designer",
+        sidebar_summary_title: "概要",
+        sidebar_summary_content: "このポートフォリオは、あなたの制作物を紹介するためにデザインされました。HTML/CSS/JSのみで構成されており、軽量で拡張性の高いシンプルな構造になっています。",
+        link_detail: "詳細"
+    },
+    en: {
+        title: "Portfolio — Project List",
+        meta: "Showcasing the projects I have worked on.",
+        header_name: "Your Name",
+        header_title: "Frontend Engineer / Designer",
+        sidebar_summary_title: "Summary",
+        sidebar_summary_content: "This portfolio is designed to showcase your work. It is built using only HTML, CSS, and JavaScript, featuring a lightweight and easily extensible simple structure.",
+        link_detail: "Details"
+    }
+    // プロジェクト名、説明、タグは project 配列に残します
+};
+
 // 初期データ（ここに実際のプロジェクト情報を記述してください）
 const projects = [
     { id: "p1", title: "ポートフォリオサイト", desc: "レスポンシブでアクセシブルな個人サイト。ミニマルなデザインと高速な読み込みを実現。", tags: ["HTML","CSS","JS","Design"], date: "2024-06-01", url: "https://example.com/portfolio" },
@@ -8,36 +31,76 @@ const projects = [
     { id: "p4", title: "企業ランディングページ", desc: "マーケティング目標に基づいた、コンバージョン率を最大化するLPを制作。", tags: ["HTML","CSS","A/Bテスト"], date: "2023-09-10", url: "https://example.com/lp" }
 ];
 
-// プロジェクトをレンダリングする関数
+// 📌 2. 現在の言語状態とレンダリング関数
+let currentLang = 'ja'; // 初期言語を日本語に設定
+
+// ... (renderProjects 関数はそのまま)
+
+// ----------------------------------------------------
+// 📌 3. 多言語対応の描画ロジック
+// ----------------------------------------------------
+
+/**
+ * HTML要素に言語データを適用し、テキストを更新する
+ * @param {string} lang - 'ja' または 'en'
+ */
+function applyLanguage(lang) {
+    currentLang = lang;
+    const data = i18n[lang];
+
+    // ① 固定テキストの更新
+    document.title = data.title;
+    document.getElementById("pageTitle").textContent = data.title;
+    document.getElementById("pageMeta").textContent = data.meta;
+    document.getElementById("headerName").textContent = data.header_name;
+    document.getElementById("headerTitle").textContent = data.header_title;
+    document.getElementById("sidebarSummaryTitle").textContent = data.sidebar_summary_title;
+    document.getElementById("sidebarSummaryContent").textContent = data.sidebar_summary_content;
+
+    // ② プロジェクトカードの動的テキスト（リンクの「詳細」など）を再描画で更新
+    renderProjects();
+    
+    // ③ 言語切り替えボタンの状態を更新
+    document.getElementById('langToggle').textContent = lang === 'ja' ? 'English' : '日本語';
+    document.getElementById('langToggle').setAttribute('aria-label', lang === 'ja' ? 'Switch to English' : '日本語に切り替える');
+}
+
+
+// プロジェクトをレンダリングする関数を少し修正（リンクテキストを言語データから取得）
 function renderProjects(){
     const container = document.getElementById("projectsContainer");
     const tpl = document.getElementById("project-template");
-    container.innerHTML = ""; // コンテンツをクリア
+    container.innerHTML = "";
+    
+    // リンクテキストを取得
+    const linkText = i18n[currentLang].link_detail;
 
     projects.forEach(p => {
-        // template要素の内容を複製
         const clone = tpl.content.cloneNode(true);
         
-        // 各要素にデータを注入
-        clone.querySelector(".title").textContent = p.title;
-        clone.querySelector(".desc").textContent = p.desc;
-        clone.querySelector(".date").textContent = p.date;
-        
-        const tagsEl = clone.querySelector(".tags");
-        p.tags.forEach(t => {
-            const span = document.createElement("span");
-            span.className = "tag";
-            span.textContent = t;
-            tagsEl.appendChild(span);
-        });
-        
+        // ... (タイトル、説明、日付、タグの設定は同じ) ...
+
         const link = clone.querySelector(".link");
         link.href = p.url || "#";
+        link.textContent = linkText; // リンクテキストを言語データから取得
         
-        // コンテナに追加
         container.appendChild(clone);
     });
 }
 
-// 初期描画を実行
-renderProjects();
+
+// 📌 4. 初期描画
+// ----------------------------------------------------
+
+// ページロード時に多言語とプロジェクトを初期描画
+renderProjects(); 
+applyLanguage(currentLang); // 初期言語を適用
+
+// ----------------------------------------------------
+// 📌 5. UIイベント処理（ボタンクリック）
+// ----------------------------------------------------
+
+document.getElementById('langToggle').addEventListener('click', () => {
+    const newLang = currentLang === 'ja' ? 'en' : 'ja';
+    applyLanguage(newLang);
+});

@@ -8,30 +8,32 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-theme="dark">
+    
     <div class="container">
         <header>
             <div class="brand">
                 <div class="avatar" aria-hidden="true">R</div>
                 <div>
-                    <div style="font-weight:700">あなたの名前</div>
-                    <div class="meta">Frontend Engineer / Designer</div>
+                    <div id="headerName" style="font-weight:700"></div>
+                    <div id="headerTitle" class="meta"></div>
                 </div>
             </div>
-
-            <div class="controls">
-                </div>
+            
+            <div class="controls" style="display:flex!important;">
+                <button id="langToggle" style="padding:6px 12px;border-radius:6px;background:rgba(255,255,255,0.05);color:var(--text);border:1px solid rgba(255,255,255,0.1);cursor:pointer;"></button>
+            </div>
         </header>
 
         <main>
             <section>
                 <div class="card hero">
-                    <h1>ポートフォリオ — プロジェクト一覧</h1>
-                    <div class="meta">これまでに制作したプロジェクトを紹介しています。</div>
+                    <h1 id="pageTitle"></h1>
+                    <div id="pageMeta" class="meta"></div>
 
                     <div class="search-container" style="display:none;"></div> 
 
                     <div id="projectsContainer" class="projects" aria-live="polite" style="margin-top:12px">
-                        </div>
+                    </div>
 
                     <template id="project-template">
                         <article class="project" role="article">
@@ -42,7 +44,7 @@
                             <div class="desc"></div>
                             <div class="tags" aria-hidden="true"></div>
                             <div style="display:flex;gap:8px;margin-top:8px">
-                                <a class="link" target="_blank" rel="noopener">詳細</a>
+                                <a class="link" target="_blank" rel="noopener"></a>
                                 <button class="edit" style="margin-left:auto;padding:6px 8px;border-radius:6px">編集</button>
                                 <button class="remove" style="padding:6px 8px;border-radius:6px">削除</button>
                             </div>
@@ -55,14 +57,14 @@
                 <div class="card filters-card" style="display:none;"></div>
 
                 <div class="card">
-                    <div class="muted">概要</div>
-                    <p class="muted" style="margin-top:8px">このポートフォリオは、あなたの制作物を紹介するためにデザインされました。HTML/CSS/JSのみで構成されており、軽量で拡張性の高いシンプルな構造になっています。</p>
+                    <div id="sidebarSummaryTitle" class="muted"></div>
+                    <p id="sidebarSummaryContent" class="muted" style="margin-top:8px"></p>
                 </div>
             </aside>
         </main>
 
         <footer>
-            © 2024 Your Name. All Rights Reserved.
+            MIT License.
         </footer>
     </div>
 
