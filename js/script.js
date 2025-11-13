@@ -3,30 +3,28 @@
 // 📌 1. 多言語テキストデータ
 const i18n = {
     ja: {
-        title: "ポートフォリオ — プロジェクト一覧",
+        title: "Welcome To My Portfolio!",
         meta: "これまでに制作したプロジェクトを紹介しています。",
-        header_name: "あなたの名前",
-        header_title: "Frontend Engineer / Designer",
+        header_name: "原田連寿",
+        header_title: "大阪公立大学工業高等専門学校 / 2年",
         sidebar_summary_title: "概要",
         sidebar_summary_content: "このポートフォリオは、あなたの制作物を紹介するためにデザインされました。HTML/CSS/JSのみで構成されており、軽量で拡張性の高いシンプルな構造になっています。",
         link_detail: "詳細",
         // 追加: タイムラインとショートカット
-        timeline_title: "私の歩み（沿革）",
-        timeline_meta: "これまでの学歴、職歴、そして技術的なマイルストーンを時系列で紹介します。",
+        timeline_title: "沿革",
         shortcut_intro: "自己紹介",
         shortcut_projects: "作品一覧"
     },
     en: {
-        title: "Portfolio — Project List",
+        title: "Welcome To My Portfolio!",
         meta: "Showcasing the projects I have worked on.",
-        header_name: "Your Name",
-        header_title: "Frontend Engineer / Designer",
+        header_name: "Renju Harada",
+        header_title: "Osaka Metropolitan University College of Technology / Grade 2",
         sidebar_summary_title: "Summary",
         sidebar_summary_content: "This portfolio is designed to showcase your work. It is built using only HTML, CSS, and JavaScript, featuring a lightweight and easily extensible simple structure.",
         link_detail: "Details",
         // 追加: タイムラインとショートカット
-        timeline_title: "My Journey (Timeline)",
-        timeline_meta: "A chronological overview of my education, career, and technical milestones.",
+        timeline_title: "My Journey",
         shortcut_intro: "Introduction",
         shortcut_projects: "Projects"
     }
@@ -71,23 +69,38 @@ const projects = [
 // 📌 2. タイムラインデータ（時系列データ）
 const timelineData = [
     { 
-        year: "2020", 
-        title: { ja: "〇〇高等学校 入学", en: "Enrolled in XX High School" }, 
-        description: { ja: "情報科学部に所属し、プログラミングとデザインの基礎を学ぶ。", en: "Joined the Information Science Club and studied the basics of programming and design." }
+        year: "2024/04", 
+        title: { ja: "大阪公立大学工業高等専門学校 入学", en: "Entered Osaka Metropolitan University College of Technology" }, 
+        description: { ja: "プログラミング研究会に所属し、プログラミングの基礎を学ぶ。", en: "Joined the Information Science Club and studied the basics of programming and design." }
     },
     { 
-        year: "2022", 
-        title: { ja: "Webサイト制作コンテスト 優秀賞受賞", en: "Received Excellence Award in Web Design Contest" }, 
+        year: "2024/11", 
+        title: { ja: "実用英語技能検定準2級 合格", en: "Entered Osaka Metropolitan University College of Technology" }, 
+        description: { ja: "プログラミング研究会に所属し、プログラミングの基礎を学ぶ。", en: "Joined the Information Science Club and studied the basics of programming and design." }
+    },
+    { 
+        year: "2024/12", 
+        title: { ja: "防災士 認定", en: "Entered Osaka Metropolitan University College of Technology" }, 
+        description: { ja: "プログラミング研究会に所属し、プログラミングの基礎を学ぶ。", en: "Joined the Information Science Club and studied the basics of programming and design." }
+    },
+    { 
+        year: "2025/04", 
+        title: { ja: "知能情報コース 進学", en: "Enrolled in Intelligent Informatics Course" }, 
         description: { ja: "初の本格的な個人プロジェクトで受賞。HTML/CSSのスキルを確立。", en: "Won an award for the first major solo project. Established strong HTML/CSS skills." }
     },
     { 
-        year: "2023", 
-        title: { ja: "独学でJavaScriptとReactを習得", en: "Self-studied JavaScript and React" }, 
+        year: "2025/07", 
+        title: { ja: "漢字能力技能検定2級 合格", en: "Entered Osaka Metropolitan University College of Technology" }, 
+        description: { ja: "プログラミング研究会に所属し、プログラミングの基礎を学ぶ。", en: "Joined the Information Science Club and studied the basics of programming and design." }
+    },
+    { 
+        year: "2025/10", 
+        title: { ja: "ITパスポート 合格", en: "Self-studied JavaScript and React" }, 
         description: { ja: "動的なWebアプリケーション開発を目指し、フロントエンドフレームワークの学習を開始。", en: "Began studying frontend frameworks to pursue dynamic web application development." }
     },
     { 
-        year: "2024 - 現在", 
-        title: { ja: "〇〇専門学校 〇〇科 在学中", en: "Currently studying at XX Technical College, YY Department" }, 
+        year: "2025 - 現在", 
+        title: { ja: "大阪公立大学工業高等専門学校 知能情報コース 在学中", en: "Currently studying at Osaka Metropolitan University College of Technology, Intelligent Informatics Course" }, 
         description: { ja: "Webアプリケーション開発とUI/UX設計を専門的に学び、チーム開発を経験中。", en: "Specializing in web application development and UI/UX design, currently experiencing team development." }
     }
 ];
