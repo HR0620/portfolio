@@ -1,8 +1,42 @@
-こちらからアクセス--> https://hr0620.github.io/portfolio/
+[Read in English](README.ja.md)
+# 原田連寿(Harada Renju)のポートフォリオ
 
-## MEMORANDOM
-日本語/英語翻訳
+多言語対応（日本語/英語）のレスポンシブポートフォリオサイト。HTML/CSS/JavaScriptのみで構成されたシンプルで拡張性の高い個人プロジェクト紹介サイトです。
 
+🌐 **Live Demo:** [https://hr0620.github.io/portfolio/](https://hr0620.github.io/portfolio/)
 
-## Writer
-原田 連寿
+## 特徴
+
+- 📱 **レスポンシブデザイン** - モバイル/タブレット/デスクトップに対応
+- 🌍 **多言語対応** - 日本語と英語の言語切り替え機能
+- 🎨 **ダークテーマ対応** - 目にやさしいデザイン
+- ♿ **アクセシブル** - セマンティックHTMLとARIA属性に対応
+
+## 構成
+
+```
+portfolio/
+├── index.html          # メインHTMLファイル
+├── css/
+│   └── style.css       # スタイルシート
+├── js/
+│   └── script.js       # JavaScriptロジック
+├── projects/           # プロジェクト詳細ページ
+├── README.md           # このファイル
+└── License             # MITライセンス
+```
+
+## 使用技術
+
+- **HTML5** - セマンティックマークアップ
+- **CSS3** - グリッドレイアウト、カスタムプロパティ
+- **Vanilla JavaScript** - フレームワーク不要
+
+## License
+
+このプロジェクトはMITライセンスの下で配布されています。
+詳細は [License](./License) ファイルを参照してください。
+
+## Author
+
+**原田 連寿** (Renju Harada)
