@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-## PORTFOLIO
-
-=======
 こちらからアクセス--> https://hr0620.github.io/portfolio/
 >>>>>>> 383dd52c5e28056998ab26fbdc6b8d0094964dba
 ## MEMORANDOM

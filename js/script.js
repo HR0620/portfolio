@@ -25,10 +25,38 @@ const i18n = {
 
 // 初期データ（ここに実際のプロジェクト情報を記述してください）
 const projects = [
-    { id: "p1", title: "ポートフォリオサイト", desc: "レスポンシブでアクセシブルな個人サイト。ミニマルなデザインと高速な読み込みを実現。", tags: ["HTML","CSS","JS","Design"], date: "2024-06-01", url: "https://example.com/portfolio" },
-    { id: "p2", title: "TODOアプリ (PWA)", desc: "IndexedDBでタスクを永続化するProgressive Web App。オフライン対応。", tags: ["PWA","JS","IndexedDB"], date: "2024-04-15", url: "https://example.com/todo" },
-    { id: "p3", title: "UIコンポーネントライブラリ", desc: "再利用可能なデザインシステムに準拠したReactコンポーネント群を構築。", tags: ["React","TypeScript","Design"], date: "2023-12-05", url: "https://example.com/uilib" },
-    { id: "p4", title: "企業ランディングページ", desc: "マーケティング目標に基づいた、コンバージョン率を最大化するLPを制作。", tags: ["HTML","CSS","A/Bテスト"], date: "2023-09-10", url: "https://example.com/lp" }
+{ 
+        id: "p1", 
+        title: { ja: "ポートフォリオサイト", en: "Portfolio Website" }, 
+        desc: { ja: "レスポンシブでアクセシブルな個人サイト。ミニマルなデザインと高速な読み込みを実現。", en: "Responsive and accessible personal site. Minimal design and fast loading speed." }, 
+        tags: ["HTML","CSS","JS","Design"], 
+        date: "2024-06-01", 
+        url: "https://example.com/portfolio" 
+    },
+    { 
+        id: "p2", 
+        title: { ja: "TODOアプリ (PWA)", en: "TODO App (PWA)" }, 
+        desc: { ja: "IndexedDBでタスクを永続化するProgressive Web App。オフライン対応。", en: "A Progressive Web App that persists tasks using IndexedDB. Supports offline use." }, 
+        tags: ["PWA","JS","IndexedDB"], 
+        date: "2024-04-15", 
+        url: "https://example.com/todo" 
+    },
+    { 
+        id: "p3", 
+        title: { ja: "UIコンポーネントライブラリ", en: "UI Component Library" }, 
+        desc: { ja: "再利用可能なデザインシステムに準拠したReactコンポーネント群を構築。", en: "Built a collection of reusable React components adhering to a design system." }, 
+        tags: ["React","TypeScript","Design"], 
+        date: "2023-12-05", 
+        url: "https://example.com/uilib" 
+    },
+    { 
+        id: "p4", 
+        title: { ja: "企業ランディングページ", en: "Corporate Landing Page" }, 
+        desc: { ja: "マーケティング目標に基づいた、コンバージョン率を最大化するLPを制作。", en: "Created a landing page based on marketing goals to maximize conversion rates." }, 
+        tags: ["HTML","CSS","A/Bテスト"], 
+        date: "2023-09-10", 
+        url: "https://example.com/lp" 
+    }
 ];
 
 // 📌 2. 現在の言語状態とレンダリング関数
@@ -78,8 +106,20 @@ function renderProjects(){
     projects.forEach(p => {
         const clone = tpl.content.cloneNode(true);
         
-        // ... (タイトル、説明、日付、タグの設定は同じ) ...
-
+        // 修正点: title と desc を currentLang から取得する
+        clone.querySelector(".title").textContent = p.title[currentLang];
+        clone.querySelector(".desc").textContent = p.desc[currentLang];
+        
+        clone.querySelector(".date").textContent = p.date; // 日付は固定
+        
+        const tagsEl = clone.querySelector(".tags");
+        p.tags.forEach(t => {
+            const span = document.createElement("span");
+            span.className = "tag";
+            span.textContent = t;
+            tagsEl.appendChild(span);
+        });
+        
         const link = clone.querySelector(".link");
         link.href = p.url || "#";
         link.textContent = linkText; // リンクテキストを言語データから取得
