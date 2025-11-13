@@ -6,20 +6,9 @@
     <title>Portfolio — Your Name</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/a7a7238217.js" crossorigin="anonymous"></script>
 </head>
 <body data-theme="dark">
-    <nav>
-        <div class="menu">
-            <a href="index.html">トップページ</a>
-            <a href="notice.html">試験について</a>
-            <a href="result.html">試験結果</a>
-            <a href="ACT.html">過去問題</a>
-        </div>
-        <div class="shortcuts">
-            <button id="scrollToIntro">自己紹介へ</button>
-            <button id="scrollToProjects">作品一覧へ</button>
-        </div>
-    </nav>
     
     <div class="container">
         <header>
@@ -31,60 +20,71 @@
                 </div>
             </div>
             
-            <div class="controls" style="display:flex!important;">
+            <div class="controls" style="display:flex!important; gap: 12px; align-items: center;">
+                <!-- 1. 新しいショートカットボタンを追加 -->
+                <button id="scrollToIntro" class="shortcut-btn"></button>
+                <button id="scrollToProjects" class="shortcut-btn"></button>
+                
                 <button id="langToggle" style="padding:6px 12px;border-radius:6px;background:rgba(255,255,255,0.05);color:var(--text);border:1px solid rgba(255,255,255,0.1);cursor:pointer;"></button>
             </div>
         </header>
 
-        <main>
-            <section id="introduction">
-                <div class="card hero">
-                    <h1 id="pageTitle"></h1>
-                    <div id="pageMeta" class="meta"></div>
-
-                    <div class="search-container" style="display:none;"></div> 
-
-                    <div id="projectsContainer" class="projects" aria-live="polite" style="margin-top:12px">
-                    </div>
-
-                    <template id="project-template">
-                        <article class="project" role="article">
-                            <div style="display:flex;justify-content:space-between;align-items:center">
-                                <h3 class="title"></h3>
-                                <div class="meta small muted date"></div>
-                            </div>
-                            <div class="desc"></div>
-                            <div class="tags" aria-hidden="true"></div>
-                            <div style="display:flex;gap:8px;margin-top:8px"></div>
-                        </article>
-                    </template>
+        <!-- 2. 自己紹介セクション（タイムライン）を追加 -->
+        <section id="introduction" class="content-section">
+            <div class="card intro-card">
+                <h2 id="timelineTitle"></h2>
+                <div class="meta" id="timelineMeta"></div>
+                
+                <!-- タイムラインアイテムを格納するコンテナ -->
+                <div id="timelineContainer" class="timeline-container">
+                    <!-- JavaScriptによってタイムラインアイテムがここに挿入されます -->
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <aside class="sidebar">
-                <div class="card filters-card" style="display:none;"></div>
+        <!-- 3. 既存のプロジェクトセクションにIDを追加し、ショートカットのターゲットにする -->
+        <section id="projects-section" class="content-section">
+            <div class="card hero">
+                <h1 id="pageTitle"></h1>
+                <div id="pageMeta" class="meta"></div>
 
-                <div class="card">
-                    <div id="sidebarSummaryTitle" class="muted"></div>
-                    <p id="sidebarSummaryContent" class="muted" style="margin-top:8px"></p>
+                <div class="search-container" style="display:none;"></div> 
+
+                <div id="projectsContainer" class="projects" aria-live="polite" style="margin-top:12px">
                 </div>
-            </aside>
-        </main>
 
+                <template id="project-template">
+                    <article class="project" role="article">
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <h3 class="title"></h3>
+                            <div class="meta small muted date"></div>
+                        </div>
+                        <div class="desc"></div>
+                        <div class="tags" aria-hidden="true"></div>
+                        <div style="display:flex;gap:8px;margin-top:8px">
+                            <a class="link" target="_blank" rel="noopener"></a>
+                            <button class="edit" style="margin-left:auto;padding:6px 8px;border-radius:6px">編集</button>
+                            <button class="remove" style="padding:6px 8px;border-radius:6px">削除</button>
+                        </div>
+                    </article>
+                </template>
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <div class="card filters-card" style="display:none;"></div>
+
+            <div class="card">
+                <div id="sidebarSummaryTitle" class="muted"></div>
+                <p id="sidebarSummaryContent" class="muted" style="margin-top:8px"></p>
+            </div>
+        </aside>
+        
         <footer>
-            MIT License.
+            © 2024 Your Name. All Rights Reserved.
         </footer>
     </div>
 
     <script src="js/script.js"></script>
-    <script>
-        document.getElementById('scrollToIntro').addEventListener('click', () => {
-            document.getElementById('introduction').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        document.getElementById('scrollToProjects').addEventListener('click', () => {
-            document.getElementById('projectsContainer').scrollIntoView({ behavior: 'smooth' });
-        });
-    </script>
 </body>
 </html>
