@@ -105,6 +105,7 @@ const projects = [
         url: "./projects/omuct-fes_2025",
         image: "images/hisayoshi_thumbnail.png" // 仮の画像パス。imagesフォルダに配置してください。
     }
+];
     // script.js (projects配列の後)
 
 // 📌 2. Activities データ
@@ -130,7 +131,6 @@ const activitiesData = [ // <<< 新規追加
 ];
 // ... (timelineData, skillsData へ続く)
 
-];
 
 
 // 📌 3. スキルデータ
@@ -488,6 +488,7 @@ document.getElementById('scrollToProjects').addEventListener('click', () => {
 });
 document.getElementById('scrollToActivities').addEventListener('click', () => { // <<< 追加
     document.getElementById('activities-section').scrollIntoView({ behavior: 'smooth' });
+});
 // 言語切り替えボタンのイベントリスナー
 document.getElementById('langToggle').addEventListener('click', () => {
     const newLang = currentLang === 'ja' ? 'en' : 'ja';
