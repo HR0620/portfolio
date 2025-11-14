@@ -40,3 +40,7 @@ portfolio/
 ## Author
 
 **原田 連寿** (Renju Harada)
+
+メモ
+日英変換
+沿革を左側資格、右側学校関係で枝分かれさせる
