@@ -21,7 +21,9 @@ const i18n = {
         skill_detail_button: "詳細を見る",
         modal_close: "閉じる",
         proficiency_level: "熟練度",
-        experience_summary: "経験概要"
+        experience_summary: "経験概要",
+        activities_title: "課外活動 / 受賞歴", // <<< 追加
+        activities_meta: "学術的なコンテストや、その他の課外活動の記録です。"// <<< 追加
     },
     en: {
         title: "Welcome To My Portfolio!",
@@ -42,7 +44,9 @@ const i18n = {
         skill_detail_button: "See Details",
         modal_close: "Close",
         proficiency_level: "Proficiency Level",
-        experience_summary: "Experience Summary"
+        experience_summary: "Experience Summary",
+        activities_title: "Activities / Awards", // <<< 追加
+        activities_meta: "Records of academic competitions and other extracurricular activities.", // <<< 追加
     }
 };
 

@@ -39,10 +39,14 @@ body.modal-open {
 }
 
 /* --- 1. スティッキーヘッダー --- */
+/* style.css (--- 1. スティッキーヘッダー --- のセクション内) */
+
 #stickyHeader {
     position: fixed;
     top: 0;
-    left: 0;
+    /* 修正: left/right を設定し、margin: auto で中央寄せ */
+    left: 0; 
+    right: 0;
     width: 100%;
     z-index: 1000;
     background: var(--bg);
@@ -55,6 +59,7 @@ body.modal-open {
     justify-content: space-between;
     align-items: center;
     max-width: var(--max-width);
+    /* 修正: 中央寄せを確実にする */
     margin: 0 auto;
     padding: 12px var(--gap);
 }
