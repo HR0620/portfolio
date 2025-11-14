@@ -20,7 +20,7 @@
     --accent: #0ea5a4;
     --text: #0b1220;
     --timeline-color: #d1d9e6;
-    --page-line-color: #e0e6f0; /* ノートの罫線色 (明るいテーマ) */
+    --page-line-color: #e0e6f0; /* ノートの罫線色*/
 }
 
 html, body {
