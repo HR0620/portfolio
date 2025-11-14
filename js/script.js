@@ -22,8 +22,8 @@ const i18n = {
         modal_close: "閉じる",
         proficiency_level: "熟練度",
         experience_summary: "経験概要",
-        activities_title: "課外活動 / 受賞歴", // <<< 追加
-        activities_meta: "学術的なコンテストや、その他の課外活動の記録です。"// <<< 追加
+        activities_title: "課外活動 / 受賞歴",
+        activities_meta: "学術的なコンテストや、その他の課外活動の記録です。"
     },
     en: {
         title: "Welcome To My Portfolio!",
@@ -45,51 +45,75 @@ const i18n = {
         modal_close: "Close",
         proficiency_level: "Proficiency Level",
         experience_summary: "Experience Summary",
-        activities_title: "Activities / Awards", // <<< 追加
+        activities_title: "Activities / Awards",
         activities_meta: "Records of academic competitions and other extracurricular activities.", // <<< 追加
     }
 };
 const timelineData = [
     { 
         year: "2024/04", 
-        type: 'history', // 経歴（右側）
+        type: 'history',
         title: { ja: "大阪公立大学工業高等専門学校 入学", en: "Entered Osaka Metropolitan University College of Technology" }, 
         description: { ja: "プログラミング研究会に所属し、プログラミングの基礎を学ぶ。", en: "Joined the Programming Research Club and began learning programming fundamentals." }
     },
     { 
         year: "2024/11", 
-        type: 'qual', // 資格（左側）
+        type: 'qual', 
         title: { ja: "実用英語技能検定準2級 合格", en: "Eiken Grade Pre-2 Passed" }, 
-        description: { ja: "英語でのコミュニケーション能力の基礎を確立。", en: "Established basic English communication skills." }
+        description: { ja: "", en: "" }
     },
     { 
         year: "2024/12", 
-        type: 'qual', // 資格（左側）
+        type: 'qual',
         title: { ja: "防災士 認定", en: "Disaster Preparedness Advisor Certified" }, 
         description: { ja: "災害対策と地域防災に関する知識を習得。", en: "Acquired knowledge on disaster countermeasures and local disaster prevention." }
     },
     { 
+        year: "2025/03", 
+        type: 'qual',
+        title: { ja: "KOSENJIN SUMMIT 2025 ボランティア", en: "Advanced to Intelligent Informatics Course" }, 
+        description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
+    },
+    { 
+        year: "2025/03", 
+        type: 'history',
+        title: { ja: "学生有志団体PINTO OMUCT 所属", en: "Advanced to Intelligent Informatics Course" }, 
+        description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
+    },
+    { 
         year: "2025/04", 
-        type: 'history', // 経歴（右側）
+        type: 'history',
         title: { ja: "知能情報コース 進学", en: "Advanced to Intelligent Informatics Course" }, 
         description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
     },
     { 
+        year: "2025/05", 
+        type: 'history',
+        title: { ja: "学生・教員有志団体FARAD 所属", en: "Advanced to Intelligent Informatics Course" }, 
+        description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
+    },
+    { 
         year: "2025/07", 
-        type: 'qual', // 資格（左側）
+        type: 'qual',
         title: { ja: "漢字能力技能検定2級 合格", en: "Kanji Proficiency Test Grade 2 Passed" }, 
-        description: { ja: "高い日本語能力を証明。", en: "Demonstrated advanced Japanese language proficiency." }
+        description: { ja: "", en: "Demonstrated advanced Japanese language proficiency." }
+    },
+    { 
+        year: "2025/09", 
+        type: 'qual',
+        title: { ja: "未踏MEET UP! in 大阪 運営協力(株式会社みらいスタジオ)", en: "Advanced to Intelligent Informatics Course" }, 
+        description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
     },
     { 
         year: "2025/10", 
-        type: 'qual', // 資格（左側）
+        type: 'qual',
         title: { ja: "ITパスポート 合格", en: "IT Passport Exam Passed" }, 
         description: { ja: "情報技術に関する基礎的な知識を幅広く習得。", en: "Acquired broad basic knowledge of information technology." }
     },
     { 
         year: "2025 - 現在", 
-        type: 'history', // 経歴（右側）
-        title: { ja: "大阪公立大学工業高等専門学校 知能情報コース 在学中", en: "Currently studying at Osaka Metropolitan University College of Technology, Intelligent Informatics Course" }, 
+        type: 'history', 
+        title: { ja: "同校 同コース 在学中", en: "Currently studying at Osaka Metropolitan University College of Technology, Intelligent Informatics Course" }, 
         description: { ja: "Webアプリケーション開発とUI/UX設計を専門的に学び、チーム開発を経験中。", en: "Specializing in web application development and UI/UX design, currently experiencing team development." }
     }
 ];
@@ -112,26 +136,14 @@ const projects = [
 const activitiesData = [ // <<< 新規追加
     { 
         id: "a1", 
-        title: { ja: "高専プロコン 予選突破", en: "Kosen Procon Preliminaries Passed" }, 
-        desc: { ja: "「Hisayoshi」ゲームをチームで開発し、競技部門で予選を突破しました。", en: "Developed the 'Hisayoshi' game as a team and passed the preliminaries in the competition division." }, 
-        tags: ["team", "gamedev", "python"], 
-        date: "2025/10/20", 
+        title: { ja: "COMING SOON...", en: "Kosen Procon Preliminaries Passed" }, 
+        desc: { ja: "", en: "" }, 
+        tags: [""], 
+        date: "B.C.2025/99/99", 
         url: "#",
         image: "images/procon_thumbnail.png" // 仮の画像パス
-    },
-    { 
-        id: "a2", 
-        title: { ja: "全国高等専門学校デザインコンペティション 参加", en: "National College of Technology Design Competition Participation" }, 
-        desc: { ja: "テーマ「〇〇」に対して、WebサービスのUI/UX設計を担当しました。", en: "In charge of UI/UX design for a Web service on the theme 'XX'." }, 
-        tags: ["ui/ux", "web"], 
-        date: "2025/11/15", 
-        url: "#",
-        image: "images/designcon_thumbnail.png" // 仮の画像パス
     }
 ];
-// ... (timelineData, skillsData へ続く)
-
-
 
 // 📌 3. スキルデータ
 const skillsData = [
