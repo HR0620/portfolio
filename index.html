@@ -1,44 +1,150 @@
-...
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Portfolio — Your Name</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/a7a7238217.js" crossorigin="anonymous"></script>
+</head>
+<body data-theme="dark">
+
+    <header id="stickyHeader">
+        <div class="header-content">
+            <div class="brand">
+                <div class="avatar" aria-hidden="true">R</div>
+                <div>
+                    <div id="headerName" style="font-weight:700"></div>
+                    <div id="headerTitle" class="meta"></div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="scrollToIntro" class="shortcut-btn" style="display:none;"></button>
+                <button id="scrollToProjects" class="shortcut-btn" style="display:none;"></button>
+                <button id="langToggle"></button>
+            </div>
+        </div>
+    </header>
     <div id="headerSpacer"></div>
+
 
     <div id="notebookWrapper">
         <div id="notebook">
+            
             <div id="coverPage" class="page cover-page">
                 <div class="cover-content">
                     <h1 id="notebookTitle">My Portfolio</h1>
-                    <p id="coverName"></p>
-                    <p id="coverSchool"></p>
+                    <p id="coverName" class="name-text"></p>
+                    <p id="coverSchool" class="meta-text"></p>
                 </div>
             </div>
 
             <div id="page1" class="page left-page">
                 <section id="introduction" class="content-section">
-                    </section>
+                    <div class="card intro-card">
+                        <h2 id="timelineTitle"></h2>
+                        <div class="meta" id="timelineMeta"></div>
+                        <div id="timelineContainer" class="timeline-container">
+                        </div>
+                    </div>
+                </section>
             </div>
 
             <div id="page2" class="page right-page">
                 <section id="projects-section" class="content-section">
-                    </section>
+                    <div class="card hero">
+                        <h1 id="pageTitle"></h1>
+                        <div id="pageMeta" class="meta"></div>
+                        <div class="search-container" style="display:none;"></div> 
+
+                        <div id="projectsContainer" class="projects" aria-live="polite">
+                        </div>
+
+                        <template id="project-template">
+                            <article class="project" role="article">
+                                <img class="project-image" src="" alt="" loading="lazy">
+                                <div style="display:flex;justify-content:space-between;align-items:center">
+                                    <h3 class="title"></h3>
+                                    <div class="meta small muted date"></div>
+                                </div>
+                                <div class="desc"></div>
+                                <div class="tags" aria-hidden="true"></div>
+                                <div style="display:flex;gap:8px;margin-top:8px">
+                                    <a class="link" target="_blank" rel="noopener"></a>
+                                    <button class="edit" style="margin-left:auto;padding:6px 8px;border-radius:6px; display:none;">編集</button>
+                                    <button class="remove" style="padding:6px 8px;border-radius:6px; display:none;">削除</button>
+                                </div>
+                            </article>
+                        </template>
+                    </div>
+                </section>
             </div>
             
             <div id="page3" class="page left-page">
                 <section id="skills-section" class="content-section">
-                    </section>
+                    <div class="card skills-card">
+                        <h2 id="skillsTitle"></h2>
+                        <div class="meta" id="skillsMeta"></div>
+                        <div id="skillsContainer" class="skills-grid">
+                        </div>
+                    </div>
+                </section>
+
                 <aside class="sidebar">
-                    </aside>
+                    <div class="card">
+                        <div id="sidebarSummaryTitle" class="muted"></div>
+                        <p id="sidebarSummaryContent" class="muted" style="margin-top:8px"></p>
+                    </div>
+                </aside>
+
                 <footer>
-                    </footer>
+                    © 2024 Your Name. All Rights Reserved.
+                </footer>
             </div>
             
             <div id="backCover" class="page back-cover">
+                 <div class="back-content">
+                    <h2>Thank You!</h2>
+                    <p>このポートフォリオをご覧いただきありがとうございます。</p>
                 </div>
+            </div>
 
         </div>
     </div>
-    
+
+
     <div id="pageControls">
         <button id="prevPageBtn" disabled><i class="fas fa-arrow-left"></i> 戻る</button>
         <button id="nextPageBtn"><i class="fas fa-arrow-right"></i> 開く</button>
     </div>
 
-...
+    <div id="skillDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img id="modalSkillIcon" class="modal-icon" src="" alt="Skill Icon">
+                <h3 id="modalSkillName"></h3>
+                <button id="modalCloseBtn" class="close-btn"></button>
+            </div>
+
+            <div class="modal-body">
+                <h4><i class="fas fa-chart-bar"></i> <span id="modalProficiencyLevel"></span>:</h4>
+                <div class="proficiency-container">
+                    <div class="proficiency-bar-container">
+                        <div id="modalProficiencyBar" class="proficiency-bar" style="width:0;"></div>
+                    </div>
+                    <span id="modalProficiencyText">0%</span>
+                </div>
+
+                <h4 style="margin-top: 15px;"><i class="fas fa-book"></i> <span id="modalExperienceSummary"></span>:</h4>
+                <p id="modalProficiencyLevelText" class="modal-level-text"></p>
+                <p id="modalExperienceContent" class="modal-summary-content"></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/script.js"></script>
+</body>
+</html>
