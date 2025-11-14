@@ -30,7 +30,7 @@ html, body {
     -moz-osx-font-smoothing: grayscale;
     display: flex;
     justify-content: center;
-    padding: 32px 0; /* 上下のpaddingを調整 */
+    padding: 32px 0;
     box-sizing: border-box;
 }
 
@@ -156,44 +156,77 @@ section {
     font-size: 14px;
 }
 
-/* --- タイムラインのスタイル --- */
+/* -------------------------------------- */
+/* --- タイムラインのスタイル (左右振り分け) --- */
+/* -------------------------------------- */
 .timeline-container {
     position: relative;
     padding: 20px 0;
     margin-top: 20px;
 }
 
-/* タイムラインの縦線 */
+/* タイムラインの縦線 (中央に配置) */
 .timeline-container::before {
     content: '';
     position: absolute;
-    left: 10px;
+    left: 50%; /* 中央線 */
     top: 0;
     bottom: 0;
     width: 2px;
+    margin-left: -1px; 
     background-color: var(--timeline-color);
 }
 
 .timeline-item {
     position: relative;
-    padding: 0 0 40px 40px; /* 縦線からのオフセット */
+    width: 50%; /* コンテナ幅の半分 */
+    box-sizing: border-box;
+    padding: 20px 0; 
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-/* スクロールで表示された時のアニメーション */
 .timeline-item.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* タイムラインの点（マイルストーン） */
-.timeline-item::before {
+/* --- 右側 (経歴) の設定 --- */
+.timeline-item-right {
+    left: 50%; /* 中央線より右 */
+    padding-left: 40px; 
+    text-align: left;
+}
+
+/* 右側の丸点 */
+.timeline-item-right::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 5px;
+    left: -11px; /* 縦線に重なる位置 */
+    top: 25px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--card);
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 0 3px var(--card);
+    z-index: 10;
+}
+
+/* --- 左側 (資格) の設定 --- */
+.timeline-item-left {
+    left: 0; /* 中央線より左 (コンテナの左端から始まる) */
+    padding-right: 40px; 
+    text-align: right; /* テキストを右寄せにして中央線に寄せる */
+}
+
+/* 左側の丸点 */
+.timeline-item-left::before {
+    content: '';
+    position: absolute;
+    right: -11px; /* アイテムの右端（中央線）に重なる位置 */
+    top: 25px;
     width: 22px;
     height: 22px;
     border-radius: 50%;
@@ -220,6 +253,31 @@ section {
     color: var(--muted);
     font-size: 14px;
 }
+
+/* --- スマホ対応 (600px以下で1列に戻す) --- */
+@media (max-width: 600px) {
+    .timeline-container::before {
+        left: 10px; /* 縦線を左端に移動 */
+        margin-left: 0;
+    }
+
+    .timeline-item {
+        width: 100%; 
+        left: 0 !important;
+        padding: 0 0 40px 40px !important; /* 左側のみのレイアウトに戻す */
+        text-align: left !important;
+    }
+
+    .timeline-item::before {
+        left: 0 !important;
+        right: auto !important; /* 点を左端の縦線に合わせる */
+    }
+
+    .timeline-year {
+        text-align: left !important;
+    }
+}
+
 
 /* Projects grid */
 .projects {

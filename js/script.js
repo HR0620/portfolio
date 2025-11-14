@@ -10,8 +10,9 @@ const i18n = {
         sidebar_summary_title: "概要",
         sidebar_summary_content: "このポートフォリオは、あなたの制作物を紹介するためにデザインされました。HTML/CSS/JSのみで構成されており、軽量で拡張性の高いシンプルな構造になっています。",
         link_detail: "詳細",
-        // 追加: タイムラインとショートカット
+        //タイムラインとショートカット
         timeline_title: "沿革",
+        timeline_meta: "学歴、受賞、資格取得といった私の歩みを時系列で紹介します。", // メタ情報の日本語を修正
         shortcut_intro: "自己紹介",
         shortcut_projects: "作品一覧"
     },
@@ -23,83 +24,68 @@ const i18n = {
         sidebar_summary_title: "Summary",
         sidebar_summary_content: "This portfolio is designed to showcase your work. It is built using only HTML, CSS, and JavaScript, featuring a lightweight and easily extensible simple structure.",
         link_detail: "Details",
-        // 追加: タイムラインとショートカット
+        //タイムラインとショートカット
         timeline_title: "My Journey",
+        timeline_meta: "A chronological overview of my education, awards, and qualifications.", // メタ情報の英語を修正
         shortcut_intro: "Introduction",
         shortcut_projects: "Projects"
     }
 };
 
-// 📌 プロジェクトデータ（省略。以前の修正済み構造を維持）
+// 📌 プロジェクトデータ（省略）
 const projects = [
     { 
         id: "p1", 
-        title: { ja: "ポートフォリオサイト", en: "Portfolio Website" }, 
-        desc: { ja: "レスポンシブでアクセシブルな個人サイト。ミニマルなデザインと高速な読み込みを実現。", en: "Responsive and accessible personal site. Minimal design and fast loading speed." }, 
-        tags: ["HTML","CSS","JS","Design"], 
-        date: "2024-06-01", 
-        url: "https://example.com/portfolio" 
-    },
-    { 
-        id: "p2", 
-        title: { ja: "TODOアプリ (PWA)", en: "TODO App (PWA)" }, 
-        desc: { ja: "IndexedDBでタスクを永続化するProgressive Web App。オフライン対応。", en: "A Progressive Web App that persists tasks using IndexedDB. Supports offline use." }, 
-        tags: ["PWA","JS","IndexedDB"], 
-        date: "2024-04-15", 
-        url: "https://example.com/todo" 
-    },
-    { 
-        id: "p3", 
-        title: { ja: "UIコンポーネントライブラリ", en: "UI Component Library" }, 
-        desc: { ja: "再利用可能なデザインシステムに準拠したReactコンポーネント群を構築。", en: "Built a collection of reusable React components adhering to a design system." }, 
-        tags: ["React","TypeScript","Design"], 
-        date: "2023-12-05", 
-        url: "https://example.com/uilib" 
-    },
-    { 
-        id: "p4", 
-        title: { ja: "企業ランディングページ", en: "Corporate Landing Page" }, 
-        desc: { ja: "マーケティング目標に基づいた、コンバージョン率を最大化するLPを制作。", en: "Created a landing page based on marketing goals to maximize conversion rates." }, 
-        tags: ["HTML","CSS","A/Bテスト"], 
-        date: "2023-09-10", 
-        url: "https://example.com/lp" 
+        title: { ja: "Hisayoshi", en: "Hisayoshi" }, 
+        desc: { ja: "2I担任である室谷先生公認のOnly Up風室谷先生ゲーム、Hisayoshi。高専祭で展示しました。", en: "A game inspired by 'Only Up,' officially recognized by homeroom teacher Murotani-sensei, exhibited at the Kosen Festival." }, 
+        tags: ["python"], 
+        date: "2025/11/8,9", 
+        url: "./projects/omuct-fes_2025" 
     }
+
 ];
 
-// 📌 2. タイムラインデータ（時系列データ）
+// 📌 2. タイムラインデータ（時系列データ） - typeを追加
 const timelineData = [
     { 
         year: "2024/04", 
+        type: 'history', // 経歴（右側）
         title: { ja: "大阪公立大学工業高等専門学校 入学", en: "Entered Osaka Metropolitan University College of Technology" }, 
-        description: { ja: "プログラミング研究会に所属し、プログラミングの基礎を学ぶ。", en: "Joined the Information Science Club and studied the basics of programming and design." }
+        description: { ja: "プログラミング研究会に所属し、プログラミングの基礎を学ぶ。", en: "Joined the Programming Research Club and began learning programming fundamentals." }
     },
     { 
         year: "2024/11", 
-        title: { ja: "実用英語技能検定準2級 合格", en: "Entered Osaka Metropolitan University College of Technology" }, 
-        description: { ja: "プログラミング研究会に所属し、プログラミングの基礎を学ぶ。", en: "Joined the Information Science Club and studied the basics of programming and design." }
+        type: 'qual', // 資格（左側）
+        title: { ja: "実用英語技能検定準2級 合格", en: "Eiken Grade Pre-2 Passed" }, 
+        description: { ja: "英語でのコミュニケーション能力の基礎を確立。", en: "Established basic English communication skills." }
     },
     { 
         year: "2024/12", 
-        title: { ja: "防災士 認定", en: "Entered Osaka Metropolitan University College of Technology" }, 
-        description: { ja: "プログラミング研究会に所属し、プログラミングの基礎を学ぶ。", en: "Joined the Information Science Club and studied the basics of programming and design." }
+        type: 'qual', // 資格（左側）
+        title: { ja: "防災士 認定", en: "Disaster Preparedness Advisor Certified" }, 
+        description: { ja: "災害対策と地域防災に関する知識を習得。", en: "Acquired knowledge on disaster countermeasures and local disaster prevention." }
     },
     { 
         year: "2025/04", 
-        title: { ja: "知能情報コース 進学", en: "Enrolled in Intelligent Informatics Course" }, 
-        description: { ja: "初の本格的な個人プロジェクトで受賞。HTML/CSSのスキルを確立。", en: "Won an award for the first major solo project. Established strong HTML/CSS skills." }
+        type: 'history', // 経歴（右側）
+        title: { ja: "知能情報コース 進学", en: "Advanced to Intelligent Informatics Course" }, 
+        description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
     },
     { 
         year: "2025/07", 
-        title: { ja: "漢字能力技能検定2級 合格", en: "Entered Osaka Metropolitan University College of Technology" }, 
-        description: { ja: "プログラミング研究会に所属し、プログラミングの基礎を学ぶ。", en: "Joined the Information Science Club and studied the basics of programming and design." }
+        type: 'qual', // 資格（左側）
+        title: { ja: "漢字能力技能検定2級 合格", en: "Kanji Proficiency Test Grade 2 Passed" }, 
+        description: { ja: "高い日本語能力を証明。", en: "Demonstrated advanced Japanese language proficiency." }
     },
     { 
         year: "2025/10", 
-        title: { ja: "ITパスポート 合格", en: "Self-studied JavaScript and React" }, 
-        description: { ja: "動的なWebアプリケーション開発を目指し、フロントエンドフレームワークの学習を開始。", en: "Began studying frontend frameworks to pursue dynamic web application development." }
+        type: 'qual', // 資格（左側）
+        title: { ja: "ITパスポート 合格", en: "IT Passport Exam Passed" }, 
+        description: { ja: "情報技術に関する基礎的な知識を幅広く習得。", en: "Acquired broad basic knowledge of information technology." }
     },
     { 
         year: "2025 - 現在", 
+        type: 'history', // 経歴（右側）
         title: { ja: "大阪公立大学工業高等専門学校 知能情報コース 在学中", en: "Currently studying at Osaka Metropolitan University College of Technology, Intelligent Informatics Course" }, 
         description: { ja: "Webアプリケーション開発とUI/UX設計を専門的に学び、チーム開発を経験中。", en: "Specializing in web application development and UI/UX design, currently experiencing team development." }
     }
@@ -108,14 +94,7 @@ const timelineData = [
 // 📌 3. 現在の言語状態
 let currentLang = 'ja'; 
 
-// ----------------------------------------------------
-// 📌 4. 多言語対応の描画ロジック
-// ----------------------------------------------------
-
-/**
- * HTML要素に言語データを適用し、テキストを更新する
- * @param {string} lang - 'ja' または 'en'
- */
+// ... (applyLanguage関数は変更なし) ...
 function applyLanguage(lang) {
     currentLang = lang;
     const data = i18n[lang];
@@ -131,7 +110,7 @@ function applyLanguage(lang) {
     
     // 追加: タイムライン見出しの更新
     document.getElementById("timelineTitle").textContent = data.timeline_title;
-    document.getElementById("timelineMeta").textContent = data.timeline_meta;
+    document.getElementById("timelineMeta").textContent = data.timeline_meta; // メタ情報のIDを仮定
 
     // 追加: ショートカットボタンの更新
     document.getElementById("scrollToIntro").textContent = data.shortcut_intro;
@@ -148,8 +127,7 @@ function applyLanguage(lang) {
     document.getElementById('langToggle').setAttribute('aria-label', lang === 'ja' ? 'Switch to English' : '日本語に切り替える');
 }
 
-
-// プロジェクトをレンダリングする関数 (多言語対応済み)
+// ... (renderProjects関数は変更なし) ...
 function renderProjects(){
     const container = document.getElementById("projectsContainer");
     const tpl = container.parentNode.querySelector("#project-template"); // テンプレートを正しく取得
@@ -185,15 +163,20 @@ function renderProjects(){
     });
 }
 
-// 追加: タイムラインをレンダリングする関数
+
+// 📌 タイムラインをレンダリングする関数を左右振り分けに対応させる
 function renderTimeline() {
     const container = document.getElementById("timelineContainer");
     container.innerHTML = ''; 
 
     timelineData.forEach(item => {
         const itemEl = document.createElement('div');
-        itemEl.className = 'timeline-item hidden'; // 初期状態は非表示
         
+        // typeに応じてクラスを付与
+        const typeClass = item.type === 'qual' ? 'timeline-item-left' : 'timeline-item-right';
+        itemEl.className = `timeline-item hidden ${typeClass}`;
+        
+        // 年はコンテンツ内に移動
         const year = document.createElement('div');
         year.className = 'timeline-year';
         year.textContent = item.year;
@@ -208,19 +191,19 @@ function renderTimeline() {
         const description = document.createElement('p');
         description.textContent = item.description[currentLang];
         
+        content.appendChild(year);
         content.appendChild(title);
         content.appendChild(description);
-        itemEl.appendChild(year);
-        itemEl.appendChild(content);
+        
+        itemEl.appendChild(content); 
         
         container.appendChild(itemEl);
     });
     
-    // タイムラインのレンダリング後、スクロールアニメーションをセットアップ
     setupScrollReveal(); 
 }
 
-// 📌 5. スクロール連動アニメーションのセットアップ
+// ... (setupScrollReveal関数は変更なし) ...
 function setupScrollReveal() {
     // 既存の Intersection Observer があれば解除（再描画のため）
     if (window.timelineObserver) {
@@ -257,14 +240,10 @@ function setupScrollReveal() {
     });
 }
 
-// ----------------------------------------------------
-// 📌 6. 初期描画とイベント処理
-// ----------------------------------------------------
-
+// ... (初期描画とイベント処理は変更なし) ...
 // ページロード時に多言語とプロジェクト、タイムラインを初期描画
-renderTimeline(); // タイムラインの初期描画とアニメーションセットアップ
+renderTimeline();
 applyLanguage(currentLang); 
-// renderProjects() は applyLanguage の中で呼び出されます。
 
 // ショートカットボタンのイベントリスナー
 document.getElementById('scrollToIntro').addEventListener('click', () => {
