@@ -28,8 +28,8 @@ html, body {
     color: var(--text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    display: flex;
-    justify-content: center;
+    /* display: flex; */ /* 削除 */
+    /* justify-content: center; */ /* 削除 */
     padding: 0; 
     box-sizing: border-box;
 }
@@ -59,7 +59,7 @@ body.modal-open {
     justify-content: space-between;
     align-items: center;
     max-width: var(--max-width);
-    /* 修正: 中央寄せを確実にする */
+    /* 中央寄せを確実にする */
     margin: 0 auto;
     padding: 12px var(--gap);
 }
@@ -127,6 +127,8 @@ body.modal-open {
 .container {
     width: 100%;
     max-width: var(--max-width);
+    /* 修正: margin: 0 auto; で確実に中央寄せ */
+    margin: 0 auto;
     padding: 0 var(--gap);
     padding-top: 20px; 
 }
