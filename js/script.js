@@ -3,7 +3,7 @@
 // 📌 1. 多言語テキストデータ
 const i18n = {
     ja: {
-        title: "Welcome To My Portfolio!",
+        title: "プロジェクト一覧", // ページ2のタイトルに
         meta: "これまでに制作したプロジェクトを紹介しています。",
         header_name: "原田連寿",
         header_title: "大阪公立大学工業高等専門学校 / 2年",
@@ -24,7 +24,7 @@ const i18n = {
         experience_summary: "経験概要"
     },
     en: {
-        title: "Welcome To My Portfolio!",
+        title: "Projects List",
         meta: "Showcasing the projects I have worked on.",
         header_name: "Renju Harada",
         header_title: "Osaka Metropolitan University College of Technology / Grade 2",
@@ -158,8 +158,11 @@ const skillsData = [
     }
 ];
 
-// 📌 4. 現在の言語状態
+// 📌 4. 現在の言語状態とページ管理 (追加)
 let currentLang = 'ja'; 
+let currentPageIndex = 0; // 0:表紙, 1:P1(左), 2:P2(右), 3:P3(左), 4:P4(右)
+// HTMLで定義したすべてのページIDのリスト
+const allPages = ['coverPage', 'page1', 'page2', 'page3', 'backCover']; 
 
 // ----------------------------------------------------
 // 📌 5. 多言語対応の描画ロジック
@@ -177,7 +180,12 @@ function applyLanguage(lang) {
     document.getElementById("headerTitle").textContent = data.header_title;
     document.getElementById("sidebarSummaryTitle").textContent = data.sidebar_summary_title;
     document.getElementById("sidebarSummaryContent").textContent = data.sidebar_summary_content;
+
+    // 表紙の更新 (追加)
+    document.getElementById('coverName').textContent = data.header_name;
+    document.getElementById('coverSchool').textContent = data.header_title;
     
+
     // タイムライン見出しの更新
     document.getElementById("timelineTitle").textContent = data.timeline_title;
     document.getElementById("timelineMeta").textContent = data.timeline_meta; 
@@ -186,7 +194,7 @@ function applyLanguage(lang) {
     document.getElementById("skillsTitle").textContent = data.skills_title;
     document.getElementById("skillsMeta").textContent = data.skills_meta;
 
-    // ショートカットボタンの更新
+    // ショートカットボタンの更新（非表示にしていますが、一応残します）
     document.getElementById("scrollToIntro").textContent = data.shortcut_intro;
     document.getElementById("scrollToProjects").textContent = data.shortcut_projects;
 
@@ -197,10 +205,10 @@ function applyLanguage(lang) {
 
     // ② プロジェクトカードの動的テキストを再描画で更新
     renderProjects();
-    
+
     // ③ タイムラインの再描画
     renderTimeline();
-    
+
     // ④ スキルカードの再描画
     renderSkills();
 
@@ -215,12 +223,12 @@ function renderProjects(){
     const container = document.getElementById("projectsContainer");
     const tpl = container.parentNode.querySelector("#project-template");
     container.innerHTML = "";
-    
+
     const linkText = i18n[currentLang].link_detail;
 
     projects.forEach(p => {
         const clone = tpl.content.cloneNode(true);
-        
+
         // 画像をレンダリング
         if (p.image) {
             const imgEl = clone.querySelector(".project-image");
@@ -231,7 +239,7 @@ function renderProjects(){
         clone.querySelector(".title").textContent = p.title[currentLang];
         clone.querySelector(".desc").textContent = p.desc[currentLang];
         clone.querySelector(".date").textContent = p.date;
-        
+
         const tagsEl = clone.querySelector(".tags");
         tagsEl.innerHTML = '';
         p.tags.forEach(t => {
@@ -240,12 +248,10 @@ function renderProjects(){
             span.textContent = t;
             tagsEl.appendChild(span);
         });
-        
+
         const link = clone.querySelector(".link");
         link.href = p.url || "#";
         link.textContent = linkText; 
-        
-        // 編集/削除ボタンは閲覧専用のため非表示に維持（HTML側でstyle="display:none;"を追加済み）
 
         container.appendChild(clone);
     });
@@ -259,13 +265,14 @@ function renderTimeline() {
 
     timelineData.forEach(item => {
         const itemEl = document.createElement('div');
-        
-        const typeClass = item.type === 'qual' ? 'timeline-item-left' : 'timeline-item-right';
+
+        // ノートデザインに合わせ、全て左寄せで表示
+        const typeClass = 'timeline-item-left'; // ノートの左端に寄せる
         itemEl.className = `timeline-item hidden ${typeClass}`;
-        
+
         const content = document.createElement('div');
         content.className = 'timeline-content';
-        
+
         const year = document.createElement('div');
         year.className = 'timeline-year';
         year.textContent = item.year;
@@ -273,19 +280,19 @@ function renderTimeline() {
         const title = document.createElement('h3');
         title.className = 'timeline-title';
         title.textContent = item.title[currentLang];
-        
+
         const description = document.createElement('p');
         description.textContent = item.description[currentLang];
-        
+
         content.appendChild(year);
         content.appendChild(title);
         content.appendChild(description);
-        
+
         itemEl.appendChild(content); 
-        
+
         container.appendChild(itemEl);
     });
-    
+
     setupScrollReveal(); 
 }
 
@@ -310,7 +317,7 @@ function renderSkills() {
         // 名前
         const name = document.createElement('h3');
         name.textContent = skill.name;
-        
+
         // 熟練度バー
         const barContainer = document.createElement('div');
         barContainer.className = 'proficiency-bar-container';
@@ -331,7 +338,7 @@ function renderSkills() {
         skillCard.appendChild(name);
         skillCard.appendChild(barContainer);
         skillCard.appendChild(detailBtn);
-        
+
         container.appendChild(skillCard);
     });
 }
@@ -340,7 +347,7 @@ function renderSkills() {
 function showSkillModal(event) {
     const skillId = event.target.getAttribute('data-skill-id');
     const skill = skillsData.find(s => s.id === skillId);
-    
+
     if (!skill) return;
 
     const modal = document.getElementById('skillDetailModal');
@@ -359,7 +366,7 @@ function showSkillModal(event) {
     // 詳細テキストの更新
     document.getElementById('modalExperienceContent').textContent = skill.details[lang].summary;
     document.getElementById('modalProficiencyLevelText').textContent = skill.details[lang].level;
-    
+
     // モーダルを表示
     modal.classList.add('visible');
     document.body.classList.add('modal-open'); 
@@ -374,14 +381,15 @@ function hideSkillModal() {
 // 📌 6. スクロールアニメーションと初期化
 // ----------------------------------------------------
 function setupScrollReveal() {
+    // スクロールでページ全体が動かないため、Intersection Observerはリセット
     if (window.timelineObserver) {
         window.timelineObserver.disconnect();
     }
-    
+
     const timelineItems = document.querySelectorAll('.timeline-item');
-    
+
     const options = {
-        root: null, 
+        root: document.getElementById('page1'), // タイムラインの親要素（ページ1）をルートに設定
         rootMargin: '0px',
         threshold: 0.2
     };
@@ -390,11 +398,14 @@ function setupScrollReveal() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+                // observer.unobserve(entry.target); // 一度表示したら監視を停止
+            } else {
+                 entry.target.classList.remove('visible'); // 見えなくなったら非表示（アニメーションを繰り返す）
             }
         });
     };
 
+    // ノートのページ内スクロールに対応するため、rootをPage1に設定して再構築
     window.timelineObserver = new IntersectionObserver(callback, options);
 
     timelineItems.forEach(item => {
@@ -404,20 +415,105 @@ function setupScrollReveal() {
 
 
 // ----------------------------------------------------
+// 📌 新規: ノートの初期化とページ操作 (追加)
+// ----------------------------------------------------
+
+function setupNotebook() {
+    const notebook = document.getElementById('notebook');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+
+    // ページめくりボタンのイベントリスナー
+    prevBtn.addEventListener('click', turnPageBack);
+    nextBtn.addEventListener('click', turnPageForward);
+    
+    // 初期のボタン状態設定
+    updatePageControls();
+}
+
+/** ページ操作ボタンの有効/無効を更新し、ノートの全体状態を制御 */
+function updatePageControls() {
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+    const notebook = document.getElementById('notebook');
+
+    // 0:表紙, 1:P1(左), 2:P2(右), 3:P3(左), 4:P4(右)
+    
+    // ボタンの有効/無効を判定
+    prevBtn.disabled = currentPageIndex === 0;
+    nextBtn.disabled = currentPageIndex >= allPages.length - 1;
+
+    // ノートの全体状態を更新（表紙が開いたかどうか）
+    if (currentPageIndex > 0) {
+        notebook.classList.add('open'); // 表紙をめくる
+    } else {
+        notebook.classList.remove('open');
+    }
+}
+
+/** 次のページに進む */
+function turnPageForward() {
+    if (currentPageIndex >= allPages.length - 1) return;
+
+    // 現在のページ (P0, P1, P2, P3) をめくる
+    const turningPageId = allPages[currentPageIndex];
+    const turningPageEl = document.getElementById(turningPageId);
+    
+    // P0(表紙)は既にCSSで制御しているため、P1以降にクラスを適用
+    if (currentPageIndex > 0 && turningPageEl) { 
+        // z-indexを上げてめくれを際立たせる (zIndexはCSSで指定しているが、JSで一時的に調整可能)
+        turningPageEl.style.zIndex = 20 + currentPageIndex; 
+        turningPageEl.classList.add('turned');
+    }
+
+    currentPageIndex++;
+    updatePageControls();
+}
+
+/** 前のページに戻る */
+function turnPageBack() {
+    if (currentPageIndex <= 0) return;
+
+    currentPageIndex--;
+
+    // 戻すページ (P0, P1, P2, P3) から 'turned' クラスを削除
+    const turningPageId = allPages[currentPageIndex];
+    const turningPageEl = document.getElementById(turningPageId);
+
+    // P0(表紙)はCSSで制御しているため、P1以降にクラスを適用
+    if (currentPageIndex > 0 && turningPageEl) {
+        turningPageEl.classList.remove('turned');
+        
+        // アニメーション完了後にz-indexを元に戻す (CSSのtransition時間: 1.0sに合わせる)
+        setTimeout(() => {
+             // 元の重なり順に戻す (10からインデックスを引くことで順番を維持)
+             turningPageEl.style.zIndex = 10 - currentPageIndex; 
+        }, 1000); 
+    }
+    
+    updatePageControls();
+}
+
+
+// ----------------------------------------------------
 // 📌 7. 初期描画とイベント処理
 // ----------------------------------------------------
 
 // ページロード時に多言語とプロジェクト、タイムライン、スキルを初期描画
-// renderTimeline()とrenderSkills()はapplyLanguage内で呼び出されます
 applyLanguage(currentLang); 
 
-// ショートカットボタンのイベントリスナー
+// ノート機能を初期化 (ページ制御を有効にする)
+setupNotebook(); 
+
+// ショートカットボタンのイベントリスナー（非表示にしていますが、誤動作防止のため残します）
 document.getElementById('scrollToIntro').addEventListener('click', () => {
-    document.getElementById('introduction').scrollIntoView({ behavior: 'smooth' });
+    // ページめくり機能に置き換える場合はこの処理を削除
+    // document.getElementById('page1').scrollIntoView({ behavior: 'smooth' }); 
 });
 
 document.getElementById('scrollToProjects').addEventListener('click', () => {
-    document.getElementById('projects-section').scrollIntoView({ behavior: 'smooth' });
+    // ページめくり機能に置き換える場合はこの処理を削除
+    // document.getElementById('page2').scrollIntoView({ behavior: 'smooth' });
 });
 
 // 言語切り替えボタンのイベントリスナー
