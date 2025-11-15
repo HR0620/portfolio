@@ -155,7 +155,7 @@ const skillsData = [
         {
         id: 'python',
         name: 'Python',
-        icon: './images/skills/python_logo.jpg',
+        icon: './images/skills/python_logo.png',
         proficiency: 70,
         details: {
             ja: {
@@ -171,7 +171,7 @@ const skillsData = [
     {
         id: 'cpp',
         name: 'C++',
-        icon: './images/skills/cpp_logo.jpg',
+        icon: './images/skills/cpp_logo.png',
         proficiency: 70,
         details: {
             ja: {
@@ -187,7 +187,7 @@ const skillsData = [
     {
         id: 'htmlcss',
         name: 'HTML/CSS',
-        icon: './images/skills/htmlcss_logo.jpg',
+        icon: './images/skills/htmlcss_logo.png',
         proficiency: 85,
         details: {
             ja: {
@@ -242,7 +242,7 @@ const devTools = [
     {
         id: 'latex',
         name: 'LaTeX',
-        icon: './images/tools/latex_logo.svg',
+        icon: './images/tools/latex_logo.png',
         frequency_text: {
             ja: "週1-2回",
             en: "1-2 times/week"
