@@ -133,7 +133,7 @@ const projects = [
         tags: ["python"], 
         date: "2025/11/8,9", 
         url: "./projects/omuct-fes_2025",
-        image: "images/hisayoshi_thumbnail.png" // 仮の画像パス。imagesフォルダに配置してください。
+        image: "./images/hisayoshi_thumbnail.png" // 仮の画像パス。imagesフォルダに配置してください。
     }
 ];
     // script.js (projects配列の後)
@@ -147,7 +147,7 @@ const activitiesData = [ // <<< 新規追加
         tags: [""], 
         date: "B.C.2025/99/99", 
         url: "#",
-        image: "images/procon_thumbnail.png" // 仮の画像パス
+        image: "./images/procon_thumbnail.png" // 仮の画像パス
     }
 ];
 
@@ -156,7 +156,7 @@ const skillsData = [
     {
         id: 'cpp',
         name: 'C++',
-        icon: 'images/cpp_logo.svg', // 仮のロゴパス。imagesフォルダに配置してください。
+        icon: './images/cpp_logo.svg', // 仮のロゴパス。imagesフォルダに配置してください。
         proficiency: 70, // 100点満点
         details: {
             ja: {
@@ -172,7 +172,7 @@ const skillsData = [
     {
         id: 'htmlcss',
         name: 'HTML/CSS',
-        icon: 'images/htmlcss_logo.svg',
+        icon: './images/htmlcss_logo.svg',
         proficiency: 85,
         details: {
             ja: {
@@ -188,7 +188,7 @@ const skillsData = [
     {
         id: 'javascript',
         name: 'JavaScript',
-        icon: 'images/js_logo.svg',
+        icon: './images/js_logo.svg',
         proficiency: 65,
         details: {
             ja: {
@@ -208,7 +208,7 @@ const devTools = [
     {
         id: 'vsc',
         name: 'Visual Studio Code',
-        icon: 'images/vsc_logo.svg',
+        icon: './images/vsc_logo.svg',
         frequency_text: {
             ja: "週5回以上",
             en: "5+ times/week"
@@ -227,7 +227,7 @@ const devTools = [
     {
         id: 'latex',
         name: 'LaTeX',
-        icon: 'images/latex_logo.svg',
+        icon: './images/latex_logo.svg',
         frequency_text: {
             ja: "週1-2回",
             en: "1-2 times/week"
@@ -246,7 +246,7 @@ const devTools = [
     {
         id: 'msoffice',
         name: 'MS Office',
-        icon: 'images/ms_logo.svg',
+        icon: './images/ms_logo.png',
         frequency_text: {
             ja: "必要なときに使用",
             en: "Used as needed"
@@ -520,7 +520,7 @@ function hideSkillModal() {
     document.getElementById('skillDetailModal').classList.remove('visible');
     document.body.classList.remove('modal-open');
 }
-//=======devTools=======
+
 // 📌 devToolsをレンダリングする関数
 function renderDevTools() {
     const container = document.getElementById("devToolsContainer");
@@ -530,7 +530,7 @@ function renderDevTools() {
 
     devTools.forEach(tool => {
         const toolCard = document.createElement('div');
-        toolCard.className = 'tool-card'; // devTools 専用クラスに変更
+        toolCard.className = 'tool-card';
         toolCard.setAttribute('data-tool-id', tool.id);
 
         // アイコン
@@ -600,10 +600,7 @@ function hideToolModal() {
     document.body.classList.remove('modal-open');
 }
 
-//========
-// ----------------------------------------------------
 // 📌 6. スクロールアニメーションと初期化
-// ----------------------------------------------------
 function setupScrollReveal() {
     if (window.timelineObserver) {
         window.timelineObserver.disconnect();
@@ -633,13 +630,7 @@ function setupScrollReveal() {
     });
 }
 
-
-// ----------------------------------------------------
 // 📌 7. 初期描画とイベント処理
-// ----------------------------------------------------
-
-// ページロード時に多言語とプロジェクト、タイムライン、スキルを初期描画
-// renderTimeline()とrenderSkills()はapplyLanguage内で呼び出されます
 applyLanguage(currentLang); 
 
 // ショートカットボタンのイベントリスナー
