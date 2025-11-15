@@ -517,3 +517,43 @@ footer {
     object-fit: cover;
     margin-bottom: 12px;
 }
+
+.tool-card {
+    background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tool-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.tool-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+}
+
+.tool-frequency {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+
+.tool-detail-btn {
+    background: var(--accent);
+    color: var(--card);
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}

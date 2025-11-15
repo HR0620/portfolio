@@ -208,30 +208,38 @@ const devTools = [
     {
         id: 'vsc',
         name: 'Visual Studio Code',
-        icon: 'images/vsc_logo.svg', // 仮のロゴパス。
+        icon: 'images/vsc_logo.svg',
+        frequency_text: {
+            ja: "週5回以上",
+            en: "5+ times/week"
+        },
         details: {
             ja: {
-                frequency: "中級 (基本的なアルゴリズム実装、競技プログラミング)",
-                summary: "高専の授業で基本的な構文とデータ構造を学習。競技プログラミングの練習で複雑なアルゴリズムの実装経験あり。"
+                summary: "授業・個人開発ともに最も使用しているエディタです。",
+                frequency: "週5回以上使っています。"
             },
             en: {
-                frequency: "Intermediate (Basic algorithm implementation, competitive programming)",
-                summary: "Learned basic syntax and data structures in college courses. Experienced implementing complex algorithms through competitive programming."
+                summary: "The editor I use most frequently for both class and personal development.",
+                frequency: "Used more than 5 times a week."
             }
         }
     },
     {
         id: 'latex',
-        name: 'latex',
+        name: 'LaTeX',
         icon: 'images/latex_logo.svg',
+        frequency_text: {
+            ja: "週1-2回",
+            en: "1-2 times/week"
+        },
         details: {
             ja: {
-                frequency: "上級 (レスポンシブデザイン、CSSアニメーション)",
-                summary: "セマンティックなHTML記述と、CSS Grid/Flexboxを用いたレスポンシブレイアウトが得意。現在のポートフォリオも自作CSSで構築。"
+                summary: "レポートや論文形式の文書作成で使用します。",
+                frequency: "週1〜2回のペースで利用しています。"
             },
             en: {
-                frequency: "Advanced (Responsive design, CSS animation)",
-                summary: "Proficient in semantic HTML and responsive layouts using CSS Grid/Flexbox. This portfolio itself is built with custom CSS."
+                summary: "Used for report and academic document production.",
+                frequency: "Used 1–2 times per week."
             }
         }
     },
@@ -239,18 +247,23 @@ const devTools = [
         id: 'msoffice',
         name: 'MS Office',
         icon: 'images/ms_logo.svg',
+        frequency_text: {
+            ja: "必要なときに使用",
+            en: "Used as needed"
+        },
         details: {
             ja: {
-                frequency: "中級 (DOM操作、非同期処理)",
-                summary: "DOM操作による動的コンテンツの作成、非同期処理（Promise, async/await）の基本を理解。Vanilla JSでの開発経験が豊富。"
+                summary: "Word, Excel, PowerPoint をレポートや提出物で使用します。",
+                frequency: "必要に応じて使用します。"
             },
             en: {
-                frequency: "Intermediate (DOM manipulation, asynchronous processing)",
-                summary: "Understands the basics of dynamic content creation via DOM manipulation and asynchronous processing. Extensive experience developing with Vanilla JS."
+                summary: "Used for Word/Excel/PowerPoint in reports and assignments.",
+                frequency: "Used when necessary."
             }
         }
     }
 ];
+
 
 // 📌 4. 現在の言語状態
 let currentLang = 'ja'; 
@@ -301,7 +314,7 @@ function applyLanguage(lang) {
     renderActivities();
     // ④ スキルカードの再描画
     renderSkills();
-    
+
     renderDevTools();
 
     // ⑤ 言語切り替えボタンの状態を更新
@@ -512,35 +525,42 @@ function hideSkillModal() {
 function renderDevTools() {
     const container = document.getElementById("devToolsContainer");
     container.innerHTML = '';
+
     const detailButtonText = i18n[currentLang].skill_detail_button;
 
     devTools.forEach(tool => {
         const toolCard = document.createElement('div');
-        toolCard.className = 'skill-card';
+        toolCard.className = 'tool-card'; // devTools 専用クラスに変更
         toolCard.setAttribute('data-tool-id', tool.id);
 
-        // アイコン/ロゴ
+        // アイコン
         const icon = document.createElement('img');
-        icon.className = 'skill-icon';
+        icon.className = 'tool-icon';
         icon.src = tool.icon;
         icon.alt = tool.name + ' Logo';
 
         // 名前
         const name = document.createElement('h3');
         name.textContent = tool.name;
-        
+
+        // 使用頻度テキスト（小さめ）
+        const freq = document.createElement('div');
+        freq.className = "tool-frequency";
+        freq.textContent = tool.frequency_text[currentLang];
+
         // 詳細ボタン
         const detailBtn = document.createElement('button');
-        detailBtn.className = 'skill-detail-btn';
+        detailBtn.className = 'tool-detail-btn';
         detailBtn.textContent = detailButtonText;
         detailBtn.setAttribute('data-tool-id', tool.id);
-        // モーダル表示イベントリスナーを直接アタッチ
         detailBtn.addEventListener('click', showToolModal);
 
+        // カードに追加
         toolCard.appendChild(icon);
         toolCard.appendChild(name);
+        toolCard.appendChild(freq);
         toolCard.appendChild(detailBtn);
-        
+
         container.appendChild(toolCard);
     });
 }
@@ -549,6 +569,7 @@ function renderDevTools() {
 function showToolModal(event) {
     const toolId = event.target.getAttribute('data-tool-id');
     const tool = devTools.find(t => t.id === toolId);
+    
     
     if (!tool) return;
 
@@ -568,7 +589,7 @@ function showToolModal(event) {
     // 詳細テキストの更新
     document.getElementById('modalExperienceContent').textContent = tool.details[lang].summary;
     document.getElementById('modalProficiencyLevelText').textContent = tool.details[lang].frequency;
-    
+    document.getElementById('modalProficiencyText').textContent = tool.frequency_text[currentLang];
     // モーダルを表示
     modal.classList.add('visible');
     document.body.classList.add('modal-open'); 
