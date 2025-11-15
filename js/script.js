@@ -12,9 +12,10 @@ const i18n = {
         link_detail: "詳細",
         //タイムラインとショートカット
         timeline_title: "沿革",
-        timeline_meta: "学歴、受賞、資格取得といった私の歩みを時系列で紹介します。", 
+        timeline_meta: "学歴、受賞、資格・検定取得といった私の歩みを時系列で紹介します。", 
         shortcut_intro: "自己紹介",
         shortcut_projects: "作品一覧",
+        shortcut_activities: "活動一覧",  
         // 新規追加: スキルとモーダル
         skills_title: "スキルセット",
         skills_meta: "私が習得している技術と、それぞれの熟練度を紹介します。",
@@ -22,6 +23,8 @@ const i18n = {
         modal_close: "閉じる",
         proficiency_level: "熟練度",
         experience_summary: "経験概要",
+        devtools_title: "開発ツール",
+        devtools_meta: "普段の開発で使用しているツール一覧です。",
         activities_title: "課外活動 / 受賞歴",
         activities_meta: "学術的なコンテストや、その他の課外活動の記録です。"
     },
@@ -38,6 +41,7 @@ const i18n = {
         timeline_meta: "A chronological overview of my education, awards, and qualifications.", 
         shortcut_intro: "Introduction",
         shortcut_projects: "Projects",
+        shortcut_activities: "Activities",
         // 新規追加: スキルとモーダル
         skills_title: "Skill Set",
         skills_meta: "Technologies I've acquired and my proficiency level in each.",
@@ -45,6 +49,8 @@ const i18n = {
         modal_close: "Close",
         proficiency_level: "Proficiency Level",
         experience_summary: "Experience Summary",
+        devtools_title: "Development Tools",
+        devtools_meta: "Tools I frequently use for development.",
         activities_title: "Activities / Awards",
         activities_meta: "Records of academic competitions and other extracurricular activities.", // <<< 追加
     }
@@ -197,6 +203,55 @@ const skillsData = [
     }
 ];
 
+// 📌 3. スキルデータ
+const devTools = [
+    {
+        id: 'vsc',
+        name: 'Visual Studio Code',
+        icon: 'images/vsc_logo.svg', // 仮のロゴパス。
+        details: {
+            ja: {
+                frequency: "中級 (基本的なアルゴリズム実装、競技プログラミング)",
+                summary: "高専の授業で基本的な構文とデータ構造を学習。競技プログラミングの練習で複雑なアルゴリズムの実装経験あり。"
+            },
+            en: {
+                frequency: "Intermediate (Basic algorithm implementation, competitive programming)",
+                summary: "Learned basic syntax and data structures in college courses. Experienced implementing complex algorithms through competitive programming."
+            }
+        }
+    },
+    {
+        id: 'latex',
+        name: 'latex',
+        icon: 'images/latex_logo.svg',
+        details: {
+            ja: {
+                frequency: "上級 (レスポンシブデザイン、CSSアニメーション)",
+                summary: "セマンティックなHTML記述と、CSS Grid/Flexboxを用いたレスポンシブレイアウトが得意。現在のポートフォリオも自作CSSで構築。"
+            },
+            en: {
+                frequency: "Advanced (Responsive design, CSS animation)",
+                summary: "Proficient in semantic HTML and responsive layouts using CSS Grid/Flexbox. This portfolio itself is built with custom CSS."
+            }
+        }
+    },
+    {
+        id: 'msoffice',
+        name: 'MS Office',
+        icon: 'images/ms_logo.svg',
+        details: {
+            ja: {
+                frequency: "中級 (DOM操作、非同期処理)",
+                summary: "DOM操作による動的コンテンツの作成、非同期処理（Promise, async/await）の基本を理解。Vanilla JSでの開発経験が豊富。"
+            },
+            en: {
+                frequency: "Intermediate (DOM manipulation, asynchronous processing)",
+                summary: "Understands the basics of dynamic content creation via DOM manipulation and asynchronous processing. Extensive experience developing with Vanilla JS."
+            }
+        }
+    }
+];
+
 // 📌 4. 現在の言語状態
 let currentLang = 'ja'; 
 
@@ -224,6 +279,8 @@ function applyLanguage(lang) {
     // スキルセクション見出しの更新
     document.getElementById("skillsTitle").textContent = data.skills_title;
     document.getElementById("skillsMeta").textContent = data.skills_meta;
+    document.getElementById("devToolsTitle").textContent = data.devtools_title;
+    document.getElementById("devToolsMeta").textContent = data.devtools_meta;
     document.getElementById("activitiesTitle").textContent = data.activities_title;
     document.getElementById("activitiesMeta").textContent = data.activities_meta;
     // ショートカットボタンの更新
@@ -244,6 +301,8 @@ function applyLanguage(lang) {
     renderActivities();
     // ④ スキルカードの再描画
     renderSkills();
+    
+    renderDevTools();
 
     // ⑤ 言語切り替えボタンの状態を更新
     document.getElementById('langToggle').textContent = lang === 'ja' ? 'English' : '日本語';
@@ -448,7 +507,79 @@ function hideSkillModal() {
     document.getElementById('skillDetailModal').classList.remove('visible');
     document.body.classList.remove('modal-open');
 }
+//=======devTools=======
+// 📌 devToolsをレンダリングする関数
+function renderDevTools() {
+    const container = document.getElementById("devToolsContainer");
+    container.innerHTML = '';
+    const detailButtonText = i18n[currentLang].skill_detail_button;
 
+    devTools.forEach(tool => {
+        const toolCard = document.createElement('div');
+        toolCard.className = 'skill-card';
+        toolCard.setAttribute('data-tool-id', tool.id);
+
+        // アイコン/ロゴ
+        const icon = document.createElement('img');
+        icon.className = 'skill-icon';
+        icon.src = tool.icon;
+        icon.alt = tool.name + ' Logo';
+
+        // 名前
+        const name = document.createElement('h3');
+        name.textContent = tool.name;
+        
+        // 詳細ボタン
+        const detailBtn = document.createElement('button');
+        detailBtn.className = 'skill-detail-btn';
+        detailBtn.textContent = detailButtonText;
+        detailBtn.setAttribute('data-tool-id', tool.id);
+        // モーダル表示イベントリスナーを直接アタッチ
+        detailBtn.addEventListener('click', showToolModal);
+
+        toolCard.appendChild(icon);
+        toolCard.appendChild(name);
+        toolCard.appendChild(detailBtn);
+        
+        container.appendChild(toolCard);
+    });
+}
+
+// 📌 devToolsモーダル表示ロジック
+function showToolModal(event) {
+    const toolId = event.target.getAttribute('data-tool-id');
+    const tool = devTools.find(t => t.id === toolId);
+    
+    if (!tool) return;
+
+    const modal = document.getElementById('skillDetailModal');
+    const lang = currentLang;
+
+    // モーダルコンテンツの更新
+    document.getElementById('modalSkillIcon').src = tool.icon;
+    document.getElementById('modalSkillIcon').alt = tool.name + ' Logo';
+    document.getElementById('modalSkillName').textContent = tool.name;
+
+    // 熟練度バーの非表示（devToolsには熟練度がないため）
+    const modalBar = document.getElementById('modalProficiencyBar');
+    modalBar.style.width = '0%';
+    document.getElementById('modalProficiencyText').textContent = '';
+
+    // 詳細テキストの更新
+    document.getElementById('modalExperienceContent').textContent = tool.details[lang].summary;
+    document.getElementById('modalProficiencyLevelText').textContent = tool.details[lang].frequency;
+    
+    // モーダルを表示
+    modal.classList.add('visible');
+    document.body.classList.add('modal-open'); 
+}
+
+function hideToolModal() {
+    document.getElementById('skillDetailModal').classList.remove('visible');
+    document.body.classList.remove('modal-open');
+}
+
+//========
 // ----------------------------------------------------
 // 📌 6. スクロールアニメーションと初期化
 // ----------------------------------------------------
