@@ -152,10 +152,26 @@ const activitiesData = [
 
 // 📌 3. スキルデータ
 const skillsData = [
+        {
+        id: 'python',
+        name: 'Python',
+        icon: './images/skills/python_logo.jpg',
+        proficiency: 70,
+        details: {
+            ja: {
+                level: "中級 (基本的なコーディング)",
+                summary: "高専の授業で基本的な構文とデータ構造を学習。競技プログラミングの練習で複雑なアルゴリズムの実装経験あり。"
+            },
+            en: {
+                level: "Intermediate (Basic algorithm implementation, competitive programming)",
+                summary: "Learned basic syntax and data structures in college courses. Experienced implementing complex algorithms through competitive programming."
+            }
+        }
+    },
     {
         id: 'cpp',
         name: 'C++',
-        icon: './images/cpp_logo.svg',
+        icon: './images/skills/cpp_logo.jpg',
         proficiency: 70,
         details: {
             ja: {
@@ -171,7 +187,7 @@ const skillsData = [
     {
         id: 'htmlcss',
         name: 'HTML/CSS',
-        icon: './images/htmlcss_logo.svg',
+        icon: './images/skills/htmlcss_logo.jpg',
         proficiency: 85,
         details: {
             ja: {
@@ -187,7 +203,7 @@ const skillsData = [
     {
         id: 'javascript',
         name: 'JavaScript',
-        icon: './images/js_logo.svg',
+        icon: './images/skills/js_logo.png',
         proficiency: 65,
         details: {
             ja: {
@@ -207,7 +223,7 @@ const devTools = [
     {
         id: 'vsc',
         name: 'Visual Studio Code',
-        icon: './images/vsc_logo.svg',
+        icon: './images/tools/vsc_logo.png',
         frequency_text: {
             ja: "週5回以上",
             en: "5+ times/week"
@@ -226,7 +242,7 @@ const devTools = [
     {
         id: 'latex',
         name: 'LaTeX',
-        icon: './images/latex_logo.svg',
+        icon: './images/tools/latex_logo.svg',
         frequency_text: {
             ja: "週1-2回",
             en: "1-2 times/week"
@@ -245,7 +261,7 @@ const devTools = [
     {
         id: 'msoffice',
         name: 'MS Office',
-        icon: './images/ms_logo.png',
+        icon: './images/tools/ms_logo.png',
         frequency_text: {
             ja: "必要なときに使用",
             en: "Used as needed"
