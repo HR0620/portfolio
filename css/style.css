@@ -8,7 +8,7 @@
     --radius: 12px;
     --gap: 20px;
     --max-width: 1100px;
-    --timeline-color: #2e3a51; /* タイムラインの縦線色 */
+    --timeline-color: #2e3a51;
 }
 
 [data-theme="light"] {
@@ -28,23 +28,18 @@ html, body {
     color: var(--text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* display: flex; */ /* 削除 */
-    /* justify-content: center; */ /* 削除 */
     padding: 0; 
     box-sizing: border-box;
 }
 
 body.modal-open {
-    overflow: hidden; /* モーダル表示中は背景のスクロールを停止 */
+    overflow: hidden;
 }
 
 /* --- 1. スティッキーヘッダー --- */
-/* style.css (--- 1. スティッキーヘッダー --- のセクション内) */
-
 #stickyHeader {
     position: fixed;
     top: 0;
-    /* 修正: left/right を設定し、margin: auto で中央寄せ */
     left: 0; 
     right: 0;
     width: 100%;
@@ -59,18 +54,16 @@ body.modal-open {
     justify-content: space-between;
     align-items: center;
     max-width: var(--max-width);
-    /* 中央寄せを確実にする */
     margin: 0 auto;
     padding: 12px var(--gap);
 }
 
 #headerSpacer {
-    height: 64px; /* header-contentの高さに合わせて調整 */
+    height: 64px;
     width: 100%;
     display: block;
 }
 
-/* 既存のヘッダー関連スタイル */
 .brand {
     display: flex;
     align-items: center;
@@ -96,21 +89,91 @@ body.modal-open {
     align-items: center;
 }
 
-.shortcut-btn {
-    padding: 6px 12px;
-    border-radius: 6px;
+/* ハンバーガーボタン */
+.hamburger-btn {
+    width: 40px;
+    height: 40px;
     background: rgba(255,255,255,0.05);
-    color: var(--text);
     border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    transition: background 0.2s;
 }
 
-.shortcut-btn:hover {
+.hamburger-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.hamburger-btn.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-btn.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ハンバーガーメニューオーバーレイ */
+.menu-overlay {
+    position: fixed;
+    top: 64px;
+    left: -100%;
+    width: 280px;
+    height: calc(100vh - 64px);
+    background: var(--card);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    transition: left 0.3s ease-out;
+    overflow-y: auto;
+}
+
+.menu-overlay.open {
+    left: 0;
+}
+
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+}
+
+.menu-item {
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.menu-item:hover {
     background: var(--accent);
     color: var(--card);
     border-color: var(--accent);
+    transform: translateX(5px);
 }
 
 #langToggle {
@@ -122,12 +185,10 @@ body.modal-open {
     cursor:pointer;
 }
 
-
 /* --- メインコンテンツのレイアウト --- */
 .container {
     width: 100%;
     max-width: var(--max-width);
-    /* 修正: margin: 0 auto; で確実に中央寄せ */
     margin: 0 auto;
     padding: 0 var(--gap);
     padding-top: 20px; 
@@ -143,9 +204,7 @@ section {
 }
 
 @media (max-width: 900px) {
-    /* 既存のレイアウト調整 */
     header {
-        /* flex-direction: column; */
         gap: 16px;
         align-items: flex-start;
     }
@@ -181,7 +240,6 @@ section {
 /* -------------------------------------- */
 /* --- タイムラインのスタイル (左右振り分け) --- */
 /* -------------------------------------- */
-/* ... (タイムラインの既存スタイルは変更なし) ... */
 .timeline-container {
     position: relative;
     padding: 20px 0;
@@ -292,8 +350,8 @@ section {
 
 .project-image {
     width: 100%;
-    height: 150px; 
-    object-fit: cover; 
+    height: auto;
+    object-fit: contain;
     border-radius: 8px;
     margin-bottom: 10px;
 }
@@ -313,8 +371,20 @@ section {
     margin: 0;
     font-size: 16px;
 }
-/* ... (タグ、リンクのスタイルは維持) ... */
 
+.project {
+    background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
+    border-radius: 12px;
+    padding: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.project:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+}
 
 /* --- 3. スキルセクションのスタイル --- */
 .skills-card {
@@ -348,8 +418,9 @@ section {
 }
 
 .skill-icon {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    max-width: 50px;
+    height: auto;
     margin-bottom: 10px;
 }
 
@@ -387,6 +458,46 @@ section {
     opacity: 0.9;
 }
 
+.tool-card {
+    background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tool-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.tool-icon {
+    width: 100%;
+    max-width: 48px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.tool-frequency {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+
+.tool-detail-btn {
+    background: var(--accent);
+    color: var(--card);
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
 
 /* --- 4. モーダル (ポップアップ) スタイル --- */
 .modal-overlay {
@@ -437,8 +548,10 @@ section {
 }
 
 .modal-icon {
-    width: 40px;
-    height: 40px;
+    width: auto;
+    max-width: 40px;
+    height: auto;
+    max-height: 40px;
 }
 
 #modalSkillName {
@@ -495,65 +608,4 @@ footer {
     text-align: center;
     font-size: 12px;
     color: var(--muted);
-}
-.project {
-    background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
-    border-radius: 12px;
-    padding: 16px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.project:hover {
-    transform: translateY(-4px);
-    border-color: var(--accent);
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
-}
-
-.project-image {
-    width: 100%;
-    height: 180px;
-    border-radius: 10px;
-    object-fit: cover;
-    margin-bottom: 12px;
-}
-
-.tool-card {
-    background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
-    padding: 15px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border: 1px solid rgba(255,255,255,0.07);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.tool-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--accent);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-}
-
-.tool-icon {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 10px;
-}
-
-.tool-frequency {
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 10px;
-}
-
-.tool-detail-btn {
-    background: var(--accent);
-    color: var(--card);
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 13px;
 }
