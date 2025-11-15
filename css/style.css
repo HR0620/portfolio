@@ -419,9 +419,9 @@ section {
 
 .skill-icon {
     width: 100%;
-    max-width: 50px;
     height: auto;
     margin-bottom: 10px;
+    object-fit: contain;
 }
 
 .skill-card h3 {
@@ -478,9 +478,9 @@ section {
 
 .tool-icon {
     width: 100%;
-    max-width: 48px;
     height: auto;
     margin-bottom: 10px;
+    object-fit: contain;
 }
 
 .tool-frequency {
@@ -548,10 +548,10 @@ section {
 }
 
 .modal-icon {
-    width: auto;
-    max-width: 40px;
+    width: 100%;
+    max-width: 120px;
     height: auto;
-    max-height: 40px;
+    object-fit: contain;
 }
 
 #modalSkillName {
