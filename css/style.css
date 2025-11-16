@@ -194,20 +194,8 @@ body.modal-open {
     padding-top: 20px; 
 }
 
-section {
-    flex: 3;
-}
-
-.sidebar {
-    flex: 1;
-    min-width: 250px;
-}
-
-@media (max-width: 900px) {
-    header {
-        gap: 16px;
-        align-items: flex-start;
-    }
+.content-section {
+    margin-bottom: var(--gap);
 }
 
 .card {
@@ -227,7 +215,7 @@ section {
     gap: 12px;
 }
 
-.hero h1, .intro-card h2, .skills-card h2 {
+.hero h1, .intro-card h2, .skills-card h2, .contact-card h2 {
     margin: 0;
     font-size: clamp(20px, 3vw, 32px);
 }
@@ -386,120 +374,156 @@ section {
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
 }
 
-/* --- 3. スキルセクションのスタイル --- */
+/* --- 3. スキルセクションのスタイル (コンパクト版) --- */
 .skills-card {
     margin-bottom: var(--gap);
 }
 
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
     margin-top: 20px;
 }
 
-.skill-card {
+.skill-card, .tool-card {
     background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
-    padding: 15px;
+    padding: 12px;
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
     border: 1px solid transparent;
+    min-width: 100px;
+    max-width: 150px;
 }
 
-.skill-card:hover {
+.skill-card:hover, .tool-card:hover {
     border-color: var(--accent);
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.skill-icon {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
+.skill-icon, .tool-icon {
+    height: 60px;
+    width: auto;
+    max-width: 100%;
+    margin-bottom: 8px;
     object-fit: contain;
 }
 
-.skill-card h3 {
-    margin: 0 0 10px 0;
-    font-size: 16px;
+.skill-card h3, .tool-card h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.proficiency-bar-container {
-    width: 100%;
-    height: 8px;
-    background: rgba(var(--muted-rgb, 152, 160, 179), 0.3);
-    border-radius: 4px;
-    margin-bottom: 10px;
+/* --- 4. Contact Section --- */
+.contact-card {
+    margin-bottom: var(--gap);
 }
 
-.proficiency-bar {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 4px;
-    transition: width 1.5s ease-out; 
+.email-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
 }
 
-.skill-detail-btn {
-    background: var(--accent);
-    color: var(--card);
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: opacity 0.2s;
-}
-.skill-detail-btn:hover {
-    opacity: 0.9;
-}
-
-.tool-card {
+.email-card {
     background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
-    padding: 15px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 20px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
-    border: 1px solid rgba(255,255,255,0.07);
-    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.tool-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--accent);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-}
-
-.tool-icon {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-    object-fit: contain;
-}
-
-.tool-frequency {
-    font-size: 12px;
-    color: var(--muted);
+.email-icon {
+    font-size: 32px;
+    color: var(--accent);
     margin-bottom: 10px;
 }
 
-.tool-detail-btn {
+.email-card h3 {
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.email-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.copy-btn {
     background: var(--accent);
     color: var(--card);
-    padding: 6px 12px;
     border: none;
-    border-radius: 4px;
+    padding: 8px 12px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 13px;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* --- 4. モーダル (ポップアップ) スタイル --- */
+.copy-btn:hover {
+    opacity: 0.8;
+}
+
+.copy-btn i {
+    font-size: 14px;
+}
+
+.email-address {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: var(--text);
+    word-break: break-all;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: 24px;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.social-icon:hover {
+    background: var(--accent);
+    color: var(--card);
+    border-color: var(--accent);
+    transform: translateY(-3px);
+}
+
+/* --- 5. モーダル (ポップアップ) スタイル --- */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -548,9 +572,9 @@ section {
 }
 
 .modal-icon {
-    width: 100%;
+    height: 60px;
+    width: auto;
     max-width: 120px;
-    height: auto;
     object-fit: contain;
 }
 
@@ -585,6 +609,20 @@ section {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.proficiency-bar-container {
+    flex: 1;
+    height: 8px;
+    background: rgba(var(--muted-rgb, 152, 160, 179), 0.3);
+    border-radius: 4px;
+}
+
+.proficiency-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 4px;
+    transition: width 1.5s ease-out; 
 }
 
 #modalProficiencyText {

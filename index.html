@@ -38,6 +38,7 @@
             <button id="scrollToIntro" class="menu-item"></button>
             <button id="scrollToProjects" class="menu-item"></button>
             <button id="scrollToActivities" class="menu-item"></button>
+            <button id="scrollToContact" class="menu-item"></button>
         </nav>
     </div>
 
@@ -48,7 +49,7 @@
                 <div class="meta" id="timelineMeta"></div>
                 
                 <div id="timelineContainer" class="timeline-container">
-                    </div>
+                </div>
             </div>
         </section>
 
@@ -56,8 +57,6 @@
             <div class="card hero">
                 <h1 id="pageTitle"></h1>
                 <div id="pageMeta" class="meta"></div>
-
-                <div class="search-container" style="display:none;"></div> 
 
                 <div id="projectsContainer" class="projects" aria-live="polite">
                 </div>
@@ -73,8 +72,6 @@
                         <div class="tags" aria-hidden="true"></div>
                         <div style="display:flex;gap:8px;margin-top:8px">
                             <a class="link" target="_blank" rel="noopener"></a>
-                            <button class="edit" style="margin-left:auto;padding:6px 8px;border-radius:6px; display:none;">編集</button>
-                            <button class="remove" style="padding:6px 8px;border-radius:6px; display:none;">削除</button>
                         </div>
                     </article>
                 </template>
@@ -86,18 +83,18 @@
                 <h2 id="skillsTitle"></h2>
                 <div class="meta" id="skillsMeta"></div>
                 <div id="skillsContainer" class="skills-grid">
-                    </div>
+                </div>
             </div>
         </section>
 
-<section id="devtools-section" class="content-section">
-    <div class="card skills-card">
-        <h2 id="devToolsTitle">Dev Tools</h2>
-        <div class="meta" id="devToolsMeta">開発で使用しているツール一覧</div>
+        <section id="devtools-section" class="content-section">
+            <div class="card skills-card">
+                <h2 id="devToolsTitle">Dev Tools</h2>
+                <div class="meta" id="devToolsMeta">開発で使用しているツール一覧</div>
 
-        <div id="devToolsContainer" class="skills-grid"></div>
-    </div>
-</section>
+                <div id="devToolsContainer" class="skills-grid"></div>
+            </div>
+        </section>
 
         <section id="activities-section" class="content-section">
             <div class="card hero">
@@ -109,17 +106,49 @@
             </div>
         </section>
 
-        <section id="skills-section" class="content-section">
+        <section id="contact-section" class="content-section">
+            <div class="card contact-card">
+                <h2 id="contactTitle"></h2>
+                <div class="meta" id="contactMeta"></div>
 
-        <aside class="sidebar">
-            <div class="card filters-card" style="display:none;"></div>
+                <div class="email-grid">
+                    <div class="email-card">
+                        <i class="fas fa-envelope email-icon"></i>
+                        <h3 id="schoolEmailLabel"></h3>
+                        <div class="email-display">
+                            <button class="copy-btn" data-email="school" aria-label="Copy email">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <span id="schoolEmail" class="email-address"></span>
+                        </div>
+                    </div>
 
-            <div class="card">
-                <div id="sidebarSummaryTitle" class="muted"></div>
-                <p id="sidebarSummaryContent" class="muted" style="margin-top:8px"></p>
+                    <div class="email-card">
+                        <i class="fas fa-envelope-open email-icon"></i>
+                        <h3 id="personalEmailLabel"></h3>
+                        <div class="email-display">
+                            <button class="copy-btn" data-email="personal" aria-label="Copy email">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <span id="personalEmail" class="email-address"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://github.com/HR0620" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://twitter.com/your_handle" target="_blank" rel="noopener" class="social-icon" aria-label="X (Twitter)">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    <a href="https://facebook.com/your_profile" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
             </div>
-        </aside>
-        
+        </section>
+
         <footer>
             © 2024 Renju Harada. MIT License.
         </footer>
@@ -150,7 +179,6 @@
             </div>
         </div>
     </div>
-
 
     <script src="js/script.js"></script>
 </body>

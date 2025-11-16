@@ -7,45 +7,41 @@ const i18n = {
         meta: "これまでに制作したプロジェクトを紹介しています。",
         header_name: "原田連寿",
         header_title: "大阪公立大学工業高等専門学校 / 2年",
-        sidebar_summary_title: "概要",
-        sidebar_summary_content: "このポートフォリオは、あなたの制作物を紹介するためにデザインされました。HTML/CSS/JSのみで構成されており、軽量で拡張性の高いシンプルな構造になっています。",
         link_detail: "詳細",
-        //タイムラインとショートカット
         timeline_title: "沿革",
         timeline_meta: "学歴、受賞、資格・検定取得といった私の歩みを時系列で紹介します。", 
         shortcut_intro: "自己紹介",
         shortcut_projects: "作品一覧",
-        shortcut_activities: "活動一覧",  
-        // 新規追加: スキルとモーダル
+        shortcut_activities: "活動一覧",
+        shortcut_contact: "連絡先",
         skills_title: "スキルセット",
         skills_meta: "私が習得している技術と、それぞれの熟練度を紹介します。",
-        skill_detail_button: "詳細を見る",
         modal_close: "閉じる",
         proficiency_level: "熟練度",
         experience_summary: "経験概要",
         devtools_title: "開発ツール",
         devtools_meta: "普段の開発で使用しているツール一覧です。",
         activities_title: "課外活動 / 受賞歴",
-        activities_meta: "学術的なコンテストや、その他の課外活動の記録です。"
+        activities_meta: "学術的なコンテストや、その他の課外活動の記録です。",
+        contact_title: "連絡先",
+        contact_meta: "お気軽にご連絡ください。",
+        school_email_label: "学校用メール",
+        personal_email_label: "個人用メール"
     },
     en: {
         title: "Welcome To My Portfolio!",
         meta: "Showcasing the projects I have worked on.",
         header_name: "Renju Harada",
         header_title: "Osaka Metropolitan University College of Technology / Grade 2",
-        sidebar_summary_title: "Summary",
-        sidebar_summary_content: "This portfolio is designed to showcase your work. It is built using only HTML, CSS, and JavaScript, featuring a lightweight and easily extensible simple structure.",
         link_detail: "Details",
-        //タイムラインとショートカット
         timeline_title: "My Journey",
         timeline_meta: "A chronological overview of my education, awards, and qualifications.", 
         shortcut_intro: "Introduction",
         shortcut_projects: "Projects",
         shortcut_activities: "Activities",
-        // 新規追加: スキルとモーダル
+        shortcut_contact: "Contact",
         skills_title: "Skill Set",
         skills_meta: "Technologies I've acquired and my proficiency level in each.",
-        skill_detail_button: "See Details",
         modal_close: "Close",
         proficiency_level: "Proficiency Level",
         experience_summary: "Experience Summary",
@@ -53,8 +49,13 @@ const i18n = {
         devtools_meta: "Tools I frequently use for development.",
         activities_title: "Activities / Awards",
         activities_meta: "Records of academic competitions and other extracurricular activities.",
+        contact_title: "Contact",
+        contact_meta: "Feel free to reach out to me.",
+        school_email_label: "School Email",
+        personal_email_label: "Personal Email"
     }
 };
+
 const timelineData = [
     { 
         year: "2024/04", 
@@ -77,13 +78,13 @@ const timelineData = [
     { 
         year: "2025/03", 
         type: 'qual',
-        title: { ja: "KOSENJIN SUMMIT 2025 ボランティア", en: "Advanced to Intelligent Informatics Course" }, 
+        title: { ja: "KOSENJIN SUMMIT 2025 ボランティア", en: "KOSENJIN SUMMIT 2025 Volunteer" }, 
         description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
     },
     { 
         year: "2025/03", 
         type: 'history',
-        title: { ja: "学生有志団体PINTO OMUCT 所属", en: "Advanced to Intelligent Informatics Course" }, 
+        title: { ja: "学生有志団体PINTO OMUCT 所属", en: "Joined PINTO OMUCT" }, 
         description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
     },
     { 
@@ -95,7 +96,7 @@ const timelineData = [
     { 
         year: "2025/05", 
         type: 'history',
-        title: { ja: "学生・教員有志団体FARAD 所属", en: "Advanced to Intelligent Informatics Course" }, 
+        title: { ja: "学生・教員有志団体FARAD 所属", en: "Joined FARAD" }, 
         description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
     },
     { 
@@ -107,7 +108,7 @@ const timelineData = [
     { 
         year: "2025/09", 
         type: 'qual',
-        title: { ja: "未踏MEET UP! in 大阪 運営協力(株式会社みらいスタジオ)", en: "Advanced to Intelligent Informatics Course" }, 
+        title: { ja: "未踏MEET UP! in 大阪 運営協力(株式会社みらいスタジオ)", en: "MITOU MEET UP! in Osaka Organizer" }, 
         description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
     },
     { 
@@ -124,7 +125,6 @@ const timelineData = [
     }
 ];
 
-// 📌 プロジェクトデータ - imageプロパティを追加
 const projects = [
     { 
         id: "p1", 
@@ -137,11 +137,10 @@ const projects = [
     }
 ];
 
-// 📌 2. Activities データ
 const activitiesData = [
     { 
         id: "a1", 
-        title: { ja: "COMING SOON...", en: "Kosen Procon Preliminaries Passed" }, 
+        title: { ja: "COMING SOON...", en: "COMING SOON..." }, 
         desc: { ja: "", en: "" }, 
         tags: [""], 
         date: "B.C.2025/99/99", 
@@ -150,28 +149,11 @@ const activitiesData = [
     }
 ];
 
-// 📌 3. スキルデータ
 const skillsData = [
-        {
-        id: 'python',
-        name: 'Python',
-        icon: './images/skills/python_logo.png',
-        proficiency: 70,
-        details: {
-            ja: {
-                level: "中級 (基本的なコーディング)",
-                summary: "高専の授業で基本的な構文とデータ構造を学習。競技プログラミングの練習で複雑なアルゴリズムの実装経験あり。"
-            },
-            en: {
-                level: "Intermediate (Basic algorithm implementation, competitive programming)",
-                summary: "Learned basic syntax and data structures in college courses. Experienced implementing complex algorithms through competitive programming."
-            }
-        }
-    },
     {
         id: 'cpp',
         name: 'C++',
-        icon: './images/skills/cpp_logo.png',
+        icon: './images/logos/cpp.png',
         proficiency: 70,
         details: {
             ja: {
@@ -185,9 +167,9 @@ const skillsData = [
         }
     },
     {
-        id: 'htmlcss',
-        name: 'HTML/CSS',
-        icon: './images/skills/htmlcss_logo.png',
+        id: 'html',
+        name: 'HTML',
+        icon: './images/html.png',
         proficiency: 85,
         details: {
             ja: {
@@ -203,7 +185,7 @@ const skillsData = [
     {
         id: 'javascript',
         name: 'JavaScript',
-        icon: './images/skills/js_logo.png',
+        icon: './images/logos/js.png',
         proficiency: 65,
         details: {
             ja: {
@@ -218,12 +200,11 @@ const skillsData = [
     }
 ];
 
-// 📌 3. スキルデータ
 const devTools = [
     {
         id: 'vsc',
         name: 'Visual Studio Code',
-        icon: './images/tools/vsc_logo.png',
+        icon: './images/logos/vsc.png',
         frequency_text: {
             ja: "週5回以上",
             en: "5+ times/week"
@@ -242,7 +223,7 @@ const devTools = [
     {
         id: 'latex',
         name: 'LaTeX',
-        icon: './images/tools/latex_logo.png',
+        icon: './images/logos/latex.png',
         frequency_text: {
             ja: "週1-2回",
             en: "1-2 times/week"
@@ -261,7 +242,7 @@ const devTools = [
     {
         id: 'msoffice',
         name: 'MS Office',
-        icon: './images/tools/ms_logo.png',
+        icon: './images/logos/ms.png',
         frequency_text: {
             ja: "必要なときに使用",
             en: "Used as needed"
@@ -279,68 +260,66 @@ const devTools = [
     }
 ];
 
+// Contact情報
+const contactData = {
+    schoolEmail: "rh24098s@st.omu.ac.jp",
+    personalEmail: "h.renju0602@gmail.com"
+};
 
-// 📌 4. 現在の言語状態
 let currentLang = 'ja'; 
 
-// 📌 5. 多言語対応の描画ロジック
+// 📌 多言語対応の描画ロジック
 function applyLanguage(lang) {
     currentLang = lang;
     const data = i18n[lang];
 
-    // ① 固定テキストの更新
     document.title = data.title;
     document.getElementById("pageTitle").textContent = data.title;
     document.getElementById("pageMeta").textContent = data.meta; 
     document.getElementById("headerName").textContent = data.header_name;
     document.getElementById("headerTitle").textContent = data.header_title;
-    document.getElementById("sidebarSummaryTitle").textContent = data.sidebar_summary_title;
-    document.getElementById("sidebarSummaryContent").textContent = data.sidebar_summary_content;
     
-    // タイムライン見出しの更新
     document.getElementById("timelineTitle").textContent = data.timeline_title;
     document.getElementById("timelineMeta").textContent = data.timeline_meta; 
 
-    // スキルセクション見出しの更新
     document.getElementById("skillsTitle").textContent = data.skills_title;
     document.getElementById("skillsMeta").textContent = data.skills_meta;
     document.getElementById("devToolsTitle").textContent = data.devtools_title;
     document.getElementById("devToolsMeta").textContent = data.devtools_meta;
     document.getElementById("activitiesTitle").textContent = data.activities_title;
     document.getElementById("activitiesMeta").textContent = data.activities_meta;
-    // ショートカットボタンの更新
+    
+    document.getElementById("contactTitle").textContent = data.contact_title;
+    document.getElementById("contactMeta").textContent = data.contact_meta;
+    document.getElementById("schoolEmailLabel").textContent = data.school_email_label;
+    document.getElementById("personalEmailLabel").textContent = data.personal_email_label;
+    
     document.getElementById("scrollToIntro").textContent = data.shortcut_intro;
     document.getElementById("scrollToProjects").textContent = data.shortcut_projects;
     document.getElementById("scrollToActivities").textContent = data.shortcut_activities;
-    // Modalの閉じるボタンの更新
+    document.getElementById("scrollToContact").textContent = data.shortcut_contact;
+    
     document.getElementById("modalCloseBtn").textContent = data.modal_close;
     document.getElementById("modalProficiencyLevel").textContent = data.proficiency_level;
     document.getElementById("modalExperienceSummary").textContent = data.experience_summary;
 
-    // ② プロジェクトカードの動的テキストを再描画で更新
     renderProjects();
-    
-    // ③ タイムラインの再描画
     renderTimeline();
-
     renderActivities();
-    // ④ スキルカードの再描画
     renderSkills();
-
     renderDevTools();
 
-    // ⑤ 言語切り替えボタンの状態を更新
     document.getElementById('langToggle').textContent = lang === 'ja' ? 'English' : '日本語';
     document.getElementById('langToggle').setAttribute('aria-label', lang === 'ja' ? 'Switch to English' : '日本語に切り替える');
 }
-// 📌 タイムラインをレンダリングする関数 (左右振り分け対応)
+
+// 📌 タイムラインをレンダリングする関数
 function renderTimeline() {
     const container = document.getElementById("timelineContainer");
     container.innerHTML = ''; 
 
     timelineData.forEach(item => {
         const itemEl = document.createElement('div');
-        
         const typeClass = item.type === 'qual' ? 'timeline-item-left' : 'timeline-item-right';
         itemEl.className = `timeline-item hidden ${typeClass}`;
         
@@ -361,17 +340,14 @@ function renderTimeline() {
         content.appendChild(year);
         content.appendChild(title);
         content.appendChild(description);
-        
         itemEl.appendChild(content); 
-        
         container.appendChild(itemEl);
     });
     
     setupScrollReveal(); 
 }
 
-
-// 📌 プロジェクトをレンダリングする関数(画像対応)
+// 📌 プロジェクトをレンダリングする関数
 function renderProjects(){
     const container = document.getElementById("projectsContainer");
     const tpl = container.parentNode.querySelector("#project-template");
@@ -382,7 +358,6 @@ function renderProjects(){
     projects.forEach(p => {
         const clone = tpl.content.cloneNode(true);
         
-        // 画像をレンダリング
         if (p.image) {
             const imgEl = clone.querySelector(".project-image");
             imgEl.src = p.image;
@@ -421,7 +396,6 @@ function renderActivities(){
     activitiesData.forEach(a => {
         const clone = tpl.content.cloneNode(true);
         
-        // 画像をレンダリング
         if (a.image) {
             const imgEl = clone.querySelector(".project-image");
             imgEl.src = a.image;
@@ -449,80 +423,52 @@ function renderActivities(){
     });
 }
 
-
-// 📌 スキルをレンダリングする関数
+// 📌 スキルをレンダリングする関数（コンパクト版 - カードクリックでモーダル表示）
 function renderSkills() {
     const container = document.getElementById("skillsContainer");
     container.innerHTML = '';
-    const detailButtonText = i18n[currentLang].skill_detail_button;
 
     skillsData.forEach(skill => {
         const skillCard = document.createElement('div');
         skillCard.className = 'skill-card';
         skillCard.setAttribute('data-skill-id', skill.id);
+        skillCard.addEventListener('click', () => showSkillModal(skill.id));
 
-        // アイコン/ロゴ
         const icon = document.createElement('img');
         icon.className = 'skill-icon';
         icon.src = skill.icon;
         icon.alt = skill.name + ' Logo';
 
-        // 名前
         const name = document.createElement('h3');
         name.textContent = skill.name;
-        
-        // 熟練度バー
-        const barContainer = document.createElement('div');
-        barContainer.className = 'proficiency-bar-container';
-        const bar = document.createElement('div');
-        bar.className = 'proficiency-bar';
-        bar.style.width = skill.proficiency + '%'; 
-        barContainer.appendChild(bar);
-
-        // 詳細ボタン
-        const detailBtn = document.createElement('button');
-        detailBtn.className = 'skill-detail-btn';
-        detailBtn.textContent = detailButtonText;
-        detailBtn.setAttribute('data-skill-id', skill.id);
-        detailBtn.addEventListener('click', showSkillModal);
 
         skillCard.appendChild(icon);
         skillCard.appendChild(name);
-        skillCard.appendChild(barContainer);
-        skillCard.appendChild(detailBtn);
-        
         container.appendChild(skillCard);
     });
 }
 
 // 📌 モーダル表示ロジック
-function showSkillModal(event) {
-    const skillId = event.target.getAttribute('data-skill-id');
+function showSkillModal(skillId) {
     const skill = skillsData.find(s => s.id === skillId);
-    
     if (!skill) return;
 
     const modal = document.getElementById('skillDetailModal');
     const lang = currentLang;
 
-    // モーダルコンテンツの更新
     document.getElementById('modalSkillIcon').src = skill.icon;
     document.getElementById('modalSkillIcon').alt = skill.name + ' Logo';
     document.getElementById('modalSkillName').textContent = skill.name;
 
-    // 熟練度セクションを表示
     document.getElementById('modalProficiencySection').style.display = 'block';
     
-    // 熟練度バーの更新
     const modalBar = document.getElementById('modalProficiencyBar');
     modalBar.style.width = skill.proficiency + '%';
     document.getElementById('modalProficiencyText').textContent = `${skill.proficiency}%`;
 
-    // 詳細テキストの更新
     document.getElementById('modalExperienceContent').textContent = skill.details[lang].summary;
     document.getElementById('modalProficiencyLevelText').textContent = skill.details[lang].level;
     
-    // モーダルを表示
     modal.classList.add('visible');
     document.body.classList.add('modal-open'); 
 }
@@ -532,83 +478,53 @@ function hideSkillModal() {
     document.body.classList.remove('modal-open');
 }
 
-// 📌 devToolsをレンダリングする関数
+// 📌 devToolsをレンダリングする関数（コンパクト版）
 function renderDevTools() {
     const container = document.getElementById("devToolsContainer");
     container.innerHTML = '';
-
-    const detailButtonText = i18n[currentLang].skill_detail_button;
 
     devTools.forEach(tool => {
         const toolCard = document.createElement('div');
         toolCard.className = 'tool-card';
         toolCard.setAttribute('data-tool-id', tool.id);
+        toolCard.addEventListener('click', () => showToolModal(tool.id));
 
-        // アイコン
         const icon = document.createElement('img');
         icon.className = 'tool-icon';
         icon.src = tool.icon;
         icon.alt = tool.name + ' Logo';
 
-        // 名前
         const name = document.createElement('h3');
         name.textContent = tool.name;
 
-        // 使用頻度テキスト(小さめ)
-        const freq = document.createElement('div');
-        freq.className = "tool-frequency";
-        freq.textContent = tool.frequency_text[currentLang];
-
-        // 詳細ボタン
-        const detailBtn = document.createElement('button');
-        detailBtn.className = 'tool-detail-btn';
-        detailBtn.textContent = detailButtonText;
-        detailBtn.setAttribute('data-tool-id', tool.id);
-        detailBtn.addEventListener('click', showToolModal);
-
-        // カードに追加
         toolCard.appendChild(icon);
         toolCard.appendChild(name);
-        toolCard.appendChild(freq);
-        toolCard.appendChild(detailBtn);
-
         container.appendChild(toolCard);
     });
 }
 
 // 📌 devToolsモーダル表示ロジック
-function showToolModal(event) {
-    const toolId = event.target.getAttribute('data-tool-id');
+function showToolModal(toolId) {
     const tool = devTools.find(t => t.id === toolId);
-    
     if (!tool) return;
 
     const modal = document.getElementById('skillDetailModal');
     const lang = currentLang;
 
-    // モーダルコンテンツの更新
     document.getElementById('modalSkillIcon').src = tool.icon;
     document.getElementById('modalSkillIcon').alt = tool.name + ' Logo';
     document.getElementById('modalSkillName').textContent = tool.name;
 
-    // 熟練度セクションを非表示
     document.getElementById('modalProficiencySection').style.display = 'none';
 
-    // 詳細テキストの更新
     document.getElementById('modalExperienceContent').textContent = tool.details[lang].summary;
     document.getElementById('modalProficiencyLevelText').textContent = tool.details[lang].frequency;
     
-    // モーダルを表示
     modal.classList.add('visible');
     document.body.classList.add('modal-open'); 
 }
 
-function hideToolModal() {
-    document.getElementById('skillDetailModal').classList.remove('visible');
-    document.body.classList.remove('modal-open');
-}
-
-// 📌 6. スクロールアニメーションと初期化
+// 📌 スクロールアニメーションと初期化
 function setupScrollReveal() {
     if (window.timelineObserver) {
         window.timelineObserver.disconnect();
@@ -638,8 +554,35 @@ function setupScrollReveal() {
     });
 }
 
-// 📌 7. 初期描画とイベント処理
+// 📌 Contactセクションの初期化
+function initContact() {
+    document.getElementById('schoolEmail').textContent = contactData.schoolEmail;
+    document.getElementById('personalEmail').textContent = contactData.personalEmail;
+}
+
+// 📌 コピーボタンの機能
+function setupCopyButtons() {
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const emailType = btn.getAttribute('data-email');
+            const email = emailType === 'school' ? contactData.schoolEmail : contactData.personalEmail;
+            
+            navigator.clipboard.writeText(email).then(() => {
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                }, 2000);
+            });
+        });
+    });
+}
+
+// 📌 初期描画とイベント処理
 applyLanguage(currentLang); 
+initContact();
+setupCopyButtons();
 
 // ハンバーガーメニューの制御
 const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -650,7 +593,6 @@ hamburgerBtn.addEventListener('click', () => {
     menuOverlay.classList.toggle('open');
 });
 
-// メニュー項目クリック時にメニューを閉じる
 document.querySelectorAll('.menu-item').forEach(item => {
     item.addEventListener('click', () => {
         hamburgerBtn.classList.remove('active');
@@ -658,7 +600,6 @@ document.querySelectorAll('.menu-item').forEach(item => {
     });
 });
 
-// メニュー外クリックで閉じる
 menuOverlay.addEventListener('click', (e) => {
     if (e.target === menuOverlay) {
         hamburgerBtn.classList.remove('active');
@@ -679,6 +620,10 @@ document.getElementById('scrollToActivities').addEventListener('click', () => {
     document.getElementById('activities-section').scrollIntoView({ behavior: 'smooth' });
 });
 
+document.getElementById('scrollToContact').addEventListener('click', () => {
+    document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' });
+});
+
 // 言語切り替えボタンのイベントリスナー
 document.getElementById('langToggle').addEventListener('click', () => {
     const newLang = currentLang === 'ja' ? 'en' : 'ja';
@@ -688,7 +633,6 @@ document.getElementById('langToggle').addEventListener('click', () => {
 // モーダルのイベントリスナー
 document.getElementById('modalCloseBtn').addEventListener('click', hideSkillModal);
 document.getElementById('skillDetailModal').addEventListener('click', (e) => {
-    // オーバーレイをクリックした場合に閉じる
     if (e.target.id === 'skillDetailModal') {
         hideSkillModal();
     }
