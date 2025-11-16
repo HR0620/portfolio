@@ -156,8 +156,8 @@ const projects = [
         desc: { ja: "2I担任である室谷先生公認のOnly Up風室谷先生ゲーム、Hisayoshi。高専祭で展示しました。", en: "A game inspired by 'Only Up,' officially recognized by homeroom teacher Murotani-sensei, exhibited at the Kosen Festival." }, 
         tags: ["python"], 
         date: "2025/11/8,9", 
-        url: "./projects/omuct-fes_2025",
-        image: "./images/hisayoshi_thumbnail.png"
+        url: "https://github.com/HR0620/2025_2I_kosen-fes",
+        image: "./images/thumbnails/hisayoshi.png"
     }
 ];
 
@@ -165,11 +165,11 @@ const activitiesData = [
     { 
         id: "a1", 
         title: { ja: "COMING SOON...", en: "COMING SOON..." }, 
-        desc: { ja: "", en: "" }, 
+        desc: { ja: "COMING SOON...", en: "COMING SOON..." }, 
         tags: [""], 
         date: "B.C.2025/99/99", 
         url: "#",
-        image: "./images/procon_thumbnail.png"
+        image: "./images/thumbnails/procon.png"
     }
 ];
 
