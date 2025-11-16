@@ -153,7 +153,7 @@ const skillsData = [
     {
         id: 'cpp',
         name: 'C++',
-        icon: './images/logos/cpp.png',
+        icon: './images/icons/cpp.png',
         proficiency: 70,
         details: {
             ja: {
@@ -169,7 +169,7 @@ const skillsData = [
     {
         id: 'html',
         name: 'HTML',
-        icon: './images/html.png',
+        icon: './images/icons/html.png',
         proficiency: 85,
         details: {
             ja: {
@@ -185,7 +185,7 @@ const skillsData = [
     {
         id: 'javascript',
         name: 'JavaScript',
-        icon: './images/logos/js.png',
+        icon: './images/icons/js.png',
         proficiency: 65,
         details: {
             ja: {
@@ -204,7 +204,7 @@ const devTools = [
     {
         id: 'vsc',
         name: 'Visual Studio Code',
-        icon: './images/logos/vsc.png',
+        icon: './images/icons/vsc.png',
         frequency_text: {
             ja: "週5回以上",
             en: "5+ times/week"
@@ -223,7 +223,7 @@ const devTools = [
     {
         id: 'latex',
         name: 'LaTeX',
-        icon: './images/logos/latex.png',
+        icon: './images/icons/latex.png',
         frequency_text: {
             ja: "週1-2回",
             en: "1-2 times/week"
@@ -242,7 +242,7 @@ const devTools = [
     {
         id: 'msoffice',
         name: 'MS Office',
-        icon: './images/logos/ms.png',
+        icon: './images/icons/ms.png',
         frequency_text: {
             ja: "必要なときに使用",
             en: "Used as needed"
