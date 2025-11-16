@@ -8,21 +8,33 @@ const i18n = {
         header_name: "原田連寿",
         header_title: "大阪公立大学工業高等専門学校 / 2年",
         link_detail: "詳細",
+        // About Me
+        about_title: "About Me",
+        about_meta: "私について",
+        about_content: "大阪公立大学工業高等専門学校の2年生です。プログラミングやWeb開発に興味があり、日々学習を続けています。趣味はゲーム開発とアルゴリズムの勉強です。",
+        // Timeline
         timeline_title: "沿革",
-        timeline_meta: "学歴、受賞、資格・検定取得といった私の歩みを時系列で紹介します。", 
-        shortcut_intro: "自己紹介",
+        timeline_meta: "学歴、受賞、資格・検定取得といった私の歩みを時系列で紹介します。",
+        // Shortcuts
+        shortcut_about: "自己紹介",
+        shortcut_intro: "沿革",
         shortcut_projects: "作品一覧",
+        shortcut_skills: "スキル/ツール",
         shortcut_activities: "活動一覧",
         shortcut_contact: "連絡先",
+        // Skills
         skills_title: "スキルセット",
         skills_meta: "私が習得している技術と、それぞれの熟練度を紹介します。",
         modal_close: "閉じる",
         proficiency_level: "熟練度",
         experience_summary: "経験概要",
+        // Dev Tools
         devtools_title: "開発ツール",
         devtools_meta: "普段の開発で使用しているツール一覧です。",
+        // Activities
         activities_title: "課外活動 / 受賞歴",
         activities_meta: "学術的なコンテストや、その他の課外活動の記録です。",
+        // Contact
         contact_title: "連絡先",
         contact_meta: "お気軽にご連絡ください。",
         school_email_label: "学校用メール",
@@ -34,21 +46,33 @@ const i18n = {
         header_name: "Renju Harada",
         header_title: "Osaka Metropolitan University College of Technology / Grade 2",
         link_detail: "Details",
+        // About Me
+        about_title: "About Me",
+        about_meta: "Introduction",
+        about_content: "I'm a 2nd year student at Osaka Metropolitan University College of Technology. I'm interested in programming and web development, and I'm constantly learning. My hobbies include game development and studying algorithms.",
+        // Timeline
         timeline_title: "My Journey",
-        timeline_meta: "A chronological overview of my education, awards, and qualifications.", 
-        shortcut_intro: "Introduction",
+        timeline_meta: "A chronological overview of my education, awards, and qualifications.",
+        // Shortcuts
+        shortcut_about: "About",
+        shortcut_intro: "Journey",
         shortcut_projects: "Projects",
+        shortcut_skills: "Skills/Tools",
         shortcut_activities: "Activities",
         shortcut_contact: "Contact",
+        // Skills
         skills_title: "Skill Set",
         skills_meta: "Technologies I've acquired and my proficiency level in each.",
         modal_close: "Close",
         proficiency_level: "Proficiency Level",
         experience_summary: "Experience Summary",
+        // Dev Tools
         devtools_title: "Development Tools",
         devtools_meta: "Tools I frequently use for development.",
+        // Activities
         activities_title: "Activities / Awards",
         activities_meta: "Records of academic competitions and other extracurricular activities.",
+        // Contact
         contact_title: "Contact",
         contact_meta: "Feel free to reach out to me.",
         school_email_label: "School Email",
@@ -267,6 +291,7 @@ const contactData = {
 };
 
 let currentLang = 'ja'; 
+let currentTheme = 'dark'; // テーマ管理
 
 // 📌 多言語対応の描画ロジック
 function applyLanguage(lang) {
@@ -279,26 +304,40 @@ function applyLanguage(lang) {
     document.getElementById("headerName").textContent = data.header_name;
     document.getElementById("headerTitle").textContent = data.header_title;
     
+    // About Me
+    document.getElementById("aboutTitle").textContent = data.about_title;
+    document.getElementById("aboutMeta").textContent = data.about_meta;
+    document.getElementById("aboutContent").textContent = data.about_content;
+    
+    // Timeline
     document.getElementById("timelineTitle").textContent = data.timeline_title;
     document.getElementById("timelineMeta").textContent = data.timeline_meta; 
 
+    // Skills & DevTools
     document.getElementById("skillsTitle").textContent = data.skills_title;
     document.getElementById("skillsMeta").textContent = data.skills_meta;
     document.getElementById("devToolsTitle").textContent = data.devtools_title;
     document.getElementById("devToolsMeta").textContent = data.devtools_meta;
+    
+    // Activities
     document.getElementById("activitiesTitle").textContent = data.activities_title;
     document.getElementById("activitiesMeta").textContent = data.activities_meta;
     
+    // Contact
     document.getElementById("contactTitle").textContent = data.contact_title;
     document.getElementById("contactMeta").textContent = data.contact_meta;
     document.getElementById("schoolEmailLabel").textContent = data.school_email_label;
     document.getElementById("personalEmailLabel").textContent = data.personal_email_label;
     
+    // Shortcuts
+    document.getElementById("scrollToAbout").textContent = data.shortcut_about;
     document.getElementById("scrollToIntro").textContent = data.shortcut_intro;
     document.getElementById("scrollToProjects").textContent = data.shortcut_projects;
+    document.getElementById("scrollToSkills").textContent = data.shortcut_skills;
     document.getElementById("scrollToActivities").textContent = data.shortcut_activities;
     document.getElementById("scrollToContact").textContent = data.shortcut_contact;
     
+    // Modal
     document.getElementById("modalCloseBtn").textContent = data.modal_close;
     document.getElementById("modalProficiencyLevel").textContent = data.proficiency_level;
     document.getElementById("modalExperienceSummary").textContent = data.experience_summary;
@@ -311,6 +350,13 @@ function applyLanguage(lang) {
 
     document.getElementById('langToggle').textContent = lang === 'ja' ? 'English' : '日本語';
     document.getElementById('langToggle').setAttribute('aria-label', lang === 'ja' ? 'Switch to English' : '日本語に切り替える');
+}
+
+// 📌 テーマ切り替え
+function toggleTheme() {
+    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', currentTheme);
+    localStorage.setItem('theme', currentTheme);
 }
 
 // 📌 タイムラインをレンダリングする関数
@@ -423,7 +469,7 @@ function renderActivities(){
     });
 }
 
-// 📌 スキルをレンダリングする関数（コンパクト版 - カードクリックでモーダル表示）
+// 📌 スキルをレンダリングする関数
 function renderSkills() {
     const container = document.getElementById("skillsContainer");
     container.innerHTML = '';
@@ -478,7 +524,7 @@ function hideSkillModal() {
     document.body.classList.remove('modal-open');
 }
 
-// 📌 devToolsをレンダリングする関数（コンパクト版）
+// 📌 devToolsをレンダリングする関数
 function renderDevTools() {
     const container = document.getElementById("devToolsContainer");
     container.innerHTML = '';
@@ -524,7 +570,7 @@ function showToolModal(toolId) {
     document.body.classList.add('modal-open'); 
 }
 
-// 📌 スクロールアニメーションと初期化
+// 📌 スクロールアニメーション
 function setupScrollReveal() {
     if (window.timelineObserver) {
         window.timelineObserver.disconnect();
@@ -570,7 +616,7 @@ function setupCopyButtons() {
             
             navigator.clipboard.writeText(email).then(() => {
                 const originalHTML = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check"></i>';
+                btn.innerHTML = '<span style="color: var(--card);">✓</span>';
                 setTimeout(() => {
                     btn.innerHTML = originalHTML;
                 }, 2000);
@@ -579,10 +625,18 @@ function setupCopyButtons() {
     });
 }
 
-// 📌 初期描画とイベント処理
+// 📌 初期化
+// 保存されたテーマを読み込む
+const savedTheme = localStorage.getItem('theme') || 'dark';
+currentTheme = savedTheme;
+document.body.setAttribute('data-theme', currentTheme);
+
 applyLanguage(currentLang); 
 initContact();
 setupCopyButtons();
+
+// テーマ切り替えボタン
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 
 // ハンバーガーメニューの制御
 const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -607,13 +661,21 @@ menuOverlay.addEventListener('click', (e) => {
     }
 });
 
-// ショートカットボタンのイベントリスナー
+// ショートカットボタン
+document.getElementById('scrollToAbout').addEventListener('click', () => {
+    document.getElementById('about-section').scrollIntoView({ behavior: 'smooth' });
+});
+
 document.getElementById('scrollToIntro').addEventListener('click', () => {
     document.getElementById('introduction').scrollIntoView({ behavior: 'smooth' });
 });
 
 document.getElementById('scrollToProjects').addEventListener('click', () => {
     document.getElementById('projects-section').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('scrollToSkills').addEventListener('click', () => {
+    document.getElementById('skills-section').scrollIntoView({ behavior: 'smooth' });
 });
 
 document.getElementById('scrollToActivities').addEventListener('click', () => {
@@ -624,13 +686,13 @@ document.getElementById('scrollToContact').addEventListener('click', () => {
     document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' });
 });
 
-// 言語切り替えボタンのイベントリスナー
+// 言語切り替え
 document.getElementById('langToggle').addEventListener('click', () => {
     const newLang = currentLang === 'ja' ? 'en' : 'ja';
     applyLanguage(newLang);
 });
 
-// モーダルのイベントリスナー
+// モーダル
 document.getElementById('modalCloseBtn').addEventListener('click', hideSkillModal);
 document.getElementById('skillDetailModal').addEventListener('click', (e) => {
     if (e.target.id === 'skillDetailModal') {

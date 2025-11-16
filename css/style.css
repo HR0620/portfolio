@@ -1,35 +1,51 @@
 /* style.css */
+
+/* ===== ダークモードのカラー設定 ===== */
 :root {
+    /* 背景色 */
     --bg: #0f1724;
+    /* カード背景色 */
     --card: #0b1220;
+    /* テキストの薄い色 (説明文など) */
     --muted: #98a0b3;
+    /* アクセントカラー (ボタン、強調など) */
     --accent: #5eead4;
+    /* メインテキスト色 */
     --text: #e6eef8;
     --radius: 12px;
     --gap: 20px;
     --max-width: 1100px;
+    /* タイムライン縦線の色 */
     --timeline-color: #2e3a51;
 }
 
+/* ===== ライトモードのカラー設定 ===== */
 [data-theme="light"] {
-    --bg: #f6f8fb;
+    /* 背景色 */
+    --bg: #f0f2f5;
+    /* カード背景色 */
     --card: #ffffff;
-    --muted: #556273;
-    --accent: #0ea5a4;
-    --text: #0b1220;
-    --timeline-color: #d1d9e6;
+    /* テキストの薄い色 */
+    --muted: #65676b;
+    /* アクセントカラー (ライトモードではネイビー系) */
+    --accent: #1a3a52;
+    /* メインテキスト色 */
+    --text: #1c1e21;
+    /* タイムライン縦線の色 */
+    --timeline-color: #cbd0d8;
 }
 
 html, body {
     height: 100%;
     margin: 0;
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: linear-gradient(180deg, var(--bg), #071025 60%);
+    background: var(--bg);
     color: var(--text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding: 0; 
     box-sizing: border-box;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 body.modal-open {
@@ -45,8 +61,9 @@ body.modal-open {
     width: 100%;
     z-index: 1000;
     background: var(--bg);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .header-content {
@@ -70,17 +87,11 @@ body.modal-open {
     gap: 12px;
 }
 
-.avatar {
+.avatar-img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: var(--accent);
-    color: var(--card);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 700;
+    object-fit: cover;
 }
 
 .controls {
@@ -89,12 +100,38 @@ body.modal-open {
     align-items: center;
 }
 
+/* テーマ切り替えボタン */
+.theme-toggle-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0;
+}
+
+/* ダークモード時: 白枠・白塗り */
+[data-theme="dark"] .theme-toggle-btn {
+    background: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+/* ライトモード時: ネイビー枠・ネイビー塗り */
+[data-theme="light"] .theme-toggle-btn {
+    background: #1a3a52;
+    border: 2px solid #1a3a52;
+}
+
+.theme-toggle-btn:hover {
+    opacity: 0.8;
+}
+
 /* ハンバーガーボタン */
 .hamburger-btn {
     width: 40px;
     height: 40px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(128, 128, 128, 0.1);
+    border: 1px solid rgba(128, 128, 128, 0.2);
     border-radius: 6px;
     cursor: pointer;
     display: flex;
@@ -107,7 +144,7 @@ body.modal-open {
 }
 
 .hamburger-btn:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(128, 128, 128, 0.2);
 }
 
 .hamburger-btn span {
@@ -141,7 +178,7 @@ body.modal-open {
     background: var(--card);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
     z-index: 999;
-    transition: left 0.3s ease-out;
+    transition: left 0.3s ease-out, background 0.3s ease;
     overflow-y: auto;
 }
 
@@ -159,8 +196,8 @@ body.modal-open {
 .menu-item {
     width: 100%;
     padding: 15px 20px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(128, 128, 128, 0.1);
+    border: 1px solid rgba(128, 128, 128, 0.2);
     border-radius: 8px;
     color: var(--text);
     font-size: 16px;
@@ -179,10 +216,15 @@ body.modal-open {
 #langToggle {
     padding:6px 12px;
     border-radius:6px;
-    background:rgba(255,255,255,0.05);
+    background: rgba(128, 128, 128, 0.1);
     color:var(--text);
-    border:1px solid rgba(255,255,255,0.1);
+    border:1px solid rgba(128, 128, 128, 0.2);
     cursor:pointer;
+    transition: all 0.2s;
+}
+
+#langToggle:hover {
+    background: rgba(128, 128, 128, 0.2);
 }
 
 /* --- メインコンテンツのレイアウト --- */
@@ -203,9 +245,10 @@ body.modal-open {
     padding: 18px;
     border-radius: var(--radius);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.intro-card {
+.intro-card, .about-card {
     margin-bottom: var(--gap);
 }
 
@@ -215,7 +258,7 @@ body.modal-open {
     gap: 12px;
 }
 
-.hero h1, .intro-card h2, .skills-card h2, .contact-card h2 {
+.hero h1, .intro-card h2, .skills-card h2, .contact-card h2, .about-card h2 {
     margin: 0;
     font-size: clamp(20px, 3vw, 32px);
 }
@@ -225,8 +268,15 @@ body.modal-open {
     font-size: 14px;
 }
 
+/* About Meセクション */
+.about-text {
+    margin-top: 15px;
+    line-height: 1.6;
+    color: var(--text);
+}
+
 /* -------------------------------------- */
-/* --- タイムラインのスタイル (左右振り分け) --- */
+/* --- タイムラインのスタイル --- */
 /* -------------------------------------- */
 .timeline-container {
     position: relative;
@@ -243,6 +293,7 @@ body.modal-open {
     width: 2px;
     margin-left: -1px; 
     background-color: var(--timeline-color);
+    transition: background-color 0.3s ease;
 }
 
 .timeline-item {
@@ -260,7 +311,6 @@ body.modal-open {
     transform: translateY(0);
 }
 
-/* 右側 (経歴) */
 .timeline-item-right {
     left: 50%; 
     padding-left: 40px; 
@@ -278,9 +328,9 @@ body.modal-open {
     border: 3px solid var(--accent);
     box-shadow: 0 0 0 3px var(--card);
     z-index: 10;
+    transition: all 0.3s ease;
 }
 
-/* 左側 (資格) */
 .timeline-item-left {
     left: 0;
     padding-right: 40px; 
@@ -298,9 +348,9 @@ body.modal-open {
     border: 3px solid var(--accent);
     box-shadow: 0 0 0 3px var(--card);
     z-index: 10;
+    transition: all 0.3s ease;
 }
 
-/* スマホ対応 (600px以下で1列に戻す) */
 @media (max-width: 600px) {
     .timeline-container::before {
         left: 10px; 
@@ -321,8 +371,7 @@ body.modal-open {
     }
 }
 
-
-/* --- 2. プロジェクト画像スタイル --- */
+/* --- プロジェクト画像スタイル --- */
 .projects {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -351,21 +400,14 @@ body.modal-open {
     background: var(--card);
     padding: 12px;
     border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(128, 128, 128, 0.2);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 .project h3 {
     margin: 0;
     font-size: 16px;
-}
-
-.project {
-    background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
-    border-radius: 12px;
-    padding: 16px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .project:hover {
@@ -374,7 +416,7 @@ body.modal-open {
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
 }
 
-/* --- 3. スキルセクションのスタイル (コンパクト版) --- */
+/* --- スキルセクションのスタイル --- */
 .skills-card {
     margin-bottom: var(--gap);
 }
@@ -387,7 +429,7 @@ body.modal-open {
 }
 
 .skill-card, .tool-card {
-    background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
+    background: rgba(128, 128, 128, 0.05);
     padding: 12px;
     border-radius: var(--radius);
     display: flex;
@@ -395,7 +437,7 @@ body.modal-open {
     align-items: center;
     justify-content: center;
     text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s ease;
     cursor: pointer;
     border: 1px solid transparent;
     min-width: 100px;
@@ -422,7 +464,7 @@ body.modal-open {
     font-weight: 600;
 }
 
-/* --- 4. Contact Section --- */
+/* --- Contact Section --- */
 .contact-card {
     margin-bottom: var(--gap);
 }
@@ -436,11 +478,12 @@ body.modal-open {
 }
 
 .email-card {
-    background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
+    background: rgba(128, 128, 128, 0.05);
     padding: 20px;
     border-radius: var(--radius);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(128, 128, 128, 0.2);
     text-align: center;
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .email-icon {
@@ -462,7 +505,7 @@ body.modal-open {
     gap: 10px;
     margin-top: 10px;
     padding: 10px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(128, 128, 128, 0.1);
     border-radius: 8px;
 }
 
@@ -483,8 +526,10 @@ body.modal-open {
     opacity: 0.8;
 }
 
-.copy-btn i {
-    font-size: 14px;
+.copy-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
 }
 
 .email-address {
@@ -492,6 +537,7 @@ body.modal-open {
     font-size: 14px;
     color: var(--text);
     word-break: break-all;
+    flex: 1;
 }
 
 .social-links {
@@ -504,26 +550,29 @@ body.modal-open {
 .social-icon {
     width: 50px;
     height: 50px;
-    background: rgba(var(--text-rgb, 230, 238, 248), 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(128, 128, 128, 0.05);
+    border: 1px solid rgba(128, 128, 128, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text);
-    font-size: 24px;
     transition: all 0.3s;
     text-decoration: none;
 }
 
 .social-icon:hover {
     background: var(--accent);
-    color: var(--card);
     border-color: var(--accent);
     transform: translateY(-3px);
 }
 
-/* --- 5. モーダル (ポップアップ) スタイル --- */
+.social-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+/* --- モーダル --- */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -553,7 +602,7 @@ body.modal-open {
     max-width: 500px;
     width: 90%;
     transform: scale(0.9);
-    transition: transform 0.3s ease-out;
+    transition: transform 0.3s ease-out, background 0.3s ease;
     position: relative;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
@@ -566,7 +615,7 @@ body.modal-open {
     display: flex;
     align-items: center;
     gap: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
     padding-bottom: 15px;
     margin-bottom: 15px;
 }
@@ -614,7 +663,7 @@ body.modal-open {
 .proficiency-bar-container {
     flex: 1;
     height: 8px;
-    background: rgba(var(--muted-rgb, 152, 160, 179), 0.3);
+    background: rgba(128, 128, 128, 0.3);
     border-radius: 4px;
 }
 
@@ -642,7 +691,7 @@ body.modal-open {
 footer {
     margin-top: 40px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(128, 128, 128, 0.2);
     text-align: center;
     font-size: 12px;
     color: var(--muted);

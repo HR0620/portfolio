@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>原田連寿のPortfolio</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./images/icons/hr.png">
 
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/a7a7238217.js" crossorigin="anonymous"></script>
@@ -13,7 +16,7 @@
     <header id="stickyHeader">
         <div class="header-content">
             <div class="brand">
-                <div class="avatar" aria-hidden="true">R</div>
+                <img src="./images/icons/hr.png" alt="Profile Icon" class="avatar-img" aria-hidden="true">
                 <div>
                     <div id="headerName" style="font-weight:700"></div>
                     <div id="headerTitle" class="meta"></div>
@@ -21,6 +24,7 @@
             </div>
             
             <div class="controls">
+                <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme"></button>
                 <button id="langToggle"></button>
                 <button id="hamburgerBtn" class="hamburger-btn" aria-label="Menu">
                     <span></span>
@@ -35,14 +39,24 @@
     <!-- Hamburger Menu Overlay -->
     <div id="menuOverlay" class="menu-overlay">
         <nav class="menu-content">
+            <button id="scrollToAbout" class="menu-item"></button>
             <button id="scrollToIntro" class="menu-item"></button>
             <button id="scrollToProjects" class="menu-item"></button>
+            <button id="scrollToSkills" class="menu-item"></button>
             <button id="scrollToActivities" class="menu-item"></button>
             <button id="scrollToContact" class="menu-item"></button>
         </nav>
     </div>
 
     <div class="container">
+        <section id="about-section" class="content-section">
+            <div class="card about-card">
+                <h2 id="aboutTitle"></h2>
+                <div class="meta" id="aboutMeta"></div>
+                <p id="aboutContent" class="about-text"></p>
+            </div>
+        </section>
+
         <section id="introduction" class="content-section">
             <div class="card intro-card">
                 <h2 id="timelineTitle"></h2>
@@ -116,10 +130,10 @@
                         <i class="fas fa-envelope email-icon"></i>
                         <h3 id="schoolEmailLabel"></h3>
                         <div class="email-display">
-                            <button class="copy-btn" data-email="school" aria-label="Copy email">
-                                <i class="fas fa-copy"></i>
-                            </button>
                             <span id="schoolEmail" class="email-address"></span>
+                            <button class="copy-btn" data-email="school" aria-label="Copy email">
+                                <img src="./images/icons/copy.png" alt="Copy" class="copy-icon">
+                            </button>
                         </div>
                     </div>
 
@@ -127,23 +141,23 @@
                         <i class="fas fa-envelope-open email-icon"></i>
                         <h3 id="personalEmailLabel"></h3>
                         <div class="email-display">
-                            <button class="copy-btn" data-email="personal" aria-label="Copy email">
-                                <i class="fas fa-copy"></i>
-                            </button>
                             <span id="personalEmail" class="email-address"></span>
+                            <button class="copy-btn" data-email="personal" aria-label="Copy email">
+                                <img src="./images/icons/copy.png" alt="Copy" class="copy-icon">
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <div class="social-links">
                     <a href="https://github.com/HR0620" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
+                        <img src="./images/icons/github.png" alt="GitHub" class="social-logo">
                     </a>
                     <a href="https://twitter.com/your_handle" target="_blank" rel="noopener" class="social-icon" aria-label="X (Twitter)">
-                        <i class="fab fa-x-twitter"></i>
+                        <img src="./images/icons/x.png" alt="X" class="social-logo">
                     </a>
                     <a href="https://facebook.com/your_profile" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
-                        <i class="fab fa-facebook"></i>
+                        <img src="./images/icons/facebook.png" alt="Facebook" class="social-logo">
                     </a>
                 </div>
             </div>
