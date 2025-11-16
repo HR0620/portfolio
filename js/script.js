@@ -156,8 +156,8 @@ const projects = [
         desc: { ja: "2I担任である室谷先生公認のOnly Up風室谷先生ゲーム、Hisayoshi。高専祭で展示しました。", en: "A game inspired by 'Only Up,' officially recognized by homeroom teacher Murotani-sensei, exhibited at the Kosen Festival." }, 
         tags: ["python"], 
         date: "2025/11/8,9", 
-        url: "https://github.com/HR0620/2025_2I_kosen-fes",
-        image: "./images/thumbnails/hisayoshi.png"
+        url: "./projects/omuct-fes_2025",
+        image: "./images/hisayoshi_thumbnail.png"
     }
 ];
 
@@ -165,11 +165,11 @@ const activitiesData = [
     { 
         id: "a1", 
         title: { ja: "COMING SOON...", en: "COMING SOON..." }, 
-        desc: { ja: "COMING SOON...", en: "COMING SOON..." }, 
+        desc: { ja: "", en: "" }, 
         tags: [""], 
         date: "B.C.2025/99/99", 
         url: "#",
-        image: "./images/thumbnails/procon.png"
+        image: "./images/procon_thumbnail.png"
     }
 ];
 
@@ -431,42 +431,61 @@ function renderProjects(){
     });
 }
 
-// 📌 Activitiesをレンダリングする関数
+// 📌 Activitiesをレンダリングする関数（スキルカード風）
 function renderActivities(){
     const container = document.getElementById("activitiesContainer");
-    const tpl = document.getElementById("project-template");
     container.innerHTML = "";
-    
-    const linkText = i18n[currentLang].link_detail;
 
     activitiesData.forEach(a => {
-        const clone = tpl.content.cloneNode(true);
-        
+        const activityCard = document.createElement('div');
+        activityCard.className = 'activity-card';
+        activityCard.setAttribute('data-activity-id', a.id);
+        activityCard.addEventListener('click', () => showActivityModal(a.id));
+
+        // サムネイル画像
         if (a.image) {
-            const imgEl = clone.querySelector(".project-image");
-            imgEl.src = a.image;
-            imgEl.alt = a.title[currentLang] + " のサムネイル画像";
+            const img = document.createElement('img');
+            img.className = 'activity-icon';
+            img.src = a.image;
+            img.alt = a.title[currentLang];
+            activityCard.appendChild(img);
         }
 
-        clone.querySelector(".title").textContent = a.title[currentLang];
-        clone.querySelector(".desc").textContent = a.desc[currentLang];
-        clone.querySelector(".date").textContent = a.date;
-        
-        const tagsEl = clone.querySelector(".tags");
-        tagsEl.innerHTML = '';
-        a.tags.forEach(t => {
-            const span = document.createElement("span");
-            span.className = "tag";
-            span.textContent = t;
-            tagsEl.appendChild(span);
-        });
-        
-        const link = clone.querySelector(".link");
-        link.href = a.url || "#";
-        link.textContent = linkText; 
+        // タイトル
+        const title = document.createElement('h3');
+        title.textContent = a.title[currentLang];
+        activityCard.appendChild(title);
 
-        container.appendChild(clone);
+        container.appendChild(activityCard);
     });
+}
+
+// 📌 Activityモーダル表示ロジック
+function showActivityModal(activityId) {
+    const activity = activitiesData.find(a => a.id === activityId);
+    if (!activity) return;
+
+    const modal = document.getElementById('skillDetailModal');
+    const lang = currentLang;
+
+    // 画像
+    if (activity.image) {
+        document.getElementById('modalSkillIcon').src = activity.image;
+        document.getElementById('modalSkillIcon').alt = activity.title[lang];
+    }
+    
+    // タイトル
+    document.getElementById('modalSkillName').textContent = activity.title[lang];
+
+    // 熟練度バーを非表示
+    document.getElementById('modalProficiencySection').style.display = 'none';
+
+    // 内容を表示
+    document.getElementById('modalExperienceContent').textContent = activity.desc[lang];
+    document.getElementById('modalProficiencyLevelText').textContent = activity.date;
+    
+    modal.classList.add('visible');
+    document.body.classList.add('modal-open'); 
 }
 
 // 📌 スキルをレンダリングする関数

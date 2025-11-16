@@ -39,13 +39,22 @@ html, body {
     height: 100%;
     margin: 0;
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: var(--bg);
     color: var(--text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding: 0; 
     box-sizing: border-box;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: color 0.3s ease;
+}
+
+/* ダークモード: グラデーション背景 */
+[data-theme="dark"] body {
+    background: linear-gradient(180deg, var(--bg), #071025 60%);
+}
+
+/* ライトモード: 単色背景 */
+[data-theme="light"] body {
+    background: var(--bg);
 }
 
 body.modal-open {
@@ -416,6 +425,25 @@ body.modal-open {
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
 }
 
+/* タグスタイル */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(128, 128, 128, 0.15);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 12px;
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+}
+
 /* --- スキルセクションのスタイル --- */
 .skills-card {
     margin-bottom: var(--gap);
@@ -535,6 +563,7 @@ body.modal-open {
 .email-address {
     font-family: 'Courier New', monospace;
     font-size: 14px;
+    font-weight: 600;
     color: var(--text);
     word-break: break-all;
     flex: 1;
