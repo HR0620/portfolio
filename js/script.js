@@ -156,8 +156,8 @@ const projects = [
         desc: { ja: "2I担任である室谷先生公認のOnly Up風室谷先生ゲーム、Hisayoshi。高専祭で展示しました。", en: "A game inspired by 'Only Up,' officially recognized by homeroom teacher Murotani-sensei, exhibited at the Kosen Festival." }, 
         tags: ["python"], 
         date: "2025/11/8,9", 
-        url: "https://github.com/HR0620/2025_2I_kosen-fes",
-        image: "./images/thumbnails/hisayoshi.png"
+        url: "./projects/omuct-fes_2025",
+        image: "./images/hisayoshi_thumbnail.png"
     }
 ];
 
@@ -165,11 +165,11 @@ const activitiesData = [
     { 
         id: "a1", 
         title: { ja: "COMING SOON...", en: "COMING SOON..." }, 
-        desc: { ja: "COMING SOON...", en: "COMING SOON..." }, 
+        desc: { ja: "", en: "" }, 
         tags: [""], 
         date: "B.C.2025/99/99", 
         url: "#",
-        image: "./images/thumbnails/procon.png"
+        image: "./images/procon_thumbnail.png"
     }
 ];
 
@@ -284,6 +284,36 @@ const devTools = [
     }
 ];
 
+// SNSリンク・アイコン設定
+const socialLinks = [
+    {
+        name: 'GitHub',
+        url: 'https://github.com/HR0620',
+        iconDark: './images/icons/github_dark.png',
+        iconLight: './images/icons/github_light.png'
+    },
+    {
+        name: 'X',
+        url: 'https://twitter.com/your_handle',
+        iconDark: './images/icons/x_dark.png',
+        iconLight: './images/icons/x_light.png'
+    },
+    {
+        name: 'Facebook',
+        url: 'https://facebook.com/your_profile',
+        iconDark: './images/icons/facebook.png',
+        iconLight: './images/icons/facebook.png'
+    }
+];
+
+// アイコン設定（コピーボタンなど）
+const iconConfig = {
+    copy: {
+        dark: './images/icons/copy_dark.png',
+        light: './images/icons/copy_light.png'
+    }
+};
+
 // Contact情報
 const contactData = {
     schoolEmail: "rh24098s@st.omu.ac.jp",
@@ -357,6 +387,9 @@ function toggleTheme() {
     currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
     document.body.setAttribute('data-theme', currentTheme);
     localStorage.setItem('theme', currentTheme);
+    
+    // アイコンを更新
+    updateThemeIcons();
 }
 
 // 📌 タイムラインをレンダリングする関数
@@ -431,42 +464,61 @@ function renderProjects(){
     });
 }
 
-// 📌 Activitiesをレンダリングする関数
+// 📌 Activitiesをレンダリングする関数（スキルカード風）
 function renderActivities(){
     const container = document.getElementById("activitiesContainer");
-    const tpl = document.getElementById("project-template");
     container.innerHTML = "";
-    
-    const linkText = i18n[currentLang].link_detail;
 
     activitiesData.forEach(a => {
-        const clone = tpl.content.cloneNode(true);
-        
+        const activityCard = document.createElement('div');
+        activityCard.className = 'activity-card';
+        activityCard.setAttribute('data-activity-id', a.id);
+        activityCard.addEventListener('click', () => showActivityModal(a.id));
+
+        // サムネイル画像
         if (a.image) {
-            const imgEl = clone.querySelector(".project-image");
-            imgEl.src = a.image;
-            imgEl.alt = a.title[currentLang] + " のサムネイル画像";
+            const img = document.createElement('img');
+            img.className = 'activity-icon';
+            img.src = a.image;
+            img.alt = a.title[currentLang];
+            activityCard.appendChild(img);
         }
 
-        clone.querySelector(".title").textContent = a.title[currentLang];
-        clone.querySelector(".desc").textContent = a.desc[currentLang];
-        clone.querySelector(".date").textContent = a.date;
-        
-        const tagsEl = clone.querySelector(".tags");
-        tagsEl.innerHTML = '';
-        a.tags.forEach(t => {
-            const span = document.createElement("span");
-            span.className = "tag";
-            span.textContent = t;
-            tagsEl.appendChild(span);
-        });
-        
-        const link = clone.querySelector(".link");
-        link.href = a.url || "#";
-        link.textContent = linkText; 
+        // タイトル
+        const title = document.createElement('h3');
+        title.textContent = a.title[currentLang];
+        activityCard.appendChild(title);
 
-        container.appendChild(clone);
+        container.appendChild(activityCard);
     });
+}
+
+// 📌 Activityモーダル表示ロジック
+function showActivityModal(activityId) {
+    const activity = activitiesData.find(a => a.id === activityId);
+    if (!activity) return;
+
+    const modal = document.getElementById('skillDetailModal');
+    const lang = currentLang;
+
+    // 画像
+    if (activity.image) {
+        document.getElementById('modalSkillIcon').src = activity.image;
+        document.getElementById('modalSkillIcon').alt = activity.title[lang];
+    }
+    
+    // タイトル
+    document.getElementById('modalSkillName').textContent = activity.title[lang];
+
+    // 熟練度バーを非表示
+    document.getElementById('modalProficiencySection').style.display = 'none';
+
+    // 内容を表示
+    document.getElementById('modalExperienceContent').textContent = activity.desc[lang];
+    document.getElementById('modalProficiencyLevelText').textContent = activity.date;
+    
+    modal.classList.add('visible');
+    document.body.classList.add('modal-open'); 
 }
 
 // 📌 スキルをレンダリングする関数
@@ -604,6 +656,53 @@ function setupScrollReveal() {
 function initContact() {
     document.getElementById('schoolEmail').textContent = contactData.schoolEmail;
     document.getElementById('personalEmail').textContent = contactData.personalEmail;
+    
+    // SNSリンクをレンダリング
+    renderSocialLinks();
+    
+    // テーマに応じたアイコンを設定
+    updateThemeIcons();
+}
+
+// 📌 SNSリンクをレンダリング
+function renderSocialLinks() {
+    const container = document.querySelector('.social-links');
+    container.innerHTML = '';
+    
+    socialLinks.forEach(link => {
+        const anchor = document.createElement('a');
+        anchor.href = link.url;
+        anchor.target = '_blank';
+        anchor.rel = 'noopener';
+        anchor.className = 'social-icon';
+        anchor.setAttribute('aria-label', link.name);
+        anchor.setAttribute('data-social', link.name.toLowerCase());
+        
+        const img = document.createElement('img');
+        img.className = 'social-logo';
+        img.alt = link.name;
+        img.src = currentTheme === 'dark' ? link.iconDark : link.iconLight;
+        
+        anchor.appendChild(img);
+        container.appendChild(anchor);
+    });
+}
+
+// 📌 テーマに応じてアイコンを更新
+function updateThemeIcons() {
+    // SNSアイコンを更新
+    socialLinks.forEach(link => {
+        const anchor = document.querySelector(`[data-social="${link.name.toLowerCase()}"]`);
+        if (anchor) {
+            const img = anchor.querySelector('img');
+            img.src = currentTheme === 'dark' ? link.iconDark : link.iconLight;
+        }
+    });
+    
+    // コピーボタンのアイコンを更新
+    document.querySelectorAll('.copy-icon').forEach(icon => {
+        icon.src = currentTheme === 'dark' ? iconConfig.copy.dark : iconConfig.copy.light;
+    });
 }
 
 // 📌 コピーボタンの機能

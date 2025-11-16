@@ -39,13 +39,22 @@ html, body {
     height: 100%;
     margin: 0;
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: var(--bg);
     color: var(--text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding: 0; 
     box-sizing: border-box;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: color 0.3s ease;
+}
+
+/* ダークモード: グラデーション背景 */
+[data-theme="dark"] body {
+    background: linear-gradient(180deg, var(--bg), #071025 60%);
+}
+
+/* ライトモード: 単色背景 */
+[data-theme="light"] body {
+    background: var(--bg);
 }
 
 body.modal-open {
@@ -416,6 +425,44 @@ body.modal-open {
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
 }
 
+/* タグスタイル */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(128, 128, 128, 0.15);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 12px;
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+}
+
+/* タグスタイル */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(128, 128, 128, 0.15);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 12px;
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+}
+
 /* --- スキルセクションのスタイル --- */
 .skills-card {
     margin-bottom: var(--gap);
@@ -459,6 +506,82 @@ body.modal-open {
 }
 
 .skill-card h3, .tool-card h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* --- Activities Section (中サイズカード) --- */
+.activity-card {
+    background: rgba(128, 128, 128, 0.05);
+    padding: 15px;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+    min-width: 180px;
+    max-width: 280px;
+}
+
+.activity-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.activity-icon {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    margin-bottom: 12px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.activity-card h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* --- Activities Section (スキルカード風) --- */
+.activity-card {
+    background: rgba(128, 128, 128, 0.05);
+    padding: 12px;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+    min-width: 100px;
+    max-width: 200px;
+}
+
+.activity-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.activity-icon {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 8px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.activity-card h3 {
     margin: 0;
     font-size: 14px;
     font-weight: 600;
@@ -535,6 +658,7 @@ body.modal-open {
 .email-address {
     font-family: 'Courier New', monospace;
     font-size: 14px;
+    font-weight: 600;
     color: var(--text);
     word-break: break-all;
     flex: 1;
@@ -570,6 +694,31 @@ body.modal-open {
     width: 28px;
     height: 28px;
     object-fit: contain;
+}
+
+/* アイコンをテーマに応じて切り替え */
+[data-theme="dark"] .icon-theme-toggle {
+    content: url('./images/icons/github-dark.png');
+}
+
+[data-theme="light"] .icon-theme-toggle {
+    content: url('./images/icons/github-light.png');
+}
+
+[data-theme="dark"] .icon-x-toggle {
+    content: url('./images/icons/x-dark.png');
+}
+
+[data-theme="light"] .icon-x-toggle {
+    content: url('./images/icons/x-light.png');
+}
+
+[data-theme="dark"] .icon-facebook-toggle {
+    content: url('./images/icons/facebook-dark.png');
+}
+
+[data-theme="light"] .icon-facebook-toggle {
+    content: url('./images/icons/facebook-light.png');
 }
 
 /* --- モーダル --- */
