@@ -13,19 +13,6 @@
 </head>
 <body data-theme="dark">
     
-    <!-- ローディング画面 -->
-    <div id="loader" class="loader">
-        <div class="loader-content">
-            <div class="loader-bar"></div>
-            <div class="loader-text">Loading...</div>
-        </div>
-    </div>
-    
-    <!-- トップに戻るボタン -->
-    <button id="scrollToTopBtn" class="scroll-to-top" aria-label="Scroll to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-    
     <header id="stickyHeader">
         <div class="header-content">
             <div class="brand">
@@ -62,11 +49,6 @@
     </div>
 
     <div class="container">
-        <!-- 統計情報セクション -->
-        <section class="stats-section">
-            <div id="statsContainer" class="stats-container"></div>
-        </section>
-
         <section id="about-section" class="content-section">
             <div class="card about-card">
                 <h2 id="aboutTitle"></h2>
@@ -89,9 +71,6 @@
             <div class="card hero">
                 <h1 id="pageTitle"></h1>
                 <div id="pageMeta" class="meta"></div>
-
-                <!-- プロジェクトフィルター -->
-                <div id="projectFilters" class="project-filters"></div>
 
                 <div id="projectsContainer" class="projects" aria-live="polite">
                 </div>
@@ -189,7 +168,6 @@
         </footer>
     </div>
 
-    <!-- スキル詳細モーダル -->
     <div id="skillDetailModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -212,19 +190,6 @@
                 <h4 style="margin-top: 15px;"><i class="fas fa-book"></i> <span id="modalExperienceSummary"></span>:</h4>
                 <p id="modalProficiencyLevelText" class="modal-level-text"></p>
                 <p id="modalExperienceContent" class="modal-summary-content"></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ギャラリーモーダル -->
-    <div id="galleryModal" class="modal-overlay">
-        <div class="modal-content gallery-modal-content">
-            <div class="modal-header">
-                <h3 id="galleryTitle"></h3>
-                <button id="galleryCloseBtn" class="close-btn">閉じる</button>
-            </div>
-            <div class="modal-body">
-                <div id="galleryContainer" class="gallery-container"></div>
             </div>
         </div>
     </div>

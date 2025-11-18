@@ -34,22 +34,11 @@ const i18n = {
         // Activities
         activities_title: "課外活動 / 受賞歴",
         activities_meta: "学術的なコンテストや、その他の課外活動の記録です。",
-        activities_view_card: "カード表示",
-        activities_view_timeline: "タイムライン表示",
         // Contact
         contact_title: "連絡先",
         contact_meta: "お気軽にご連絡ください。",
         school_email_label: "学校用メール",
-        personal_email_label: "個人用メール",
-        // Stats
-        stats_projects: "プロジェクト",
-        stats_skills: "習得技術",
-        stats_activities: "課外活動",
-        // Filters
-        filter_all: "すべて",
-        filter_webapp: "Webアプリ",
-        filter_game: "ゲーム",
-        filter_languages: "言語で絞り込み"
+        personal_email_label: "個人用メール"
     },
     en: {
         title: "Welcome To My Portfolio!",
@@ -83,30 +72,12 @@ const i18n = {
         // Activities
         activities_title: "Activities / Awards",
         activities_meta: "Records of academic competitions and other extracurricular activities.",
-        activities_view_card: "Card View",
-        activities_view_timeline: "Timeline View",
         // Contact
         contact_title: "Contact",
         contact_meta: "Feel free to reach out to me.",
         school_email_label: "School Email",
-        personal_email_label: "Personal Email",
-        // Stats
-        stats_projects: "Projects",
-        stats_skills: "Skills",
-        stats_activities: "Activities",
-        // Filters
-        filter_all: "All",
-        filter_webapp: "Web App",
-        filter_game: "Game",
-        filter_languages: "Filter by Language"
+        personal_email_label: "Personal Email"
     }
-};
-
-// パフォーマンス指標データ
-const statsData = {
-    projects: 5,
-    skills: 8,
-    activities: 3
 };
 
 const timelineData = [
@@ -132,13 +103,13 @@ const timelineData = [
         year: "2025/03", 
         type: 'qual',
         title: { ja: "KOSENJIN SUMMIT 2025 ボランティア", en: "KOSENJIN SUMMIT 2025 Volunteer" }, 
-        description: { ja: "全国の高専生が集まるサミットの運営をサポート。", en: "Supported the organization of a summit gathering Kosen students nationwide." }
+        description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
     },
     { 
         year: "2025/03", 
         type: 'history',
         title: { ja: "学生有志団体PINTO OMUCT 所属", en: "Joined PINTO OMUCT" }, 
-        description: { ja: "学生主体のイベント企画団体に参加。", en: "Joined a student-led event planning organization." }
+        description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
     },
     { 
         year: "2025/04", 
@@ -150,7 +121,7 @@ const timelineData = [
         year: "2025/05", 
         type: 'history',
         title: { ja: "学生・教員有志団体FARAD 所属", en: "Joined FARAD" }, 
-        description: { ja: "技術研究を行う学生・教員の合同団体に参加。", en: "Joined a collaborative group of students and faculty conducting technical research." }
+        description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
     },
     { 
         year: "2025/07", 
@@ -162,7 +133,7 @@ const timelineData = [
         year: "2025/09", 
         type: 'qual',
         title: { ja: "未踏MEET UP! in 大阪 運営協力(株式会社みらいスタジオ)", en: "MITOU MEET UP! in Osaka Organizer" }, 
-        description: { ja: "未踏事業の交流イベントの運営をサポート。", en: "Supported the organization of MITOU project networking event." }
+        description: { ja: "AIやデータ分析を含む情報技術の専門教育を開始。", en: "Began specialized education in information technology, including AI and data analysis." }
     },
     { 
         year: "2025/10", 
@@ -183,11 +154,10 @@ const projects = [
         id: "p1", 
         title: { ja: "Hisayoshi", en: "Hisayoshi" }, 
         desc: { ja: "2I担任である室谷先生公認のOnly Up風室谷先生ゲーム、Hisayoshi。高専祭で展示しました。", en: "A game inspired by 'Only Up,' officially recognized by homeroom teacher Murotani-sensei, exhibited at the Kosen Festival." }, 
-        tags: ["Python"],
-        category: "game",
+        tags: ["python"], 
         date: "2025/11/8,9", 
-        url: "https://github.com/HR0620/2025_2I_kosen-fes",
-        images: ["./images/thumbnails/hisayoshi.png"]
+        url: "./projects/omuct-fes_2025",
+        image: "./images/hisayoshi_thumbnail.png"
     }
 ];
 
@@ -195,10 +165,11 @@ const activitiesData = [
     { 
         id: "a1", 
         title: { ja: "COMING SOON...", en: "COMING SOON..." }, 
-        desc: { ja: "COMING SOON...", en: "COMING SOON..." }, 
+        desc: { ja: "", en: "" }, 
+        tags: [""], 
         date: "B.C.2025/99/99", 
         url: "#",
-        image: "./images/thumbnails/procon.png"
+        image: "./images/procon_thumbnail.png"
     }
 ];
 
@@ -335,7 +306,7 @@ const socialLinks = [
     }
 ];
 
-// アイコン設定
+// アイコン設定（コピーボタンなど）
 const iconConfig = {
     copy: {
         dark: './images/icons/copy_dark.png',
@@ -350,13 +321,7 @@ const contactData = {
 };
 
 let currentLang = 'ja'; 
-let currentTheme = 'dark';
-let currentActivityView = 'card'; // 'card' or 'timeline'
-let selectedCategory = 'all';
-let selectedLanguages = [];
-
-// フィルタリング用の全言語リスト
-const allLanguages = ['Python', 'JavaScript', 'HTML/CSS', 'C++', 'Java', 'AWS', 'Azure'];
+let currentTheme = 'dark'; // テーマ管理
 
 // 📌 多言語対応の描画ロジック
 function applyLanguage(lang) {
@@ -369,26 +334,32 @@ function applyLanguage(lang) {
     document.getElementById("headerName").textContent = data.header_name;
     document.getElementById("headerTitle").textContent = data.header_title;
     
+    // About Me
     document.getElementById("aboutTitle").textContent = data.about_title;
     document.getElementById("aboutMeta").textContent = data.about_meta;
     document.getElementById("aboutContent").textContent = data.about_content;
     
+    // Timeline
     document.getElementById("timelineTitle").textContent = data.timeline_title;
     document.getElementById("timelineMeta").textContent = data.timeline_meta; 
 
+    // Skills & DevTools
     document.getElementById("skillsTitle").textContent = data.skills_title;
     document.getElementById("skillsMeta").textContent = data.skills_meta;
     document.getElementById("devToolsTitle").textContent = data.devtools_title;
     document.getElementById("devToolsMeta").textContent = data.devtools_meta;
     
+    // Activities
     document.getElementById("activitiesTitle").textContent = data.activities_title;
     document.getElementById("activitiesMeta").textContent = data.activities_meta;
     
+    // Contact
     document.getElementById("contactTitle").textContent = data.contact_title;
     document.getElementById("contactMeta").textContent = data.contact_meta;
     document.getElementById("schoolEmailLabel").textContent = data.school_email_label;
     document.getElementById("personalEmailLabel").textContent = data.personal_email_label;
     
+    // Shortcuts
     document.getElementById("scrollToAbout").textContent = data.shortcut_about;
     document.getElementById("scrollToIntro").textContent = data.shortcut_intro;
     document.getElementById("scrollToProjects").textContent = data.shortcut_projects;
@@ -396,20 +367,19 @@ function applyLanguage(lang) {
     document.getElementById("scrollToActivities").textContent = data.shortcut_activities;
     document.getElementById("scrollToContact").textContent = data.shortcut_contact;
     
+    // Modal
     document.getElementById("modalCloseBtn").textContent = data.modal_close;
     document.getElementById("modalProficiencyLevel").textContent = data.proficiency_level;
     document.getElementById("modalExperienceSummary").textContent = data.experience_summary;
 
-    // 言語切り替えボタンのテキスト更新
-    document.getElementById('langToggle').textContent = lang === 'ja' ? 'EN' : 'JP';
-    
     renderProjects();
     renderTimeline();
     renderActivities();
     renderSkills();
     renderDevTools();
-    renderStats();
-    renderProjectFilters();
+
+    document.getElementById('langToggle').textContent = lang === 'ja' ? 'English' : '日本語';
+    document.getElementById('langToggle').setAttribute('aria-label', lang === 'ja' ? 'Switch to English' : '日本語に切り替える');
 }
 
 // 📌 テーマ切り替え
@@ -417,120 +387,9 @@ function toggleTheme() {
     currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
     document.body.setAttribute('data-theme', currentTheme);
     localStorage.setItem('theme', currentTheme);
+    
+    // アイコンを更新
     updateThemeIcons();
-}
-
-// 📌 統計情報のレンダリング
-function renderStats() {
-    const container = document.getElementById('statsContainer');
-    const data = i18n[currentLang];
-    
-    container.innerHTML = `
-        <div class="stat-item">
-            <div class="stat-number" data-target="${statsData.projects}">0</div>
-            <div class="stat-label">${data.stats_projects}</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number" data-target="${statsData.skills}">0</div>
-            <div class="stat-label">${data.stats_skills}</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number" data-target="${statsData.activities}">0</div>
-            <div class="stat-label">${data.stats_activities}</div>
-        </div>
-    `;
-    
-    animateStats();
-}
-
-// 📌 統計数値のアニメーション
-function animateStats() {
-    const statNumbers = document.querySelectorAll('.stat-number');
-    
-    statNumbers.forEach(stat => {
-        const target = parseInt(stat.getAttribute('data-target'));
-        let current = 0;
-        const increment = target / 30;
-        const duration = 1000;
-        const stepTime = duration / 30;
-        
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                stat.textContent = target;
-                clearInterval(timer);
-            } else {
-                stat.textContent = Math.floor(current);
-            }
-        }, stepTime);
-    });
-}
-
-// 📌 プロジェクトフィルターのレンダリング
-function renderProjectFilters() {
-    const container = document.getElementById('projectFilters');
-    const data = i18n[currentLang];
-    
-    container.innerHTML = `
-        <div class="filter-buttons">
-            <button class="filter-btn ${selectedCategory === 'all' ? 'active' : ''}" data-category="all">${data.filter_all}</button>
-            <button class="filter-btn ${selectedCategory === 'webapp' ? 'active' : ''}" data-category="webapp">${data.filter_webapp}</button>
-            <button class="filter-btn ${selectedCategory === 'game' ? 'active' : ''}" data-category="game">${data.filter_game}</button>
-        </div>
-        <div class="language-filter">
-            <button class="language-dropdown-btn" id="languageDropdownBtn">
-                ${data.filter_languages} ▼
-            </button>
-            <div class="language-dropdown-content" id="languageDropdownContent">
-                ${allLanguages.map(lang => `
-                    <label class="language-option">
-                        <input type="checkbox" value="${lang}" ${selectedLanguages.includes(lang) ? 'checked' : ''}>
-                        <span>${lang}</span>
-                    </label>
-                `).join('')}
-            </div>
-        </div>
-    `;
-    
-    // イベントリスナー追加
-    container.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            selectedCategory = e.target.getAttribute('data-category');
-            renderProjectFilters();
-            renderProjects();
-        });
-    });
-    
-    // ドロップダウンの制御
-    const dropdownBtn = document.getElementById('languageDropdownBtn');
-    const dropdownContent = document.getElementById('languageDropdownContent');
-    
-    dropdownBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownContent.classList.toggle('show');
-    });
-    
-    // チェックボックスの制御
-    dropdownContent.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', (e) => {
-            const lang = e.target.value;
-            if (e.target.checked) {
-                if (!selectedLanguages.includes(lang)) {
-                    selectedLanguages.push(lang);
-                }
-            } else {
-                selectedLanguages = selectedLanguages.filter(l => l !== lang);
-            }
-            renderProjects();
-        });
-    });
-    
-    // 外側クリックで閉じる
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.language-filter')) {
-            dropdownContent.classList.remove('show');
-        }
-    });
 }
 
 // 📌 タイムラインをレンダリングする関数
@@ -567,37 +426,21 @@ function renderTimeline() {
     setupScrollReveal(); 
 }
 
-// 📌 プロジェクトをレンダリングする関数（フィルタリング対応）
+// 📌 プロジェクトをレンダリングする関数
 function renderProjects(){
     const container = document.getElementById("projectsContainer");
     const tpl = container.parentNode.querySelector("#project-template");
     container.innerHTML = "";
     
     const linkText = i18n[currentLang].link_detail;
-    
-    // フィルタリング
-    let filteredProjects = projects;
-    
-    if (selectedCategory !== 'all') {
-        filteredProjects = filteredProjects.filter(p => p.category === selectedCategory);
-    }
-    
-    if (selectedLanguages.length > 0) {
-        filteredProjects = filteredProjects.filter(p => 
-            p.tags.some(tag => selectedLanguages.includes(tag))
-        );
-    }
 
-    filteredProjects.forEach(p => {
+    projects.forEach(p => {
         const clone = tpl.content.cloneNode(true);
         
-        // 画像ギャラリー（最初の画像を表示）
-        if (p.images && p.images.length > 0) {
+        if (p.image) {
             const imgEl = clone.querySelector(".project-image");
-            imgEl.src = p.images[0];
+            imgEl.src = p.image;
             imgEl.alt = p.title[currentLang] + " のサムネイル画像";
-            imgEl.style.cursor = 'pointer';
-            imgEl.addEventListener('click', () => showProjectGallery(p));
         }
 
         clone.querySelector(".title").textContent = p.title[currentLang];
@@ -619,108 +462,35 @@ function renderProjects(){
 
         container.appendChild(clone);
     });
-    
-    // フィルター結果が0件の場合
-    if (filteredProjects.length === 0) {
-        container.innerHTML = '<p style="text-align:center;color:var(--muted);padding:40px;">該当するプロジェクトが見つかりませんでした。</p>';
-    }
 }
 
-// 📌 プロジェクトギャラリー表示
-function showProjectGallery(project) {
-    const modal = document.getElementById('galleryModal');
-    const container = document.getElementById('galleryContainer');
-    
-    document.getElementById('galleryTitle').textContent = project.title[currentLang];
-    
-    container.innerHTML = '';
-    project.images.forEach((img, index) => {
-        const imgEl = document.createElement('img');
-        imgEl.src = img;
-        imgEl.alt = `${project.title[currentLang]} - Image ${index + 1}`;
-        imgEl.className = 'gallery-image';
-        container.appendChild(imgEl);
-    });
-    
-    modal.classList.add('visible');
-    document.body.classList.add('modal-open');
-}
-
-// 📌 Activitiesをレンダリングする関数
+// 📌 Activitiesをレンダリングする関数（スキルカード風）
 function renderActivities(){
     const container = document.getElementById("activitiesContainer");
     container.innerHTML = "";
-    
-    const data = i18n[currentLang];
-    
-    // 表示切り替えボタン
-    const viewToggle = document.createElement('div');
-    viewToggle.className = 'view-toggle';
-    viewToggle.innerHTML = `
-        <button class="view-btn ${currentActivityView === 'card' ? 'active' : ''}" data-view="card">${data.activities_view_card}</button>
-        <button class="view-btn ${currentActivityView === 'timeline' ? 'active' : ''}" data-view="timeline">${data.activities_view_timeline}</button>
-    `;
-    container.appendChild(viewToggle);
-    
-    viewToggle.querySelectorAll('.view-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            currentActivityView = e.target.getAttribute('data-view');
-            renderActivities();
-        });
+
+    activitiesData.forEach(a => {
+        const activityCard = document.createElement('div');
+        activityCard.className = 'activity-card';
+        activityCard.setAttribute('data-activity-id', a.id);
+        activityCard.addEventListener('click', () => showActivityModal(a.id));
+
+        // サムネイル画像
+        if (a.image) {
+            const img = document.createElement('img');
+            img.className = 'activity-icon';
+            img.src = a.image;
+            img.alt = a.title[currentLang];
+            activityCard.appendChild(img);
+        }
+
+        // タイトル
+        const title = document.createElement('h3');
+        title.textContent = a.title[currentLang];
+        activityCard.appendChild(title);
+
+        container.appendChild(activityCard);
     });
-    
-    // コンテンツコンテナ
-    const contentContainer = document.createElement('div');
-    contentContainer.className = currentActivityView === 'card' ? 'skills-grid' : 'activities-timeline';
-    
-    if (currentActivityView === 'card') {
-        // カード表示
-        activitiesData.forEach(a => {
-            const activityCard = document.createElement('div');
-            activityCard.className = 'activity-card';
-            activityCard.setAttribute('data-activity-id', a.id);
-            activityCard.addEventListener('click', () => showActivityModal(a.id));
-
-            if (a.image) {
-                const img = document.createElement('img');
-                img.className = 'activity-icon';
-                img.src = a.image;
-                img.alt = a.title[currentLang];
-                activityCard.appendChild(img);
-            }
-
-            const title = document.createElement('h3');
-            title.textContent = a.title[currentLang];
-            activityCard.appendChild(title);
-
-            contentContainer.appendChild(activityCard);
-        });
-    } else {
-        // タイムライン表示
-        activitiesData.forEach(a => {
-            const timelineItem = document.createElement('div');
-            timelineItem.className = 'activities-timeline-item';
-            timelineItem.addEventListener('click', () => showActivityModal(a.id));
-            
-            const content = document.createElement('div');
-            content.className = 'activities-timeline-content';
-            
-            const year = document.createElement('div');
-            year.className = 'activities-timeline-year';
-            year.textContent = a.date;
-            
-            const title = document.createElement('h3');
-            title.className = 'activities-timeline-title';
-            title.textContent = a.title[currentLang];
-            
-            content.appendChild(year);
-            content.appendChild(title);
-            timelineItem.appendChild(content);
-            contentContainer.appendChild(timelineItem);
-        });
-    }
-    
-    container.appendChild(contentContainer);
 }
 
 // 📌 Activityモーダル表示ロジック
@@ -731,13 +501,19 @@ function showActivityModal(activityId) {
     const modal = document.getElementById('skillDetailModal');
     const lang = currentLang;
 
+    // 画像
     if (activity.image) {
         document.getElementById('modalSkillIcon').src = activity.image;
         document.getElementById('modalSkillIcon').alt = activity.title[lang];
     }
     
+    // タイトル
     document.getElementById('modalSkillName').textContent = activity.title[lang];
+
+    // 熟練度バーを非表示
     document.getElementById('modalProficiencySection').style.display = 'none';
+
+    // 内容を表示
     document.getElementById('modalExperienceContent').textContent = activity.desc[lang];
     document.getElementById('modalProficiencyLevelText').textContent = activity.date;
     
@@ -745,7 +521,7 @@ function showActivityModal(activityId) {
     document.body.classList.add('modal-open'); 
 }
 
-// 📌 スキルをレンダリングする関数（プログレスバー付き）
+// 📌 スキルをレンダリングする関数
 function renderSkills() {
     const container = document.getElementById("skillsContainer");
     container.innerHTML = '';
@@ -763,18 +539,9 @@ function renderSkills() {
 
         const name = document.createElement('h3');
         name.textContent = skill.name;
-        
-        // プログレスバー追加
-        const progressBar = document.createElement('div');
-        progressBar.className = 'skill-progress-bar';
-        const progress = document.createElement('div');
-        progress.className = 'skill-progress';
-        progress.style.width = skill.proficiency + '%';
-        progressBar.appendChild(progress);
 
         skillCard.appendChild(icon);
         skillCard.appendChild(name);
-        skillCard.appendChild(progressBar);
         container.appendChild(skillCard);
     });
 }
@@ -806,11 +573,6 @@ function showSkillModal(skillId) {
 
 function hideSkillModal() {
     document.getElementById('skillDetailModal').classList.remove('visible');
-    document.body.classList.remove('modal-open');
-}
-
-function hideGalleryModal() {
-    document.getElementById('galleryModal').classList.remove('visible');
     document.body.classList.remove('modal-open');
 }
 
@@ -894,7 +656,11 @@ function setupScrollReveal() {
 function initContact() {
     document.getElementById('schoolEmail').textContent = contactData.schoolEmail;
     document.getElementById('personalEmail').textContent = contactData.personalEmail;
+    
+    // SNSリンクをレンダリング
     renderSocialLinks();
+    
+    // テーマに応じたアイコンを設定
     updateThemeIcons();
 }
 
@@ -924,6 +690,7 @@ function renderSocialLinks() {
 
 // 📌 テーマに応じてアイコンを更新
 function updateThemeIcons() {
+    // SNSアイコンを更新
     socialLinks.forEach(link => {
         const anchor = document.querySelector(`[data-social="${link.name.toLowerCase()}"]`);
         if (anchor) {
@@ -932,6 +699,7 @@ function updateThemeIcons() {
         }
     });
     
+    // コピーボタンのアイコンを更新
     document.querySelectorAll('.copy-icon').forEach(icon => {
         icon.src = currentTheme === 'dark' ? iconConfig.copy.dark : iconConfig.copy.light;
     });
@@ -956,50 +724,8 @@ function setupCopyButtons() {
     });
 }
 
-// 📌 トップに戻るボタンの制御
-let lastScrollTop = 0;
-let scrollTimeout;
-let isScrollingUp = false;
-
-function handleScrollToTop() {
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // スクロール方向を判定
-    if (currentScroll < lastScrollTop) {
-        // 上にスクロール中
-        isScrollingUp = true;
-        scrollToTopBtn.classList.add('visible');
-        
-        // タイムアウトをクリア
-        clearTimeout(scrollTimeout);
-        
-        // 3秒後に非表示
-        scrollTimeout = setTimeout(() => {
-            scrollToTopBtn.classList.remove('visible');
-            isScrollingUp = false;
-        }, 3000);
-    } else {
-        // 下にスクロール中または停止中
-        scrollToTopBtn.classList.remove('visible');
-        isScrollingUp = false;
-    }
-    
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-}
-
-// 📌 ローディング画面の制御
-window.addEventListener('load', () => {
-    const loader = document.getElementById('loader');
-    setTimeout(() => {
-        loader.classList.add('fade-out');
-        setTimeout(() => {
-            loader.style.display = 'none';
-        }, 500);
-    }, 1000);
-});
-
 // 📌 初期化
+// 保存されたテーマを読み込む
 const savedTheme = localStorage.getItem('theme') || 'dark';
 currentTheme = savedTheme;
 document.body.setAttribute('data-theme', currentTheme);
@@ -1071,23 +797,4 @@ document.getElementById('skillDetailModal').addEventListener('click', (e) => {
     if (e.target.id === 'skillDetailModal') {
         hideSkillModal();
     }
-});
-
-// ギャラリーモーダル
-document.getElementById('galleryCloseBtn').addEventListener('click', hideGalleryModal);
-document.getElementById('galleryModal').addEventListener('click', (e) => {
-    if (e.target.id === 'galleryModal') {
-        hideGalleryModal();
-    }
-});
-
-// スクロールイベント
-window.addEventListener('scroll', handleScrollToTop);
-
-// トップに戻るボタン
-document.getElementById('scrollToTopBtn').addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
 });
