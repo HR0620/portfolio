@@ -6,17 +6,23 @@
     <title>原田連寿のPortfolio</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./images/icons/favicon.png">
-
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://kit.fontawesome.com/a7a7238217.js" crossorigin="anonymous"></script>
-</head>
-<body data-theme="dark">
+    <link rel="icon" type="image/png" href="./images/icons/icon.png">
     
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    
+    <!-- Fixed Header -->
     <header id="stickyHeader">
         <div class="header-content">
             <div class="brand">
-                <img src="./images/icons/avatar.png" alt="Profile Icon" class="avatar-img" aria-hidden="true">
+                <i class="fas fa-user-circle avatar-icon"></i>
                 <div>
                     <div id="headerName" style="font-weight:700"></div>
                     <div id="headerTitle" class="meta"></div>
@@ -24,8 +30,10 @@
             </div>
             
             <div class="controls">
-                <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme"></button>
-                <button id="langToggle"></button>
+                <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="langToggle">JP</button>
                 <button id="hamburgerBtn" class="hamburger-btn" aria-label="Menu">
                     <span></span>
                     <span></span>
@@ -36,7 +44,7 @@
     </header>
     <div id="headerSpacer"></div>
 
-    <!-- Hamburger Menu Overlay -->
+    <!-- Hamburger Menu -->
     <div id="menuOverlay" class="menu-overlay">
         <nav class="menu-content">
             <button id="scrollToAbout" class="menu-item"></button>
@@ -49,41 +57,48 @@
     </div>
 
     <div class="container">
+        <!-- About Me Section -->
         <section id="about-section" class="content-section">
-            <div class="card about-card">
+            <div class="card">
                 <h2 id="aboutTitle"></h2>
                 <div class="meta" id="aboutMeta"></div>
                 <p id="aboutContent" class="about-text"></p>
             </div>
         </section>
 
+        <!-- Timeline Section -->
         <section id="introduction" class="content-section">
-            <div class="card intro-card">
+            <div class="card">
                 <h2 id="timelineTitle"></h2>
                 <div class="meta" id="timelineMeta"></div>
                 
-                <div id="timelineContainer" class="timeline-container">
+                <div class="timeline-filters">
+                    <button class="filter-btn active" data-filter="all" id="filterAll"></button>
+                    <button class="filter-btn" data-filter="history" id="filterHistory"></button>
+                    <button class="filter-btn" data-filter="qual" id="filterQual"></button>
                 </div>
+                
+                <div id="timelineContainer" class="timeline-container"></div>
             </div>
         </section>
 
+        <!-- Projects Section -->
         <section id="projects-section" class="content-section">
             <div class="card hero">
                 <h1 id="pageTitle"></h1>
                 <div id="pageMeta" class="meta"></div>
 
-                <div id="projectsContainer" class="projects" aria-live="polite">
-                </div>
+                <div id="projectsContainer" class="projects"></div>
 
                 <template id="project-template">
-                    <article class="project" role="article">
+                    <article class="project">
                         <img class="project-image" src="" alt="" loading="lazy">
                         <div style="display:flex;justify-content:space-between;align-items:center">
                             <h3 class="title"></h3>
                             <div class="meta small muted date"></div>
                         </div>
                         <div class="desc"></div>
-                        <div class="tags" aria-hidden="true"></div>
+                        <div class="tags"></div>
                         <div style="display:flex;gap:8px;margin-top:8px">
                             <a class="link" target="_blank" rel="noopener"></a>
                         </div>
@@ -92,36 +107,36 @@
             </div>
         </section>
         
+        <!-- Skills Section -->
         <section id="skills-section" class="content-section">
-            <div class="card skills-card">
+            <div class="card">
                 <h2 id="skillsTitle"></h2>
                 <div class="meta" id="skillsMeta"></div>
-                <div id="skillsContainer" class="skills-grid">
-                </div>
+                <div id="skillsContainer" class="skills-grid"></div>
             </div>
         </section>
 
+        <!-- Dev Tools Section -->
         <section id="devtools-section" class="content-section">
-            <div class="card skills-card">
-                <h2 id="devToolsTitle">Dev Tools</h2>
-                <div class="meta" id="devToolsMeta">開発で使用しているツール一覧</div>
-
+            <div class="card">
+                <h2 id="devToolsTitle"></h2>
+                <div class="meta" id="devToolsMeta"></div>
                 <div id="devToolsContainer" class="skills-grid"></div>
             </div>
         </section>
 
+        <!-- Activities Section -->
         <section id="activities-section" class="content-section">
             <div class="card hero">
                 <h2 id="activitiesTitle"></h2>
                 <div id="activitiesMeta" class="meta"></div>
-
-                <div id="activitiesContainer" class="skills-grid" aria-live="polite">
-                </div>
+                <div id="activitiesContainer" class="skills-grid"></div>
             </div>
         </section>
 
+        <!-- Contact Section -->
         <section id="contact-section" class="content-section">
-            <div class="card contact-card">
+            <div class="card">
                 <h2 id="contactTitle"></h2>
                 <div class="meta" id="contactMeta"></div>
 
@@ -132,7 +147,7 @@
                         <div class="email-display">
                             <span id="schoolEmail" class="email-address"></span>
                             <button class="copy-btn" data-email="school" aria-label="Copy email">
-                                <img src="./images/icons/copy.png" alt="Copy" class="copy-icon">
+                                <i class="fas fa-copy"></i>
                             </button>
                         </div>
                     </div>
@@ -143,7 +158,7 @@
                         <div class="email-display">
                             <span id="personalEmail" class="email-address"></span>
                             <button class="copy-btn" data-email="personal" aria-label="Copy email">
-                                <img src="./images/icons/copy.png" alt="Copy" class="copy-icon">
+                                <i class="fas fa-copy"></i>
                             </button>
                         </div>
                     </div>
@@ -151,13 +166,13 @@
 
                 <div class="social-links">
                     <a href="https://github.com/HR0620" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
-                        <img src="./images/icons/github-dark.png" alt="GitHub" class="social-logo icon-theme-toggle">
+                        <i class="fab fa-github"></i>
                     </a>
                     <a href="https://twitter.com/your_handle" target="_blank" rel="noopener" class="social-icon" aria-label="X (Twitter)">
-                        <img src="./images/icons/x-dark.png" alt="X" class="social-logo icon-x-toggle">
+                        <i class="fab fa-x-twitter"></i>
                     </a>
                     <a href="https://facebook.com/your_profile" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
-                        <img src="./images/icons/facebook-dark.png" alt="Facebook" class="social-logo icon-facebook-toggle">
+                        <i class="fab fa-facebook"></i>
                     </a>
                 </div>
             </div>
@@ -168,10 +183,11 @@
         </footer>
     </div>
 
+    <!-- Modal -->
     <div id="skillDetailModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
-                <img id="modalSkillIcon" class="modal-icon" src="" alt="Skill Icon">
+                <div id="modalSkillIcon" class="modal-icon"></div>
                 <h3 id="modalSkillName"></h3>
                 <button id="modalCloseBtn" class="close-btn"></button>
             </div>
@@ -194,6 +210,15 @@
         </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <!-- JavaScript Files -->
+    <script src="js/config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/skills.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/contact.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
