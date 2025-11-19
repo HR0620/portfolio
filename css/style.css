@@ -27,7 +27,7 @@
     --card: #ffffff;
     /* テキストの薄い色 */
     --muted: #65676b;
-    /* アクセントカラー (ライトモードではネイビー系) */
+    /* アクセントカラー */
     --accent: #1a3a52;
     /* メインテキスト色 */
     --text: #1c1e21;
@@ -49,7 +49,7 @@ html, body {
 
 /* ダークモード: グラデーション背景 */
 [data-theme="dark"] body {
-    background: linear-gradient(180deg, var(--bg), #071025 60%);
+    background: var(--bg);
 }
 
 /* ライトモード: 単色背景 */
