@@ -4,7 +4,7 @@
 
 A responsive multilingual portfolio website (Japanese/English). A simple yet extensible personal project showcase built with only HTML, CSS, and JavaScript.
 
-🌐 **Live Demo:** [https://hr0620.github.io/portfolio/](https://hr0620.github.io/portfolio/)
+🌐 **Live Demo:** [https://hr0620.github.io/portfolio/index/index.html](https://hr0620.github.io/portfolio/index/index.html)
 
 ## Features
 

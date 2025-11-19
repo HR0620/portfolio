@@ -66,6 +66,8 @@ class Activities {
     }
 }
 
+window.Activities = Activities;
+
 // グローバルに公開するための関数
 function renderProjects() {
     if (window.projectsInstance) {

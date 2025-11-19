@@ -29,10 +29,10 @@ class Contact {
                     // アイコンをチェックマークに変更（サイズは統一）
                     btn.innerHTML = '<i class="fas fa-check"></i>';
                     
-                    // 2秒後に元に戻す
+                    // 3秒後に元に戻す
                     setTimeout(() => {
                         btn.innerHTML = '<i class="fas fa-copy"></i>';
-                    }, 2000);
+                    }, 3000);
                 }).catch(err => {
                     console.error('コピーに失敗しました:', err);
                     alert('コピーに失敗しました。手動でコピーしてください。');

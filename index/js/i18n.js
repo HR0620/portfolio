@@ -6,20 +6,20 @@ const i18n = {
         title: "Welcome To My Portfolio!",
         meta: "これまでに制作したプロジェクトを紹介しています。",
         header_name: "原田連寿",
-        header_title: "大阪公立大学工業高等専門学校 / 2年",
+        header_title: "公大高専-I / 2年",
         link_detail: "詳細",
         
         // About Me
         about_title: "About Me",
-        about_meta: "私について",
-        about_content: "大阪公立大学工業高等専門学校の2年生です。プログラミングやWeb開発に興味があり、日々学習を続けています。趣味はゲーム開発とアルゴリズムの勉強です。",
+        about_meta: "",
+        about_content: "大阪公立大学工業高等専門学校 総合工学システム学科 知能情報(I)コース在学中の2年生です。プログラミングやWeb開発に興味があり、日々学習を続けています。趣味はゲーム(幅広く)と勉強です。",
         
         // Timeline
         timeline_title: "沿革",
         timeline_meta: "学歴、受賞、資格・検定取得といった私の歩みを時系列で紹介します。",
         filter_all: "すべて",
         filter_history: "経歴",
-        filter_qual: "資格",
+        filter_qual: "資格等",
         
         // Shortcuts
         shortcut_about: "自己紹介",
@@ -31,14 +31,14 @@ const i18n = {
         
         // Skills
         skills_title: "スキルセット",
-        skills_meta: "私が習得している技術と、それぞれの熟練度を紹介します。",
+        skills_meta: "私が習得している技術について紹介します。",
         modal_close: "閉じる",
         proficiency_level: "熟練度",
         experience_summary: "経験概要",
         
         // Dev Tools
         devtools_title: "開発ツール",
-        devtools_meta: "普段の開発で使用しているツール一覧です。",
+        devtools_meta: "普段の開発等で使用しているツール一覧です。",
         
         // Activities
         activities_title: "課外活動 / 受賞歴",
@@ -54,23 +54,23 @@ const i18n = {
         title: "Welcome To My Portfolio!",
         meta: "Showcasing the projects I have worked on.",
         header_name: "Renju Harada",
-        header_title: "Osaka Metropolitan University College of Technology / Grade 2",
+        header_title: "OMUCT-I / Grade 2",
         link_detail: "Details",
         
         // About Me
         about_title: "About Me",
         about_meta: "Introduction",
-        about_content: "I'm a 2nd year student at Osaka Metropolitan University College of Technology. I'm interested in programming and web development, and I'm constantly learning. My hobbies include game development and studying algorithms.",
+        about_content: "I'm a 2nd year student at Osaka Metropolitan University College of Technology(OMUCT),Dept. of Technological Systems, Intelligent Informatics Course. I'm interested in programming and web development, and I'm constantly learning. My hobbies include playing game and studying anything.",
         
         // Timeline
         timeline_title: "My Journey",
         timeline_meta: "A chronological overview of my education, awards, and qualifications.",
         filter_all: "All",
         filter_history: "History",
-        filter_qual: "Qualifications",
+        filter_qual: "Qualifications etc.",
         
         // Shortcuts
-        shortcut_about: "About",
+        shortcut_about: "About me",
         shortcut_intro: "Journey",
         shortcut_projects: "Projects",
         shortcut_skills: "Skills/Tools",
@@ -86,7 +86,7 @@ const i18n = {
         
         // Dev Tools
         devtools_title: "Development Tools",
-        devtools_meta: "Tools I frequently use for development.",
+        devtools_meta: "Tools I frequently use for development etc..",
         
         // Activities
         activities_title: "Activities / Awards",

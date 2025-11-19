@@ -3,7 +3,7 @@
 
 多言語対応（日本語/英語）のレスポンシブポートフォリオサイト。HTML/CSS/JavaScriptのみで構成されたシンプルで拡張性の高い個人プロジェクト紹介サイトです。
 
-🌐 **Live Demo:** [https://hr0620.github.io/portfolio/](https://hr0620.github.io/portfolio/)
+🌐 **Live Demo:** [https://hr0620.github.io/portfolio/index/index.html](https://hr0620.github.io/portfolio/index/index.html)
 
 ## 特徴
 

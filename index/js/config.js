@@ -43,7 +43,7 @@ const timelineData = [
             en: "KOSENJIN SUMMIT 2025 Volunteer" 
         }, 
         description: { 
-            ja: "AIやデータ分析を含む情報技術の専門教育を開始。", 
+            ja: "2025年度大阪で開かれた高専人会の運営スタッフにボランティアとして参加。高専人との交流を深める。", 
             en: "Began specialized education in information technology, including AI and data analysis." 
         }
     },
@@ -55,7 +55,7 @@ const timelineData = [
             en: "Joined PINTO OMUCT" 
         }, 
         description: { 
-            ja: "AIやデータ分析を含む情報技術の専門教育を開始。", 
+            ja: "", 
             en: "Began specialized education in information technology, including AI and data analysis." 
         }
     },
@@ -67,7 +67,7 @@ const timelineData = [
             en: "Advanced to Intelligent Informatics Course" 
         }, 
         description: { 
-            ja: "AIやデータ分析を含む情報技術の専門教育を開始。", 
+            ja: "AIやデータ分析を含む情報技術について学んでいく。", 
             en: "Began specialized education in information technology, including AI and data analysis." 
         }
     },
@@ -79,7 +79,7 @@ const timelineData = [
             en: "Joined FARAD" 
         }, 
         description: { 
-            ja: "AIやデータ分析を含む情報技術の専門教育を開始。", 
+            ja: "学校で学んだことを学外の子どもたちへ説明する実験教室を行って自分たちの理解と造詣を深めるとともに、子どもたちの理科・技術への興味関心を高めることを目標にする学生・教員有志団体に参加。", 
             en: "Began specialized education in information technology, including AI and data analysis." 
         }
     },
@@ -92,7 +92,7 @@ const timelineData = [
         }, 
         description: { 
             ja: "", 
-            en: "Demonstrated advanced Japanese language proficiency." 
+            en: "" 
         }
     },
     { 
@@ -103,7 +103,7 @@ const timelineData = [
             en: "MITOU MEET UP! in Osaka Organizer" 
         }, 
         description: { 
-            ja: "AIやデータ分析を含む情報技術の専門教育を開始。", 
+            ja: "当日の案内・受付スタッフとして参加。未踏人材に選ばれた開発者の方々と交流もする。", 
             en: "Began specialized education in information technology, including AI and data analysis." 
         }
     },
@@ -115,8 +115,8 @@ const timelineData = [
             en: "IT Passport Exam Passed" 
         }, 
         description: { 
-            ja: "情報技術に関する基礎的な知識を幅広く習得。", 
-            en: "Acquired broad basic knowledge of information technology." 
+            ja: "", 
+            en: "" 
         }
     },
     { 
@@ -127,8 +127,8 @@ const timelineData = [
             en: "Currently studying at Osaka Metropolitan University College of Technology, Intelligent Informatics Course" 
         }, 
         description: { 
-            ja: "Webアプリケーション開発とUI/UX設計を専門的に学び、チーム開発を経験中。", 
-            en: "Specializing in web application development and UI/UX design, currently experiencing team development." 
+            ja: "", 
+            en: "" 
         }
     }
 ];
@@ -140,12 +140,12 @@ const projects = [
         title: { ja: "Hisayoshi", en: "Hisayoshi" }, 
         desc: { 
             ja: "2I担任である室谷先生公認のOnly Up風室谷先生ゲーム、Hisayoshi。高専祭で展示しました。", 
-            en: "A game inspired by 'Only Up,' officially recognized by homeroom teacher Murotani-sensei, exhibited at the Kosen Festival." 
+            en: "A game inspired by 'Only Up,' officially recognized by homeroom teacher Muroya-sensei, exhibited at the Kosen Festival." 
         }, 
         tags: ["python"], 
         date: "2025/11/8,9", 
-        url: "./projects/omuct-fes_2025",
-        image: "./images/hisayoshi_thumbnail.png"
+        url: "../projects/kosen-fes/2025/index.html",
+        image: "images/hisayoshi_thumbnail.png"
     }
 ];
 
@@ -164,15 +164,16 @@ const activitiesData = [
 
 // スキルデータ
 const skillsData = [
+
     {
-        id: 'cpp',
-        name: 'C++',
-        icon: 'fa-code',
-        proficiency: 70,
+        id: 'python',
+        name: 'Python',
+        icon: 'fa-python',
+        proficiency: 20,
         details: {
             ja: {
-                level: "中級 (基本的なアルゴリズム実装、競技プログラミング)",
-                summary: "高専の授業で基本的な構文とデータ構造を学習。競技プログラミングの練習で複雑なアルゴリズムの実装経験あり。"
+                level: "初級 (基本的なアルゴリズム実装、競技プログラミング、Aruduino)",
+                summary: "パソコン甲子園のために部活動で自習。また、高専の授業でC++でAruduinoを動かす実験を行う。"
             },
             en: {
                 level: "Intermediate (Basic algorithm implementation, competitive programming)",
@@ -184,11 +185,11 @@ const skillsData = [
         id: 'html',
         name: 'HTML/CSS',
         icon: 'fa-html5',
-        proficiency: 85,
+        proficiency: 15,
         details: {
             ja: {
-                level: "上級 (レスポンシブデザイン、CSSアニメーション)",
-                summary: "セマンティックなHTML記述と、CSS Grid/Flexboxを用いたレスポンシブレイアウトが得意。現在のポートフォリオも自作CSSで構築。"
+                level: "初級",
+                summary: ""
             },
             en: {
                 level: "Advanced (Responsive design, CSS animation)",
@@ -200,11 +201,11 @@ const skillsData = [
         id: 'javascript',
         name: 'JavaScript',
         icon: 'fa-js',
-        proficiency: 65,
+        proficiency: 10,
         details: {
             ja: {
-                level: "中級 (DOM操作、非同期処理)",
-                summary: "DOM操作による動的コンテンツの作成、非同期処理(Promise, async/await)の基本を理解。Vanilla JSでの開発経験が豊富。"
+                level: "初級",
+                summary: ""
             },
             en: {
                 level: "Intermediate (DOM manipulation, asynchronous processing)",
@@ -257,14 +258,14 @@ const devTools = [
     {
         id: 'msoffice',
         name: 'MS Office',
-        icon: 'fa-file-word',
+        icon: 'fa-microsoft',
         frequency_text: {
             ja: "必要なときに使用",
             en: "Used as needed"
         },
         details: {
             ja: {
-                summary: "Word, Excel, PowerPoint をレポートや提出物で使用します。",
+                summary: "Word, Excel, PowerPointをレポートや提出物で使用します。",
                 frequency: "必要に応じて使用します。"
             },
             en: {
@@ -278,5 +279,5 @@ const devTools = [
 // コンタクト情報
 const contactData = {
     schoolEmail: "rh24098s@st.omu.ac.jp",
-    personalEmail: "h.renju0602@gmail.com"
+    personalEmail: "hrenju.works@gmail.com"
 };
