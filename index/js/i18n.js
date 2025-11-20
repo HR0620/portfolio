@@ -3,7 +3,7 @@
 // 多言語テキストデータ
 const i18n = {
     ja: {
-        title: "Welcome To My Portfolio!",
+        title: "原田連寿のポートフォリオ",
         meta: "これまでに制作したプロジェクトを紹介しています。",
         header_name: "原田連寿",
         header_title: "公大高専-I / 2年",
@@ -56,7 +56,7 @@ const i18n = {
         personal_email_label: "個人用メール"
     },
     en: {
-        title: "Welcome To My Portfolio!",
+        title: "Harada Renju's Portfolio",
         meta: "Showcasing the projects I have worked on.",
         header_name: "Renju Harada",
         header_title: "OMUCT-I / Grade 2",
