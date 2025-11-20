@@ -169,11 +169,11 @@ const skillsData = [
         id: 'python',
         name: 'Python',
         icon: 'fa-python',
-        proficiency: 20,
+        proficiency: 35,
         details: {
             ja: {
-                level: "初級 (基本的なアルゴリズム実装、競技プログラミング、Aruduino)",
-                summary: "パソコン甲子園のために部活動で自習。また、高専の授業でC++でAruduinoを動かす実験を行う。"
+                level: "中級 (Numpy, Pandas, Matplotlib, pygame等のライブラリ使用経験あり)",
+                summary: "データ分析や機械学習の基礎を学習。個人プロジェクトでの使用経験あり。高専祭でpygameを使用。"
             },
             en: {
                 level: "Intermediate (Basic algorithm implementation, competitive programming)",
@@ -237,9 +237,9 @@ const devTools = [
         }
     },
     {
-        id: 'latex',
-        name: 'LaTeX',
-        icon: 'fa-file-code',
+        id: 'tex',
+        name: 'TeX',
+        icon: 'fa-tex',
         frequency_text: {
             ja: "週1-2回",
             en: "1-2 times/week"
