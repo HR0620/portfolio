@@ -139,15 +139,15 @@ function applyLanguage(lang) {
     document.getElementById("filterHistory").textContent = data.filter_history;
     document.getElementById("filterQual").textContent = data.filter_qual;
 
+    // Certifications (新規)
+    document.getElementById("certificationsTitle").textContent = data.certifications_title;
+    document.getElementById("certificationsMeta").textContent = data.certifications_meta;
+
     // Skills & DevTools
     document.getElementById("skillsTitle").textContent = data.skills_title;
     document.getElementById("skillsMeta").textContent = data.skills_meta;
     document.getElementById("devToolsTitle").textContent = data.devtools_title;
     document.getElementById("devToolsMeta").textContent = data.devtools_meta;
-    
-    // Certifications (新規)
-    document.getElementById("certificationsTitle").textContent = data.certifications_title;
-    document.getElementById("certificationsMeta").textContent = data.certifications_meta;
     
     // Activities
     document.getElementById("activitiesTitle").textContent = data.activities_title;
@@ -162,9 +162,9 @@ function applyLanguage(lang) {
     // Shortcuts
     document.getElementById("scrollToAbout").textContent = data.shortcut_about;
     document.getElementById("scrollToIntro").textContent = data.shortcut_intro;
+    document.getElementById("scrollToCertifications").textContent = data.shortcut_certifications;
     document.getElementById("scrollToProjects").textContent = data.shortcut_projects;
     document.getElementById("scrollToSkills").textContent = data.shortcut_skills;
-    document.getElementById("scrollToCertifications").textContent = data.shortcut_certifications;
     document.getElementById("scrollToActivities").textContent = data.shortcut_activities;
     document.getElementById("scrollToContact").textContent = data.shortcut_contact;
     
