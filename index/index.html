@@ -11,6 +11,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Devicon (開発ツール・言語のアイコン) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    
     <!-- CSS Files -->
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/style.css">
@@ -51,6 +54,7 @@
             <button id="scrollToIntro" class="menu-item"></button>
             <button id="scrollToProjects" class="menu-item"></button>
             <button id="scrollToSkills" class="menu-item"></button>
+            <button id="scrollToCertifications" class="menu-item"></button>
             <button id="scrollToActivities" class="menu-item"></button>
             <button id="scrollToContact" class="menu-item"></button>
         </nav>
@@ -125,6 +129,15 @@
             </div>
         </section>
 
+        <!-- Certifications Section (新規) -->
+        <section id="certifications-section" class="content-section">
+            <div class="card">
+                <h2 id="certificationsTitle"></h2>
+                <div class="meta" id="certificationsMeta"></div>
+                <div id="certificationsContainer" class="certifications-grid"></div>
+            </div>
+        </section>
+
         <!-- Activities Section -->
         <section id="activities-section" class="content-section">
             <div class="card hero">
@@ -166,13 +179,13 @@
 
                 <div class="social-links">
                     <a href="https://github.com/HR0620" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
-                        <i class="fa-brands fa-github"></i>
+                        <i class="fab fa-github"></i>
                     </a>
                     <a href="https://twitter.com/your_handle" target="_blank" rel="noopener" class="social-icon" aria-label="X (Twitter)">
-                        <i class="fa-brands fa-twitter"></i>
+                        <i class="fab fa-twitter"></i>
                     </a>
                     <a href="https://facebook.com/your_profile" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
-                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fab fa-facebook"></i>
                     </a>
                 </div>
             </div>
@@ -217,9 +230,10 @@
     <script src="js/timeline.js"></script>
     <script src="js/projects.js"></script>
     <script src="js/skills.js"></script>
+    <script src="js/certifications.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/contact.js"></script>
     <script src="js/main.js"></script>
-    <script src="js\activities.js"></script>
+    <script src="js/activities.js"></script>
 </body>
 </html>

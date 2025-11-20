@@ -6,7 +6,7 @@ class Skills {
         this.container = document.getElementById("skillsContainer");
     }
 
-    // スキルをレンダリングする（Font Awesome対応）
+    // スキルをレンダリングする（DeviconとFont Awesome両対応）
     render() {
         this.container.innerHTML = '';
 
@@ -16,10 +16,17 @@ class Skills {
             skillCard.setAttribute('data-skill-id', skill.id);
             skillCard.addEventListener('click', () => this.showModal(skill.id));
 
-            // Font Awesomeアイコンを使用
+            // アイコンタイプに応じて適切なクラスを設定
             const icon = document.createElement('div');
             icon.className = 'skill-icon';
-            icon.innerHTML = `<i class="fas ${skill.icon}"></i>`;
+            
+            if (skill.iconType === 'devicon') {
+                // Deviconの場合
+                icon.innerHTML = `<i class="${skill.icon} colored"></i>`;
+            } else {
+                // Font Awesomeの場合（デフォルト）
+                icon.innerHTML = `<i class="fas ${skill.icon}"></i>`;
+            }
 
             const name = document.createElement('h3');
             name.textContent = skill.name;
@@ -37,9 +44,13 @@ class Skills {
 
         const lang = currentLang;
 
-        // Font Awesomeアイコンを表示
+        // アイコンを表示
         const modalIcon = document.getElementById('modalSkillIcon');
-        modalIcon.innerHTML = `<i class="fas ${skill.icon}"></i>`;
+        if (skill.iconType === 'devicon') {
+            modalIcon.innerHTML = `<i class="${skill.icon} colored"></i>`;
+        } else {
+            modalIcon.innerHTML = `<i class="fas ${skill.icon}"></i>`;
+        }
         
         document.getElementById('modalSkillName').textContent = skill.name;
 
@@ -74,7 +85,7 @@ class DevTools {
         this.container = document.getElementById("devToolsContainer");
     }
 
-    // ツールをレンダリングする（Font Awesome対応）
+    // ツールをレンダリングする（DeviconとFont Awesome両対応）
     render() {
         this.container.innerHTML = '';
 
@@ -84,10 +95,17 @@ class DevTools {
             toolCard.setAttribute('data-tool-id', tool.id);
             toolCard.addEventListener('click', () => this.showModal(tool.id));
 
-            // Font Awesomeアイコンを使用
+            // アイコンタイプに応じて適切なクラスを設定
             const icon = document.createElement('div');
             icon.className = 'tool-icon';
-            icon.innerHTML = `<i class="fas ${tool.icon}"></i>`;
+            
+            if (tool.iconType === 'devicon') {
+                // Deviconの場合
+                icon.innerHTML = `<i class="${tool.icon} colored"></i>`;
+            } else {
+                // Font Awesomeの場合
+                icon.innerHTML = `<i class="${tool.icon}"></i>`;
+            }
 
             const name = document.createElement('h3');
             name.textContent = tool.name;
@@ -105,9 +123,13 @@ class DevTools {
 
         const lang = currentLang;
 
-        // Font Awesomeアイコンを表示
+        // アイコンを表示
         const modalIcon = document.getElementById('modalSkillIcon');
-        modalIcon.innerHTML = `<i class="fas ${tool.icon}"></i>`;
+        if (tool.iconType === 'devicon') {
+            modalIcon.innerHTML = `<i class="${tool.icon} colored"></i>`;
+        } else {
+            modalIcon.innerHTML = `<i class="${tool.icon}"></i>`;
+        }
         
         document.getElementById('modalSkillName').textContent = tool.name;
 

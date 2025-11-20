@@ -1,6 +1,6 @@
 // config.js - データ設定ファイル
 
-// タイムラインデータ
+// タイムラインデータ（資格を除外し、ボランティア・運営協力のみ残す）
 const timelineData = [
     { 
         year: "2024/04", 
@@ -15,27 +15,6 @@ const timelineData = [
         }
     },
     { 
-        year: "2024/11", 
-        type: 'qual', 
-        title: { 
-            ja: "実用英語技能検定準2級 合格", 
-            en: "Eiken Grade Pre-2 Passed" 
-        }, 
-        description: { ja: "", en: "" }
-    },
-    { 
-        year: "2024/12", 
-        type: 'qual',
-        title: { 
-            ja: "防災士 認定", 
-            en: "Disaster Preparedness Advisor Certified" 
-        }, 
-        description: { 
-            ja: "災害対策と地域防災に関する知識を習得。", 
-            en: "Acquired knowledge on disaster countermeasures and local disaster prevention." 
-        }
-    },
-    { 
         year: "2025/03", 
         type: 'qual',
         title: { 
@@ -44,7 +23,7 @@ const timelineData = [
         }, 
         description: { 
             ja: "2025年度大阪で開かれた高専人会の運営スタッフにボランティアとして参加。高専人との交流を深める。", 
-            en: "Began specialized education in information technology, including AI and data analysis." 
+            en: "Participated as a volunteer staff member at the Kosen community event held in Osaka, deepening exchanges with Kosen people." 
         }
     },
     { 
@@ -56,7 +35,7 @@ const timelineData = [
         }, 
         description: { 
             ja: "", 
-            en: "Began specialized education in information technology, including AI and data analysis." 
+            en: "" 
         }
     },
     { 
@@ -80,19 +59,7 @@ const timelineData = [
         }, 
         description: { 
             ja: "学校で学んだことを学外の子どもたちへ説明する実験教室を行って自分たちの理解と造詣を深めるとともに、子どもたちの理科・技術への興味関心を高めることを目標にする学生・教員有志団体に参加。", 
-            en: "Began specialized education in information technology, including AI and data analysis." 
-        }
-    },
-    { 
-        year: "2025/07", 
-        type: 'qual',
-        title: { 
-            ja: "漢字能力技能検定2級 合格", 
-            en: "Kanji Proficiency Test Grade 2 Passed" 
-        }, 
-        description: { 
-            ja: "", 
-            en: "" 
+            en: "Joined a student-teacher volunteer group aiming to deepen understanding through experimental classes for children outside school." 
         }
     },
     { 
@@ -104,19 +71,7 @@ const timelineData = [
         }, 
         description: { 
             ja: "当日の案内・受付スタッフとして参加。未踏人材に選ばれた開発者の方々と交流もする。", 
-            en: "Began specialized education in information technology, including AI and data analysis." 
-        }
-    },
-    { 
-        year: "2025/10", 
-        type: 'qual',
-        title: { 
-            ja: "ITパスポート 合格", 
-            en: "IT Passport Exam Passed" 
-        }, 
-        description: { 
-            ja: "", 
-            en: "" 
+            en: "Participated as guidance and reception staff, interacting with developers selected for the MITOU program." 
         }
     },
     { 
@@ -130,6 +85,58 @@ const timelineData = [
             ja: "", 
             en: "" 
         }
+    }
+];
+
+// 資格データ（新規セクション用）
+const certificationsData = [
+    {
+        id: "cert1",
+        name: { 
+            ja: "実用英語技能検定準2級", 
+            en: "Eiken Grade Pre-2" 
+        },
+        organization: { 
+            ja: "公益財団法人 日本英語検定協会", 
+            en: "The Society for Testing English Proficiency (STEP)" 
+        },
+        date: "2024/11"
+    },
+    {
+        id: "cert2",
+        name: { 
+            ja: "防災士", 
+            en: "Disaster Preparedness Advisor" 
+        },
+        organization: { 
+            ja: "特定非営利活動法人 日本防災士機構", 
+            en: "Japan Disaster Preparedness Advisor Organization" 
+        },
+        date: "2024/12"
+    },
+    {
+        id: "cert3",
+        name: { 
+            ja: "漢字能力検定2級", 
+            en: "Kanji Proficiency Test Grade 2" 
+        },
+        organization: { 
+            ja: "公益財団法人 日本漢字能力検定協会", 
+            en: "The Japan Kanji Aptitude Testing Foundation" 
+        },
+        date: "2025/07"
+    },
+    {
+        id: "cert4",
+        name: { 
+            ja: "ITパスポート", 
+            en: "IT Passport Exam" 
+        },
+        organization: { 
+            ja: "独立行政法人 情報処理推進機構(IPA)", 
+            en: "Information-technology Promotion Agency (IPA)" 
+        },
+        date: "2025/10"
     }
 ];
 
@@ -162,13 +169,13 @@ const activitiesData = [
     }
 ];
 
-// スキルデータ
+// スキルデータ（Deviconアイコンを使用）
 const skillsData = [
-
     {
         id: 'python',
         name: 'Python',
-        icon: 'fa-python',
+        icon: 'devicon-python-plain',
+        iconType: 'devicon',
         proficiency: 35,
         details: {
             ja: {
@@ -176,51 +183,54 @@ const skillsData = [
                 summary: "データ分析や機械学習の基礎を学習。個人プロジェクトでの使用経験あり。高専祭でpygameを使用。"
             },
             en: {
-                level: "Intermediate (Basic algorithm implementation, competitive programming)",
-                summary: "Learned basic syntax and data structures in college courses. Experienced implementing complex algorithms through competitive programming."
+                level: "Intermediate (Experience with libraries like Numpy, Pandas, Matplotlib, pygame)",
+                summary: "Studied basics of data analysis and machine learning. Experience with personal projects. Used pygame at Kosen Festival."
             }
         }
     },
     {
         id: 'html',
         name: 'HTML/CSS',
-        icon: 'fa-html5',
+        icon: 'devicon-html5-plain',
+        iconType: 'devicon',
         proficiency: 15,
         details: {
             ja: {
                 level: "初級",
-                summary: ""
+                summary: "基本的なWebページの構造とスタイリングを学習中。"
             },
             en: {
-                level: "Advanced (Responsive design, CSS animation)",
-                summary: "Proficient in semantic HTML and responsive layouts using CSS Grid/Flexbox. This portfolio itself is built with custom CSS."
+                level: "Beginner",
+                summary: "Learning basic web page structure and styling."
             }
         }
     },
     {
         id: 'javascript',
         name: 'JavaScript',
-        icon: 'fa-js',
+        icon: 'devicon-javascript-plain',
+        iconType: 'devicon',
         proficiency: 10,
         details: {
             ja: {
                 level: "初級",
-                summary: ""
+                summary: "基本的な文法と簡単な動的コンテンツの作成を学習中。"
             },
             en: {
-                level: "Intermediate (DOM manipulation, asynchronous processing)",
-                summary: "Understands the basics of dynamic content creation via DOM manipulation and asynchronous processing. Extensive experience developing with Vanilla JS."
+                level: "Beginner",
+                summary: "Learning basic syntax and simple dynamic content creation."
             }
         }
     }
 ];
 
-// 開発ツールデータ
+// 開発ツールデータ（Font AwesomeとDeviconを併用）
 const devTools = [
     {
         id: 'vsc',
         name: 'Visual Studio Code',
-        icon: 'fa-code',
+        icon: 'devicon-vscode-plain',
+        iconType: 'devicon',
         frequency_text: {
             ja: "週5回以上",
             en: "5+ times/week"
@@ -237,9 +247,10 @@ const devTools = [
         }
     },
     {
-        id: 'tex',
-        name: 'TeX',
-        icon: 'fa-tex',
+        id: 'latex',
+        name: 'LaTeX',
+        icon: 'devicon-latex-original',
+        iconType: 'devicon',
         frequency_text: {
             ja: "週1-2回",
             en: "1-2 times/week"
@@ -258,7 +269,8 @@ const devTools = [
     {
         id: 'msoffice',
         name: 'MS Office',
-        icon: 'fa-microsoft',
+        icon: 'fab fa-microsoft',
+        iconType: 'fontawesome',
         frequency_text: {
             ja: "必要なときに使用",
             en: "Used as needed"

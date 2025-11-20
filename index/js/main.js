@@ -17,6 +17,7 @@ class PortfolioApp {
         this.instances.activities = new Activities();
         this.instances.skills = new Skills();
         this.instances.devTools = new DevTools();
+        this.instances.certifications = new Certifications(); // 新規追加
         this.instances.modal = new Modal();
         this.instances.contact = new Contact();
         this.instances.hamburgerMenu = new HamburgerMenu();
@@ -28,6 +29,7 @@ class PortfolioApp {
         window.activitiesInstance = this.instances.activities;
         window.skillsInstance = this.instances.skills;
         window.devToolsInstance = this.instances.devTools;
+        window.certificationsInstance = this.instances.certifications; // 新規追加
         window.modalInstance = this.instances.modal;
 
         // 4. 各モジュールを初期化
@@ -36,6 +38,7 @@ class PortfolioApp {
         this.instances.activities.init();
         this.instances.skills.init();
         this.instances.devTools.init();
+        this.instances.certifications.init(); // 新規追加
 
         // 5. 多言語対応を初期化（デフォルトは日本語）
         applyLanguage('ja');

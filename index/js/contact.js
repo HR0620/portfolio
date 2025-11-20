@@ -67,6 +67,10 @@ class ScrollNavigation {
             this.scrollToSection('skills-section');
         });
 
+        document.getElementById('scrollToCertifications').addEventListener('click', () => {
+            this.scrollToSection('certifications-section');
+        });
+
         document.getElementById('scrollToActivities').addEventListener('click', () => {
             this.scrollToSection('activities-section');
         });

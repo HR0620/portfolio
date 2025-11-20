@@ -16,16 +16,17 @@ const i18n = {
         
         // Timeline
         timeline_title: "沿革",
-        timeline_meta: "学歴、受賞、資格・検定取得といった私の歩みを時系列で紹介します。",
+        timeline_meta: "学歴、活動歴といった私の歩みを時系列で紹介します。",
         filter_all: "すべて",
         filter_history: "経歴",
-        filter_qual: "資格等",
+        filter_qual: "活動",
         
         // Shortcuts
         shortcut_about: "自己紹介",
         shortcut_intro: "沿革",
         shortcut_projects: "作品一覧",
         shortcut_skills: "スキル/ツール",
+        shortcut_certifications: "資格",
         shortcut_activities: "活動一覧",
         shortcut_contact: "連絡先",
         
@@ -39,6 +40,10 @@ const i18n = {
         // Dev Tools
         devtools_title: "開発ツール",
         devtools_meta: "普段の開発等で使用しているツール一覧です。",
+        
+        // Certifications (新規)
+        certifications_title: "取得資格",
+        certifications_meta: "これまでに取得した資格一覧です。",
         
         // Activities
         activities_title: "課外活動 / 受賞歴",
@@ -64,16 +69,17 @@ const i18n = {
         
         // Timeline
         timeline_title: "My Journey",
-        timeline_meta: "A chronological overview of my education, awards, and qualifications.",
+        timeline_meta: "A chronological overview of my education and activities.",
         filter_all: "All",
         filter_history: "History",
-        filter_qual: "Qualifications etc.",
+        filter_qual: "Activities",
         
         // Shortcuts
         shortcut_about: "About me",
         shortcut_intro: "Journey",
         shortcut_projects: "Projects",
         shortcut_skills: "Skills/Tools",
+        shortcut_certifications: "Certifications",
         shortcut_activities: "Activities",
         shortcut_contact: "Contact",
         
@@ -87,6 +93,10 @@ const i18n = {
         // Dev Tools
         devtools_title: "Development Tools",
         devtools_meta: "Tools I frequently use for development etc..",
+        
+        // Certifications (新規)
+        certifications_title: "Certifications",
+        certifications_meta: "List of certifications I have acquired.",
         
         // Activities
         activities_title: "Activities / Awards",
@@ -135,6 +145,10 @@ function applyLanguage(lang) {
     document.getElementById("devToolsTitle").textContent = data.devtools_title;
     document.getElementById("devToolsMeta").textContent = data.devtools_meta;
     
+    // Certifications (新規)
+    document.getElementById("certificationsTitle").textContent = data.certifications_title;
+    document.getElementById("certificationsMeta").textContent = data.certifications_meta;
+    
     // Activities
     document.getElementById("activitiesTitle").textContent = data.activities_title;
     document.getElementById("activitiesMeta").textContent = data.activities_meta;
@@ -150,6 +164,7 @@ function applyLanguage(lang) {
     document.getElementById("scrollToIntro").textContent = data.shortcut_intro;
     document.getElementById("scrollToProjects").textContent = data.shortcut_projects;
     document.getElementById("scrollToSkills").textContent = data.shortcut_skills;
+    document.getElementById("scrollToCertifications").textContent = data.shortcut_certifications;
     document.getElementById("scrollToActivities").textContent = data.shortcut_activities;
     document.getElementById("scrollToContact").textContent = data.shortcut_contact;
     
@@ -161,6 +176,7 @@ function applyLanguage(lang) {
     // 各コンテンツを再描画
     renderProjects();
     renderTimeline();
+    renderCertifications();
     renderActivities();
     renderSkills();
     renderDevTools();
