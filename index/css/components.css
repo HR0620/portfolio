@@ -73,41 +73,69 @@ html[data-theme="light"] .theme-toggle-btn {
     transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ===== ハンバーガーメニュー（右上からシャッターのようにスライド） ===== */
+/* ===== アバターアイコン（PNG画像版） ===== */
+.avatar-link {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 50%;
+}
+
+.avatar-link:hover {
+    transform: translateY(-3px);
+}
+
+.avatar-link:hover .avatar-img {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent);
+}
+
+.avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+/* ===== ハンバーガーメニュー（右端から上にシャッター） ===== */
 .menu-overlay {
     position: fixed;
-    top: 64px;
-    right: -100%;
+    top: -100%;
+    right: 20px;
     width: auto;
-    min-width: 200px;
-    max-width: 90vw;
+    min-width: 180px;
     background: var(--card);
-    box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 0 0 12px 12px;
     z-index: 999;
-    transition: right 0.3s ease-out, background 0.3s ease;
-    overflow-y: auto;
-    max-height: calc(100vh - 64px);
+    transition: top 0.3s ease-out, background 0.3s ease;
+    overflow: hidden;
 }
 
 .menu-overlay.open {
-    right: 0;
+    top: 64px;
 }
 
 .menu-content {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    gap: 10px;
+    padding: 15px;
+    gap: 8px;
 }
 
 .menu-item {
     width: 100%;
-    padding: 15px 20px;
+    padding: 12px 16px;
     background: rgba(128, 128, 128, 0.1);
     border: 1px solid rgba(128, 128, 128, 0.2);
     border-radius: 8px;
     color: var(--text);
-    font-size: 16px;
+    font-size: 14px;
     text-align: left;
     cursor: pointer;
     transition: all 0.2s;
@@ -118,7 +146,7 @@ html[data-theme="light"] .theme-toggle-btn {
     background: var(--accent);
     color: var(--bg);
     border-color: var(--accent);
-    transform: translateX(-5px);
+    transform: translateY(-2px);
 }
 
 /* ===== 言語切り替えボタン ===== */
@@ -389,12 +417,27 @@ html[data-theme="light"] .theme-toggle-btn {
     font-weight: 600;
 }
 
-/* ===== 資格カード（新規） ===== */
-.certifications-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+/* ===== 資格カルーセル（新規） ===== */
+.certifications-carousel-wrapper {
+    position: relative;
     margin-top: 20px;
+    padding: 0 50px;
+}
+
+.certifications-carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease;
+    align-items: center;
 }
 
 .certification-card {
@@ -405,14 +448,25 @@ html[data-theme="light"] .theme-toggle-btn {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.3s ease;
+    transition: all 0.3s ease;
     min-height: 150px;
+    min-width: 280px;
+    max-width: 280px;
+    flex-shrink: 0;
+    position: relative;
+    opacity: 0.5;
+    transform: scale(0.9);
+}
+
+.certification-card.active {
+    opacity: 1;
+    transform: scale(1);
+    border-color: var(--accent);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .certification-card:hover {
     border-color: var(--accent);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .certification-name {
@@ -435,6 +489,83 @@ html[data-theme="light"] .theme-toggle-btn {
     margin-top: 15px;
     padding-top: 10px;
     border-top: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+/* NEW バッジ */
+.certification-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* カルーセルナビゲーションボタン */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--card);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: 18px;
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.carousel-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+}
+
+.carousel-btn.prev {
+    left: 0;
+}
+
+.carousel-btn.next {
+    right: 0;
+}
+
+/* カルーセルインジケーター */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(128, 128, 128, 0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.carousel-dot.active {
+    background: var(--accent);
+    transform: scale(1.2);
 }
 
 /* ===== Contact ===== */

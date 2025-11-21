@@ -50,6 +50,15 @@ class ScrollNavigation {
 
     // スクロールナビゲーションを初期化する
     init() {
+        // アバターアイコンのクリックでトップへ戻る
+        const avatarLink = document.getElementById('avatarLink');
+        if (avatarLink) {
+            avatarLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.scrollToSection('about-section');
+            });
+        }
+        
         // ショートカットボタン（スムーズスクロール）
         document.getElementById('scrollToAbout').addEventListener('click', () => {
             this.scrollToSection('about-section');

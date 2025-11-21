@@ -11,7 +11,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Devicon (開発ツール・言語のアイコン) -->
+    <!-- Devicon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     
     <!-- CSS Files -->
@@ -25,7 +25,10 @@
     <header id="stickyHeader">
         <div class="header-content">
             <div class="brand">
-                <i class="fas fa-user-circle avatar-icon"></i>
+                <!-- アバターアイコン（PNG画像、クリックで上部へスクロール） -->
+                <a href="#" id="avatarLink" class="avatar-link" aria-label="トップへ戻る">
+                    <img src="images/icons/hr.png" alt="Profile Icon" class="avatar-img">
+                </a>
                 <div>
                     <div id="headerName" style="font-weight:700"></div>
                     <div id="headerTitle" class="meta"></div>
@@ -86,12 +89,31 @@
             </div>
         </section>
 
-        <!-- Certifications Section (新規) -->
+        <!-- Certifications Section（カルーセル形式） -->
         <section id="certifications-section" class="content-section">
             <div class="card">
                 <h2 id="certificationsTitle"></h2>
                 <div class="meta" id="certificationsMeta"></div>
-                <div id="certificationsContainer" class="certifications-grid"></div>
+                
+                <div class="certifications-carousel-wrapper">
+                    <button class="carousel-btn prev" id="carouselPrev" aria-label="前の資格">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="certifications-carousel">
+                        <div class="carousel-track" id="carouselTrack">
+                            <!-- 資格カードはJSで動的に生成 -->
+                        </div>
+                    </div>
+                    
+                    <button class="carousel-btn next" id="carouselNext" aria-label="次の資格">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="carousel-indicators" id="carouselIndicators">
+                    <!-- インジケーターはJSで動的に生成 -->
+                </div>
             </div>
         </section>
 
