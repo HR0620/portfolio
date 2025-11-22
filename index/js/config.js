@@ -165,7 +165,7 @@ const activitiesData = [
         tags: [""], 
         date: "B.C.20xx/xx/xx", 
         url: "#",
-        image: "fa-solid fa-question"
+        image: 'fa-solid fa-question'
     }
 ];
 
