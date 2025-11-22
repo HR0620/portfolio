@@ -26,10 +26,10 @@ const projectData = {
     },
     // 使用技術
     technologies: ["Python", "pygame"],
-    // GitHubリポジトリURL（仮）
+    // GitHubリポジトリURL
     githubUrl: "https://github.com/HR0620/2025_2I_kosen-fes",
-    // サムネイル画像パス（仮）
-    thumbnail: "./images/hisayoshi_thumbnail.png"
+    // サムネイル画像パス
+    thumbnail: "./images/hisayoshi.png"
 };
 
 // ===== チームメンバーデータ =====
@@ -43,7 +43,7 @@ const teamMembers = [
             en: "Planning, Design, Coding, Illustration"
         },
         github: "tatsukodx",
-        // アバター画像パス（仮）。nullの場合はアイコンを表示
+        // アバター画像パス。nullの場合はアイコンを表示
         avatar: null
     },
     {
