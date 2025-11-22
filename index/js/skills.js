@@ -1,12 +1,33 @@
 // skills.js - スキル・ツール機能モジュール
 
-// スキル管理クラス
+// ===== アイコン生成ユーティリティ関数 =====
+// iconType: 'devicon' | 'fontawesome' | 'original'
+// icon: クラス名（devicon/fontawesome）または画像パス（original）
+// altText: original時のalt属性用テキスト（オプション）
+function createIconElement(iconType, icon, altText = '') {
+    // originalの場合は画像要素を返す
+    if (iconType === 'original') {
+        return `<img src="${icon}" alt="${altText}" style="width: 48px; height: 48px; object-fit: contain;">`;
+    }
+    // deviconの場合
+    if (iconType === 'devicon') {
+        return `<i class="${icon} colored"></i>`;
+    }
+    // fontawesomeの場合（デフォルト）
+    // 'fas'や'fab'が含まれているかチェック
+    if (icon.includes('fa-')) {
+        return `<i class="${icon}"></i>`;
+    }
+    return `<i class="fas ${icon}"></i>`;
+}
+
+// ===== スキル管理クラス =====
 class Skills {
     constructor() {
         this.container = document.getElementById("skillsContainer");
     }
 
-    // スキルをレンダリングする（DeviconとFont Awesome両対応）
+    // スキルをレンダリングする（devicon / fontawesome / original 対応）
     render() {
         this.container.innerHTML = '';
 
@@ -16,22 +37,16 @@ class Skills {
             skillCard.setAttribute('data-skill-id', skill.id);
             skillCard.addEventListener('click', () => this.showModal(skill.id));
 
-            // アイコンタイプに応じて適切なクラスを設定
-            const icon = document.createElement('div');
-            icon.className = 'skill-icon';
-            
-            if (skill.iconType === 'devicon') {
-                // Deviconの場合
-                icon.innerHTML = `<i class="${skill.icon} colored"></i>`;
-            } else {
-                // Font Awesomeの場合（デフォルト）
-                icon.innerHTML = `<i class="fas ${skill.icon}"></i>`;
-            }
+            // アイコンを生成
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'skill-icon';
+            iconDiv.innerHTML = createIconElement(skill.iconType, skill.icon, skill.name);
 
+            // 名前を表示
             const name = document.createElement('h3');
             name.textContent = skill.name;
 
-            skillCard.appendChild(icon);
+            skillCard.appendChild(iconDiv);
             skillCard.appendChild(name);
             this.container.appendChild(skillCard);
         });
@@ -44,14 +59,11 @@ class Skills {
 
         const lang = currentLang;
 
-        // アイコンを表示
+        // モーダルにアイコンを表示
         const modalIcon = document.getElementById('modalSkillIcon');
-        if (skill.iconType === 'devicon') {
-            modalIcon.innerHTML = `<i class="${skill.icon} colored"></i>`;
-        } else {
-            modalIcon.innerHTML = `<i class="fas ${skill.icon}"></i>`;
-        }
+        modalIcon.innerHTML = createIconElement(skill.iconType, skill.icon, skill.name);
         
+        // タイトルを設定
         document.getElementById('modalSkillName').textContent = skill.name;
 
         // 熟練度バーを表示
@@ -64,7 +76,6 @@ class Skills {
         }, 100);
         
         document.getElementById('modalProficiencyText').textContent = `${skill.proficiency}%`;
-
         document.getElementById('modalExperienceContent').textContent = skill.details[lang].summary;
         document.getElementById('modalProficiencyLevelText').textContent = skill.details[lang].level;
         
@@ -79,13 +90,13 @@ class Skills {
     }
 }
 
-// 開発ツール管理クラス
+// ===== 開発ツール管理クラス =====
 class DevTools {
     constructor() {
         this.container = document.getElementById("devToolsContainer");
     }
 
-    // ツールをレンダリングする（DeviconとFont Awesome両対応）
+    // ツールをレンダリングする（devicon / fontawesome / original 対応）
     render() {
         this.container.innerHTML = '';
 
@@ -95,22 +106,16 @@ class DevTools {
             toolCard.setAttribute('data-tool-id', tool.id);
             toolCard.addEventListener('click', () => this.showModal(tool.id));
 
-            // アイコンタイプに応じて適切なクラスを設定
-            const icon = document.createElement('div');
-            icon.className = 'tool-icon';
-            
-            if (tool.iconType === 'devicon') {
-                // Deviconの場合
-                icon.innerHTML = `<i class="${tool.icon} colored"></i>`;
-            } else {
-                // Font Awesomeの場合
-                icon.innerHTML = `<i class="${tool.icon}"></i>`;
-            }
+            // アイコンを生成
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'tool-icon';
+            iconDiv.innerHTML = createIconElement(tool.iconType, tool.icon, tool.name);
 
+            // 名前を表示
             const name = document.createElement('h3');
             name.textContent = tool.name;
 
-            toolCard.appendChild(icon);
+            toolCard.appendChild(iconDiv);
             toolCard.appendChild(name);
             this.container.appendChild(toolCard);
         });
@@ -123,14 +128,11 @@ class DevTools {
 
         const lang = currentLang;
 
-        // アイコンを表示
+        // モーダルにアイコンを表示
         const modalIcon = document.getElementById('modalSkillIcon');
-        if (tool.iconType === 'devicon') {
-            modalIcon.innerHTML = `<i class="${tool.icon} colored"></i>`;
-        } else {
-            modalIcon.innerHTML = `<i class="${tool.icon}"></i>`;
-        }
+        modalIcon.innerHTML = createIconElement(tool.iconType, tool.icon, tool.name);
         
+        // タイトルを設定
         document.getElementById('modalSkillName').textContent = tool.name;
 
         // 熟練度バーを非表示
@@ -150,7 +152,7 @@ class DevTools {
     }
 }
 
-// グローバルに公開するための関数
+// ===== グローバルに公開するための関数 =====
 function renderSkills() {
     if (window.skillsInstance) {
         window.skillsInstance.render();
@@ -162,3 +164,6 @@ function renderDevTools() {
         window.devToolsInstance.render();
     }
 }
+
+// createIconElement関数をグローバルに公開（他のモジュールからも使えるように）
+window.createIconElement = createIconElement;

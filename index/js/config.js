@@ -1,6 +1,11 @@
 // config.js - データ設定ファイル
+// ============================================
+// iconType の種類:
+//   - 'devicon'     : Deviconのクラス名を指定（例: 'devicon-python-plain'）
+//   - 'fontawesome' : Font Awesomeのクラス名を指定（例: 'fa-solid fa-question'）
+//   - 'original'    : 画像パスを指定（例: './images/icon.png'）
 
-// タイムラインデータ（資格を除外し、ボランティア・運営協力のみ残す）
+// タイムラインデータ
 const timelineData = [
     { 
         year: "2024/04", 
@@ -88,7 +93,7 @@ const timelineData = [
     }
 ];
 
-// 資格データ（新規セクション用）
+// 資格データ
 const certificationsData = [
     {
         id: "cert1",
@@ -156,7 +161,10 @@ const projects = [
     }
 ];
 
-// アクティビティデータ
+// ===== アクティビティデータ =====
+// iconType: 'original' | 'fontawesome' | 'devicon'
+// icon: iconTypeに応じたクラス名または画像パス
+// image: iconType='original'の場合に使用する画像パス（iconと同じでも可）
 const activitiesData = [
     { 
         id: "a1", 
@@ -165,17 +173,33 @@ const activitiesData = [
         tags: [""], 
         date: "B.C.20xx/xx/xx", 
         url: "#",
-        image: 'fa-solid fa-question'
+        // Font Awesomeアイコンを使用する例
+        iconType: 'fontawesome',
+        icon: 'fa-solid fa-question',
+        image: null  // fontawesomeの場合はnullでOK
     }
+    // 画像を使う場合の例:
+    // { 
+    //     id: "a2", 
+    //     title: { ja: "サンプル", en: "Sample" }, 
+    //     desc: { ja: "説明", en: "Description" }, 
+    //     tags: ["tag"], 
+    //     date: "2025/01/01", 
+    //     url: "#",
+    //     iconType: 'original',
+    //     icon: './images/sample_icon.png',
+    //     image: './images/sample_icon.png'
+    // }
 ];
 
-// スキルデータ（Deviconアイコンを使用）
+// ===== スキルデータ =====
+// iconType: 'devicon' | 'fontawesome' | 'original'
 const skillsData = [
     {
         id: 'python',
         name: 'Python',
-        icon: 'devicon-python-plain',
         iconType: 'devicon',
+        icon: 'devicon-python-plain',
         proficiency: 35,
         details: {
             ja: {
@@ -191,8 +215,8 @@ const skillsData = [
     {
         id: 'html',
         name: 'HTML/CSS',
-        icon: 'devicon-html5-plain',
         iconType: 'devicon',
+        icon: 'devicon-html5-plain',
         proficiency: 15,
         details: {
             ja: {
@@ -208,8 +232,8 @@ const skillsData = [
     {
         id: 'javascript',
         name: 'JavaScript',
-        icon: 'devicon-javascript-plain',
         iconType: 'devicon',
+        icon: 'devicon-javascript-plain',
         proficiency: 10,
         details: {
             ja: {
@@ -222,15 +246,25 @@ const skillsData = [
             }
         }
     }
+    // 画像アイコンを使う場合の例:
+    // {
+    //     id: 'custom',
+    //     name: 'カスタムスキル',
+    //     iconType: 'original',
+    //     icon: './images/custom_icon.png',
+    //     proficiency: 50,
+    //     details: { ... }
+    // }
 ];
 
-// 開発ツールデータ（Font AwesomeとDeviconを併用）
+// ===== 開発ツールデータ =====
+// iconType: 'devicon' | 'fontawesome' | 'original'
 const devTools = [
     {
         id: 'vsc',
         name: 'Visual Studio Code',
-        icon: 'devicon-vscode-plain',
         iconType: 'devicon',
+        icon: 'devicon-vscode-plain',
         frequency_text: {
             ja: "週5回以上",
             en: "5+ times/week"
@@ -249,8 +283,8 @@ const devTools = [
     {
         id: 'latex',
         name: 'LaTeX',
-        icon: 'devicon-latex-original',
         iconType: 'devicon',
+        icon: 'devicon-latex-original',
         frequency_text: {
             ja: "週1-2回",
             en: "1-2 times/week"
@@ -269,8 +303,8 @@ const devTools = [
     {
         id: 'msoffice',
         name: 'MS Office',
-        icon: 'fab fa-microsoft',
         iconType: 'fontawesome',
+        icon: 'fab fa-microsoft',
         frequency_text: {
             ja: "必要なときに使用",
             en: "Used as needed"

@@ -400,6 +400,43 @@ html[data-theme="light"] .theme-toggle-btn {
 
 .activity-card {
     max-width: 200px;
+    
+}
+
+/* ===== 以下を components.css の activity-card セクションに追加 ===== */
+
+/* アクティビティアイコンコンテナ */
+.activity-icon-container {
+    width: 100%;
+    max-width: 150px;
+    height: 100px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Font Awesome / Devicon 用のアイコンスタイル */
+.activity-icon-fa {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: var(--accent);
+    background: rgba(128, 128, 128, 0.1);
+    border-radius: var(--radius);
+}
+
+/* 画像アイコン（original）用 */
+.activity-icon-container .activity-icon {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    max-height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
 .activity-icon {

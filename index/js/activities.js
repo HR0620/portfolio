@@ -1,4 +1,6 @@
-// アクティビティ管理クラス
+// activities.js - アクティビティ管理モジュール
+
+// ===== アクティビティ管理クラス =====
 class Activities {
     constructor() {
         this.container = document.getElementById("activitiesContainer");
@@ -14,20 +16,32 @@ class Activities {
             activityCard.setAttribute('data-activity-id', a.id);
             activityCard.addEventListener('click', () => this.showModal(a.id));
 
-            // サムネイル画像
-            if (a.image) {
+            // アイコン/画像を表示
+            // iconType: 'original'（画像パス）, 'fontawesome', 'devicon'
+            const iconContainer = document.createElement('div');
+            iconContainer.className = 'activity-icon-container';
+            
+            if (a.iconType === 'original' && a.image) {
+                // 画像パスの場合
                 const img = document.createElement('img');
                 img.className = 'activity-icon';
                 img.src = a.image;
                 img.alt = a.title[currentLang];
-                activityCard.appendChild(img);
+                iconContainer.appendChild(img);
+            } else if (a.iconType === 'devicon') {
+                // Deviconの場合
+                iconContainer.innerHTML = `<div class="activity-icon-fa"><i class="${a.icon} colored"></i></div>`;
+            } else {
+                // Font Awesomeの場合（デフォルト）
+                iconContainer.innerHTML = `<div class="activity-icon-fa"><i class="${a.icon}"></i></div>`;
             }
 
             // タイトル
             const title = document.createElement('h3');
             title.textContent = a.title[currentLang];
-            activityCard.appendChild(title);
 
+            activityCard.appendChild(iconContainer);
+            activityCard.appendChild(title);
             this.container.appendChild(activityCard);
         });
     }
@@ -39,10 +53,18 @@ class Activities {
 
         const lang = currentLang;
 
-        // 画像を設定（Font Awesomeアイコンではなく、画像URLを使用）
-        if (activity.image) {
-            const modalIcon = document.getElementById('modalSkillIcon');
+        // モーダルアイコンを設定
+        const modalIcon = document.getElementById('modalSkillIcon');
+        
+        if (activity.iconType === 'original' && activity.image) {
+            // 画像パスの場合
             modalIcon.innerHTML = `<img src="${activity.image}" style="width: 60px; height: 60px; object-fit: contain;" alt="${activity.title[lang]}">`;
+        } else if (activity.iconType === 'devicon') {
+            // Deviconの場合
+            modalIcon.innerHTML = `<i class="${activity.icon} colored"></i>`;
+        } else {
+            // Font Awesomeの場合
+            modalIcon.innerHTML = `<i class="${activity.icon}"></i>`;
         }
         
         // タイトルを設定
@@ -66,6 +88,7 @@ class Activities {
     }
 }
 
+// グローバルに公開
 window.Activities = Activities;
 
 // グローバルに公開するための関数
