@@ -27,13 +27,12 @@ const projectData = {
     // 使用技術
     technologies: ["Python", "pygame"],
     // GitHubリポジトリURL（仮）
-    githubUrl: "https://github.com/HR0620/hisayoshi",
+    githubUrl: "https://github.com/HR0620/2025_2I_kosen-fes",
     // サムネイル画像パス（仮）
     thumbnail: "./images/hisayoshi_thumbnail.png"
 };
 
 // ===== チームメンバーデータ =====
-// 新しいメンバーを追加する場合は、この配列に要素を追加してください
 const teamMembers = [
     {
         id: "higashi",
@@ -48,17 +47,6 @@ const teamMembers = [
         avatar: null
     },
     {
-        id: "ishida",
-        name: "石田 和磨",
-        nameEn: "Kazuma Ishida",
-        role: {
-            ja: "デザイン",
-            en: "Design"
-        },
-        github: "__wakka810__",
-        avatar: null
-    },
-    {
         id: "harada",
         name: "原田 連寿",
         nameEn: "Renju Harada",
@@ -67,6 +55,28 @@ const teamMembers = [
             en: "Refactoring"
         },
         github: "HR0620",
+        avatar: null
+    },
+    {
+        id: "ishida",
+        name: "石田 和磨",
+        nameEn: "Kazuma Ishida",
+        role: {
+            ja: "コーディング",
+            en: "Coding"
+        },
+        github: "wakka810",
+        avatar: null
+    },
+    {
+        id: "suzuki",
+        name: "鈴木 結愛",
+        nameEn: "Yume Suzuki",
+        role: {
+            ja: "デザイン",
+            en: "Desigin"
+        },
+        github: "r24056",
         avatar: null
     },
     {
@@ -88,7 +98,7 @@ const teamMembers = [
             ja: "監督",
             en: "Director"
         },
-        github: "__KKotaro0840__",
+        github: "KKotaro0840",
         avatar: null
     },
     {
@@ -110,18 +120,7 @@ const teamMembers = [
             ja: "監督",
             en: "Director"
         },
-        github: "__dddd145__",
-        avatar: null
-    },
-    {
-        id: "suzuki",
-        name: "鈴木 結愛",
-        nameEn: "Yua Suzuki",
-        role: {
-            ja: "資材調達",
-            en: "Procurement"
-        },
-        github: "__r24056__",
+        github: "dddd145",
         avatar: null
     }
 ];
@@ -131,7 +130,7 @@ const collaborators = [
     {
         name: {
             ja: "室谷 文祥 先生",
-            en: "Muroya Fumiyoshi Sensei"
+            en: "Mr. Muroya Hisayoshi"
         },
         contribution: {
             ja: "音声提供、モデル",
@@ -141,7 +140,7 @@ const collaborators = [
     {
         name: {
             ja: "平林 大介 先生",
-            en: "Hirabayashi Daisuke Sensei"
+            en: "Mr. Hirabayashi Daisuke"
         },
         contribution: {
             ja: "コンテンツ提供",
@@ -151,7 +150,6 @@ const collaborators = [
 ];
 
 // ===== タイムラインデータ =====
-// 新しいイベントを追加する場合は、この配列に要素を追加してください
 // position: "left" または "right" で表示位置を指定
 const timelineData = [
     {
@@ -222,7 +220,6 @@ const timelineData = [
 ];
 
 // ===== ギャラリーデータ =====
-// 新しい画像を追加する場合は、この配列に要素を追加してください
 const galleryData = [
     {
         id: "g1",
@@ -261,15 +258,6 @@ const galleryData = [
         }
     },
     {
-        id: "g5",
-        src: "./images/gallery/photo5.jpg",
-        thumbnail: "./images/gallery/photo5_thumb.jpg",
-        caption: {
-            ja: "FARAD実験教室の様子",
-            en: "FARAD Experiment Class"
-        }
-    },
-    {
         id: "g6",
         src: "./images/gallery/photo6.jpg",
         thumbnail: "./images/gallery/photo6_thumb.jpg",
@@ -281,7 +269,6 @@ const galleryData = [
 ];
 
 // ===== 来場者の声データ =====
-// 新しい声を追加する場合は、この配列に要素を追加してください
 const testimonialData = [
     {
         id: "v1",
@@ -382,7 +369,6 @@ const reflectionData = [
 ];
 
 // ===== FAQデータ =====
-// 新しい質問を追加する場合は、この配列に要素を追加してください
 const faqData = [
     {
         id: "f1",
@@ -426,17 +412,6 @@ const faqData = [
         answer: {
             ja: "はい、室谷先生公認のもと制作しています。音声の収録にもご協力いただきました。",
             en: "Yes, we created it with official approval from Muroya-sensei. He also cooperated with voice recording."
-        }
-    },
-    {
-        id: "f5",
-        question: {
-            ja: "開発メンバーは募集していますか？",
-            en: "Are you recruiting new members?"
-        },
-        answer: {
-            ja: "プログラミング研究会にて活動しています。興味のある方はお気軽にお声がけください。",
-            en: "We are active in the Programming Research Club. If you're interested, please feel free to contact us."
         }
     }
 ];
