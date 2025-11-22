@@ -163,9 +163,9 @@ const activitiesData = [
         title: { ja: "COMING SOON...", en: "COMING SOON..." }, 
         desc: { ja: "", en: "" }, 
         tags: [""], 
-        date: "B.C.2025/99/99", 
+        date: "B.C.20xx/xx/xx", 
         url: "#",
-        image: "./images/procon_thumbnail.png"
+        image: "fa-solid fa-question"
     }
 ];
 
