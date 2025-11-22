@@ -154,17 +154,27 @@ const projects = [
             ja: "2I担任である室谷先生公認のOnly Up風室谷先生ゲーム、Hisayoshi。高専祭で展示しました。", 
             en: "A game inspired by 'Only Up,' officially recognized by homeroom teacher Muroya-sensei, exhibited at the Kosen Festival." 
         }, 
-        tags: ["python"], 
+        tags: ["python","pygame"], 
         date: "2025/11/8,9", 
         url: "../projects/kosen-fes/2025/index.html",
         image: "images/hisayoshi_thumbnail.png"
+    },
+    { 
+        id: "p2", 
+        title: { ja: "プログラミング1", en: "Programming1" }, 
+        desc: { 
+            ja: "2I担任である室谷先生公認のOnly Up風室谷先生ゲーム、Hisayoshi。高専祭で展示しました。", 
+            en: "A game inspired by 'Only Up,' officially recognized by homeroom teacher Muroya-sensei, exhibited at the Kosen Festival." 
+        }, 
+        tags: ["python","Numpy"],
+        date: "2025/11/8,9", 
+        url: "../projects/class/programming1/index.html",
+        image: 'fa-solid fa-laptop-code'
     }
 ];
 
 // ===== アクティビティデータ =====
 // iconType: 'original' | 'fontawesome' | 'devicon'
-// icon: iconTypeに応じたクラス名または画像パス
-// image: iconType='original'の場合に使用する画像パス（iconと同じでも可）
 const activitiesData = [
     { 
         id: "a1", 
@@ -173,23 +183,10 @@ const activitiesData = [
         tags: [""], 
         date: "B.C.20xx/xx/xx", 
         url: "#",
-        // Font Awesomeアイコンを使用する例
         iconType: 'fontawesome',
         icon: 'fa-solid fa-question',
         image: null  // fontawesomeの場合はnullでOK
     }
-    // 画像を使う場合の例:
-    // { 
-    //     id: "a2", 
-    //     title: { ja: "サンプル", en: "Sample" }, 
-    //     desc: { ja: "説明", en: "Description" }, 
-    //     tags: ["tag"], 
-    //     date: "2025/01/01", 
-    //     url: "#",
-    //     iconType: 'original',
-    //     icon: './images/sample_icon.png',
-    //     image: './images/sample_icon.png'
-    // }
 ];
 
 // ===== スキルデータ =====
