@@ -294,10 +294,7 @@ html[data-theme="light"] .theme-toggle-btn {
     }
 }
 
-/* ===== プロジェクト ===== */
-/* ===== プロジェクトカード（修正版） ===== */
-/* 既存の .project 関連スタイルを以下に置き換えてください */
-
+/* ===== プロジェクトカード ===== */
 .projects {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -320,7 +317,6 @@ html[data-theme="light"] .theme-toggle-btn {
     border: 1px solid rgba(128, 128, 128, 0.2);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    /* 高さを揃えるためにmin-heightを設定（任意） */
     min-height: 280px;
 }
 
@@ -385,17 +381,19 @@ html[data-theme="light"] .theme-toggle-btn {
     color: var(--text-secondary, var(--muted));
     line-height: 1.6;
     margin-bottom: 10px;
-    /* 説明文が長い場合に省略 */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-/* --- フッター（詳細ボタン：左下配置） --- */
+/* --- フッター（タグ + 詳細ボタン：左下配置） --- */
 .project-footer {
-    margin-top: auto; /* 下に押し下げる */
+    margin-top: auto;
     padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .project-link {
@@ -410,6 +408,7 @@ html[data-theme="light"] .theme-toggle-btn {
     text-decoration: none;
     border-radius: 6px;
     transition: all 0.2s ease;
+    width: fit-content;
 }
 
 .project-link:hover {
@@ -417,14 +416,24 @@ html[data-theme="light"] .theme-toggle-btn {
     transform: translateY(-1px);
 }
 
-/* --- タグ（既存スタイルを維持） --- */
-.project .tags {
+/* ===== タグ共通スタイル ===== */
+.tags {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    margin-top: 8px;
-    margin-bottom: 8px;
 }
+
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(128, 128, 128, 0.15);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 12px;
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+}
+
 /* ===== スキル・ツール・アクティビティカード ===== */
 .skills-grid {
     display: flex;
@@ -468,10 +477,7 @@ html[data-theme="light"] .theme-toggle-btn {
 
 .activity-card {
     max-width: 200px;
-    
 }
-
-/* ===== 以下を components.css の activity-card セクションに追加 ===== */
 
 /* アクティビティアイコンコンテナ */
 .activity-icon-container {
@@ -522,7 +528,7 @@ html[data-theme="light"] .theme-toggle-btn {
     font-weight: 600;
 }
 
-/* ===== 資格カルーセル（新規） ===== */
+/* ===== 資格カルーセル ===== */
 .certifications-carousel-wrapper {
     position: relative;
     margin-top: 20px;

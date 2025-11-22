@@ -69,7 +69,11 @@ class Projects {
             desc.textContent = p.desc[currentLang];
             article.appendChild(desc);
             
-            // --- タグ ---
+            // --- フッター部分（タグ + 詳細ボタン：左下配置） ---
+            const footer = document.createElement('div');
+            footer.className = 'project-footer';
+            
+            // タグ（詳細ボタンの上に配置）
             const tags = document.createElement('div');
             tags.className = 'tags';
             p.tags.forEach(t => {
@@ -80,12 +84,9 @@ class Projects {
                     tags.appendChild(span);
                 }
             });
-            article.appendChild(tags);
+            footer.appendChild(tags);
             
-            // --- フッター部分（詳細ボタン：左下配置） ---
-            const footer = document.createElement('div');
-            footer.className = 'project-footer';
-            
+            // 詳細ボタン
             const link = document.createElement('a');
             link.className = 'project-link';
             link.href = p.url || '#';
