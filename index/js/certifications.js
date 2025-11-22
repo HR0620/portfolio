@@ -9,8 +9,8 @@ class Certifications {
         this.nextBtn = document.getElementById("carouselNext");
         
         this.currentIndex = 0;
-        this.autoPlayInterval = null;
-        this.autoPlayDelay = 4000; // 4秒ごとに自動スクロール
+        // this.autoPlayInterval = null;
+        // this.autoPlayDelay = 4000; // 4秒ごとに自動スクロール
         this.cards = [];
         this.newestIndex = 0;
     }
@@ -185,26 +185,26 @@ class Certifications {
         this.resetAutoPlay();
     }
 
-    // 自動再生を開始
-    startAutoPlay() {
-        this.autoPlayInterval = setInterval(() => {
-            this.next();
-        }, this.autoPlayDelay);
-    }
+    // // 自動再生を開始
+    // startAutoPlay() {
+    //     this.autoPlayInterval = setInterval(() => {
+    //         this.next();
+    //     }, this.autoPlayDelay);
+    // }
 
     // 自動再生を停止
-    stopAutoPlay() {
-        if (this.autoPlayInterval) {
-            clearInterval(this.autoPlayInterval);
-            this.autoPlayInterval = null;
-        }
-    }
+    // stopAutoPlay() {
+    //     if (this.autoPlayInterval) {
+    //         clearInterval(this.autoPlayInterval);
+    //         this.autoPlayInterval = null;
+    //     }
+    // }
 
     // 自動再生をリセット
-    resetAutoPlay() {
-        this.stopAutoPlay();
-        this.startAutoPlay();
-    }
+    // resetAutoPlay() {
+    //     this.stopAutoPlay();
+    //     this.startAutoPlay();
+    // }
 
     // イベントリスナーを設定
     setupEventListeners() {
@@ -220,10 +220,10 @@ class Certifications {
             this.resetAutoPlay();
         });
         
-        // マウスホバーで自動再生を一時停止
-        const wrapper = document.querySelector('.certifications-carousel-wrapper');
-        wrapper.addEventListener('mouseenter', () => this.stopAutoPlay());
-        wrapper.addEventListener('mouseleave', () => this.startAutoPlay());
+        // // マウスホバーで自動再生を一時停止
+        // const wrapper = document.querySelector('.certifications-carousel-wrapper');
+        // wrapper.addEventListener('mouseenter', () => this.stopAutoPlay());
+        // wrapper.addEventListener('mouseleave', () => this.startAutoPlay());
         
         // タッチスワイプ対応
         let touchStartX = 0;
