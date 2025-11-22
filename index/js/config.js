@@ -179,12 +179,12 @@ const activitiesData = [
     { 
         id: "a1", 
         title: { ja: "COMING SOON...", en: "COMING SOON..." }, 
+        iconType: 'fontawesome',
+        icon: 'fa-solid fa-question',
         desc: { ja: "", en: "" }, 
         tags: [""], 
         date: "B.C.20xx/xx/xx", 
         url: "#",
-        iconType: 'fontawesome',
-        icon: 'fa-solid fa-question',
         image: null  // fontawesomeの場合はnullでOK
     }
 ];

@@ -1,25 +1,6 @@
 // skills.js - スキル・ツール機能モジュール
-
-// ===== アイコン生成ユーティリティ関数 =====
-// iconType: 'devicon' | 'fontawesome' | 'original'
-// icon: クラス名（devicon/fontawesome）または画像パス（original）
-// altText: original時のalt属性用テキスト（オプション）
-function createIconElement(iconType, icon, altText = '') {
-    // originalの場合は画像要素を返す
-    if (iconType === 'original') {
-        return `<img src="${icon}" alt="${altText}" style="width: 48px; height: 48px; object-fit: contain;">`;
-    }
-    // deviconの場合
-    if (iconType === 'devicon') {
-        return `<i class="${icon} colored"></i>`;
-    }
-    // fontawesomeの場合（デフォルト）
-    // 'fas'や'fab'が含まれているかチェック
-    if (icon.includes('fa-')) {
-        return `<i class="${icon}"></i>`;
-    }
-    return `<i class="fas ${icon}"></i>`;
-}
+// ============================================
+// IconUtils を使用してアイコン生成を共通化
 
 // ===== スキル管理クラス =====
 class Skills {
@@ -27,7 +8,7 @@ class Skills {
         this.container = document.getElementById("skillsContainer");
     }
 
-    // スキルをレンダリングする（devicon / fontawesome / original 対応）
+    // スキルをレンダリングする
     render() {
         this.container.innerHTML = '';
 
@@ -37,10 +18,10 @@ class Skills {
             skillCard.setAttribute('data-skill-id', skill.id);
             skillCard.addEventListener('click', () => this.showModal(skill.id));
 
-            // アイコンを生成
+            // アイコンを生成（IconUtilsを使用）
             const iconDiv = document.createElement('div');
             iconDiv.className = 'skill-icon';
-            iconDiv.innerHTML = createIconElement(skill.iconType, skill.icon, skill.name);
+            iconDiv.innerHTML = IconUtils.createFromData(skill, { size: 'medium' });
 
             // 名前を表示
             const name = document.createElement('h3');
@@ -59,9 +40,9 @@ class Skills {
 
         const lang = currentLang;
 
-        // モーダルにアイコンを表示
+        // モーダルにアイコンを表示（IconUtilsを使用）
         const modalIcon = document.getElementById('modalSkillIcon');
-        modalIcon.innerHTML = createIconElement(skill.iconType, skill.icon, skill.name);
+        modalIcon.innerHTML = IconUtils.createFromData(skill, { size: 'large' });
         
         // タイトルを設定
         document.getElementById('modalSkillName').textContent = skill.name;
@@ -96,7 +77,7 @@ class DevTools {
         this.container = document.getElementById("devToolsContainer");
     }
 
-    // ツールをレンダリングする（devicon / fontawesome / original 対応）
+    // ツールをレンダリングする
     render() {
         this.container.innerHTML = '';
 
@@ -106,10 +87,10 @@ class DevTools {
             toolCard.setAttribute('data-tool-id', tool.id);
             toolCard.addEventListener('click', () => this.showModal(tool.id));
 
-            // アイコンを生成
+            // アイコンを生成（IconUtilsを使用）
             const iconDiv = document.createElement('div');
             iconDiv.className = 'tool-icon';
-            iconDiv.innerHTML = createIconElement(tool.iconType, tool.icon, tool.name);
+            iconDiv.innerHTML = IconUtils.createFromData(tool, { size: 'medium' });
 
             // 名前を表示
             const name = document.createElement('h3');
@@ -128,9 +109,9 @@ class DevTools {
 
         const lang = currentLang;
 
-        // モーダルにアイコンを表示
+        // モーダルにアイコンを表示（IconUtilsを使用）
         const modalIcon = document.getElementById('modalSkillIcon');
-        modalIcon.innerHTML = createIconElement(tool.iconType, tool.icon, tool.name);
+        modalIcon.innerHTML = IconUtils.createFromData(tool, { size: 'large' });
         
         // タイトルを設定
         document.getElementById('modalSkillName').textContent = tool.name;
@@ -164,6 +145,3 @@ function renderDevTools() {
         window.devToolsInstance.render();
     }
 }
-
-// createIconElement関数をグローバルに公開（他のモジュールからも使えるように）
-window.createIconElement = createIconElement;

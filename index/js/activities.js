@@ -1,4 +1,6 @@
 // activities.js - アクティビティ管理モジュール
+// ============================================
+// IconUtils を使用してアイコン生成を共通化
 
 // ===== アクティビティ管理クラス =====
 class Activities {
@@ -16,24 +18,28 @@ class Activities {
             activityCard.setAttribute('data-activity-id', a.id);
             activityCard.addEventListener('click', () => this.showModal(a.id));
 
-            // アイコン/画像を表示
-            // iconType: 'original'（画像パス）, 'fontawesome', 'devicon'
+            // アイコン/画像を表示（IconUtilsを使用）
             const iconContainer = document.createElement('div');
             iconContainer.className = 'activity-icon-container';
             
-            if (a.iconType === 'original' && a.image) {
+            // iconTypeを判定（指定がなければ自動判定）
+            const iconType = a.iconType || IconUtils.detectIconType(a.icon || a.image);
+            
+            if (iconType === 'original') {
                 // 画像パスの場合
                 const img = document.createElement('img');
                 img.className = 'activity-icon';
-                img.src = a.image;
+                img.src = a.image || a.icon;
                 img.alt = a.title[currentLang];
                 iconContainer.appendChild(img);
-            } else if (a.iconType === 'devicon') {
-                // Deviconの場合
-                iconContainer.innerHTML = `<div class="activity-icon-fa"><i class="${a.icon} colored"></i></div>`;
             } else {
-                // Font Awesomeの場合（デフォルト）
-                iconContainer.innerHTML = `<div class="activity-icon-fa"><i class="${a.icon}"></i></div>`;
+                // Font Awesome / Devicon の場合
+                const iconWrapper = document.createElement('div');
+                iconWrapper.className = 'activity-icon-fa';
+                iconWrapper.innerHTML = IconUtils.createIconHTML(iconType, a.icon, a.title[currentLang], {
+                    size: 'medium'
+                });
+                iconContainer.appendChild(iconWrapper);
             }
 
             // タイトル
@@ -53,19 +59,9 @@ class Activities {
 
         const lang = currentLang;
 
-        // モーダルアイコンを設定
+        // モーダルアイコンを設定（IconUtilsを使用）
         const modalIcon = document.getElementById('modalSkillIcon');
-        
-        if (activity.iconType === 'original' && activity.image) {
-            // 画像パスの場合
-            modalIcon.innerHTML = `<img src="${activity.image}" style="width: 60px; height: 60px; object-fit: contain;" alt="${activity.title[lang]}">`;
-        } else if (activity.iconType === 'devicon') {
-            // Deviconの場合
-            modalIcon.innerHTML = `<i class="${activity.icon} colored"></i>`;
-        } else {
-            // Font Awesomeの場合
-            modalIcon.innerHTML = `<i class="${activity.icon}"></i>`;
-        }
+        modalIcon.innerHTML = IconUtils.createFromData(activity, { size: 'large' });
         
         // タイトルを設定
         document.getElementById('modalSkillName').textContent = activity.title[lang];
@@ -92,12 +88,6 @@ class Activities {
 window.Activities = Activities;
 
 // グローバルに公開するための関数
-function renderProjects() {
-    if (window.projectsInstance) {
-        window.projectsInstance.render();
-    }
-}
-
 function renderActivities() {
     if (window.activitiesInstance) {
         window.activitiesInstance.render();
