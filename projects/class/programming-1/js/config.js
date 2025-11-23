@@ -63,7 +63,7 @@ const assignmentsData = [
             }
         ],
         // Pythonコードファイルのパス
-        codeFilePath: 'code/assignment1.py'
+        codeFilePath: 'code/assignment-1.py'
     },
     
     {
@@ -103,7 +103,7 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'code/assignment2.py'
+        codeFilePath: 'code/assignment-2.py'
     },
     
     {
@@ -143,7 +143,7 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'code/assignment3.py'
+        codeFilePath: 'code/assignment-3.py'
     },
     
     {
@@ -183,7 +183,7 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'code/assignment4.py'
+        codeFilePath: 'code/assignment-4.py'
     },
     
     {
@@ -223,7 +223,7 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'code/assignment5.py'
+        codeFilePath: 'code/assignment-5.py'
     }
 ];
 
