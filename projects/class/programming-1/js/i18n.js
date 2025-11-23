@@ -57,7 +57,7 @@ const i18nData = {
         introDesc: 'A collection of assignments created in Programming 1. View code, execution results, and descriptions for each assignment.',
         
         // Tabs
-        tabPrefix: 'Assignment',
+        tabPrefix: 'Task',
         
         // Assignment Details
         dateLabel: 'Date',
@@ -128,6 +128,11 @@ function updateUILanguage() {
     const langBtn = document.getElementById('langToggle');
     const langBtnSpan = langBtn.querySelector('span');
     langBtnSpan.textContent = currentLang === 'ja' ? 'EN' : 'JP';
+    
+    // タブを再生成（言語に応じたプレフィックス）
+    if (typeof initializeTabs === 'function') {
+        initializeTabs();
+    }
     
     // 現在選択されている課題を再レンダリング
     if (window.currentAssignmentId) {
