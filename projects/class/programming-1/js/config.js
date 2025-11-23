@@ -18,10 +18,14 @@
  * @property {string} colabLink - Google Colabへのリンク
  * @property {Object[]} images - スクリーンショット/GIF
  * @property {string} images[].src - 画像パス
- * @property {string} images[].caption - 画像の説明（多言語対応）
- * @property {Object} images[].caption.ja - 日本語キャプション
- * @property {Object} images[].caption.en - 英語キャプション
+ * @property {Object} images[].caption - 画像の説明（多言語対応）
+ * @property {string} images[].caption.ja - 日本語キャプション
+ * @property {string} images[].caption.en - 英語キャプション
  * @property {string} codeFilePath - Pythonコードファイルのパス
+ * @property {Object[]} sections - 追加セクション（技術、工夫、感想など）
+ * @property {string} sections[].icon - Font Awesomeアイコンクラス
+ * @property {Object} sections[].title - セクションタイトル（多言語対応）
+ * @property {Object} sections[].content - セクション内容（多言語対応）
  */
 
 const assignmentsData = [
@@ -38,7 +42,7 @@ const assignmentsData = [
         },
         tags: ['Python', 'Numpy', '配列操作', 'データ分析'],
         date: '2025/04/15',
-        colabLink: '#', // Google Colabリンク（実際のリンクに置き換え）
+        colabLink: '#',
         images: [
             {
                 src: 'images/assignment1/screenshot1.png',
@@ -62,8 +66,54 @@ const assignmentsData = [
                 }
             }
         ],
-        // Pythonコードファイルのパス
-        codeFilePath: 'assignment/01/assignment-1.py'
+        codeFilePath: 'assignment/01/assignment-1.py',
+        // 追加セクション（自由に編集可能）
+        sections: [
+            {
+                icon: 'fa-cogs', // Font Awesomeアイコン
+                title: {
+                    ja: '使用技術',
+                    en: 'Technologies Used'
+                },
+                content: {
+                    ja: 'Python 3.x、Numpy、Matplotlibを使用しました。配列操作とブロードキャストを中心に学習しました。',
+                    en: 'Used Python 3.x, Numpy, and Matplotlib. Focused on array operations and broadcasting.'
+                }
+            },
+            {
+                icon: 'fa-exclamation-triangle',
+                title: {
+                    ja: '苦労した点',
+                    en: 'Challenges'
+                },
+                content: {
+                    ja: '多次元配列のインデックス操作の理解に時間がかかりました。特にスライシングの範囲指定で混乱することが多かったです。',
+                    en: 'Understanding multi-dimensional array indexing took time. I was often confused by slice range specifications.'
+                }
+            },
+            {
+                icon: 'fa-lightbulb',
+                title: {
+                    ja: '工夫した点',
+                    en: 'Innovations'
+                },
+                content: {
+                    ja: 'ループを使わずにベクトル化により処理速度を大幅に向上させました。可読性を保つためにコメントを充実させました。',
+                    en: 'Significantly improved processing speed through vectorization without loops. Enhanced readability with comprehensive comments.'
+                }
+            },
+            {
+                icon: 'fa-heart',
+                title: {
+                    ja: '感想',
+                    en: 'Impressions'
+                },
+                content: {
+                    ja: 'Numpyの強力さを実感し、データ処理の基礎を学べました。今後の機械学習やデータ分析に活かせる知識が得られました。',
+                    en: 'Realized the power of Numpy and learned data processing fundamentals. Gained knowledge applicable to future machine learning and data analysis.'
+                }
+            }
+        ]
     },
     
     {
@@ -103,7 +153,53 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'assignment/02/assignment-2.py'
+        codeFilePath: 'assignment/02/assignment-2.py',
+        sections: [
+            {
+                icon: 'fa-cogs',
+                title: {
+                    ja: '使用技術',
+                    en: 'Technologies Used'
+                },
+                content: {
+                    ja: 'Pandas、Numpy、Matplotlibを組み合わせて使用。CSVの読み込みと前処理に重点を置きました。',
+                    en: 'Combined Pandas, Numpy, and Matplotlib. Focused on CSV loading and preprocessing.'
+                }
+            },
+            {
+                icon: 'fa-exclamation-triangle',
+                title: {
+                    ja: '苦労した点',
+                    en: 'Challenges'
+                },
+                content: {
+                    ja: '欠損値の適切な処理方法の選択に悩みました。また、groupbyの使い方を理解するのに時間がかかりました。',
+                    en: 'Struggled with choosing appropriate methods for handling missing values. Understanding groupby usage took time.'
+                }
+            },
+            {
+                icon: 'fa-lightbulb',
+                title: {
+                    ja: '工夫した点',
+                    en: 'Innovations'
+                },
+                content: {
+                    ja: 'メソッドチェーンを活用して処理を簡潔に記述しました。可視化では適切なグラフタイプを選択するよう心がけました。',
+                    en: 'Used method chaining for concise code. Carefully selected appropriate graph types for visualization.'
+                }
+            },
+            {
+                icon: 'fa-heart',
+                title: {
+                    ja: '感想',
+                    en: 'Impressions'
+                },
+                content: {
+                    ja: 'Pandasの便利さに驚きました。実際のデータ分析業務で即戦力となる知識を得られたと感じています。',
+                    en: 'Amazed by the convenience of Pandas. Feel I gained immediately applicable knowledge for actual data analysis work.'
+                }
+            }
+        ]
     },
     
     {
@@ -143,7 +239,53 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'assignment/03/assignment-3.py'
+        codeFilePath: 'assignment/03/assignment-3.py',
+        sections: [
+            {
+                icon: 'fa-cogs',
+                title: {
+                    ja: '使用技術',
+                    en: 'Technologies Used'
+                },
+                content: {
+                    ja: 'Matplotlib、Seaborn、Numpyを使用。複数のグラフタイプとスタイルのカスタマイズを学習しました。',
+                    en: 'Used Matplotlib, Seaborn, and Numpy. Learned multiple graph types and style customization.'
+                }
+            },
+            {
+                icon: 'fa-exclamation-triangle',
+                title: {
+                    ja: '苦労した点',
+                    en: 'Challenges'
+                },
+                content: {
+                    ja: 'サブプロットのレイアウト調整が難しかったです。また、日本語フォントの設定に苦労しました。',
+                    en: 'Subplot layout adjustment was difficult. Also struggled with Japanese font configuration.'
+                }
+            },
+            {
+                icon: 'fa-lightbulb',
+                title: {
+                    ja: '工夫した点',
+                    en: 'Innovations'
+                },
+                content: {
+                    ja: 'カラーマップを効果的に使い、視覚的に分かりやすいグラフを作成しました。凡例の配置にも配慮しました。',
+                    en: 'Effectively used colormaps to create visually clear graphs. Paid attention to legend placement.'
+                }
+            },
+            {
+                icon: 'fa-heart',
+                title: {
+                    ja: '感想',
+                    en: 'Impressions'
+                },
+                content: {
+                    ja: 'データを視覚化することの重要性を実感しました。見やすいグラフ作りのセンスを磨きたいと思います。',
+                    en: 'Realized the importance of data visualization. Want to refine my sense for creating clear graphs.'
+                }
+            }
+        ]
     },
     
     {
@@ -183,7 +325,53 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'assignment/04/assignment-4.py'
+        codeFilePath: 'assignment/04/assignment-4.py',
+        sections: [
+            {
+                icon: 'fa-cogs',
+                title: {
+                    ja: '使用技術',
+                    en: 'Technologies Used'
+                },
+                content: {
+                    ja: 'Scipy、Numpy、Pandas、Matplotlibを組み合わせて統計解析を実施しました。',
+                    en: 'Combined Scipy, Numpy, Pandas, and Matplotlib for statistical analysis.'
+                }
+            },
+            {
+                icon: 'fa-exclamation-triangle',
+                title: {
+                    ja: '苦労した点',
+                    en: 'Challenges'
+                },
+                content: {
+                    ja: '統計的仮説検定の概念理解に時間がかかりました。p値の解釈が特に難しかったです。',
+                    en: 'Understanding statistical hypothesis testing concepts took time. P-value interpretation was particularly difficult.'
+                }
+            },
+            {
+                icon: 'fa-lightbulb',
+                title: {
+                    ja: '工夫した点',
+                    en: 'Innovations'
+                },
+                content: {
+                    ja: '実データを使った分析を通じて、理論と実践を結びつけるよう心がけました。',
+                    en: 'Tried to connect theory and practice through analysis using real data.'
+                }
+            },
+            {
+                icon: 'fa-heart',
+                title: {
+                    ja: '感想',
+                    en: 'Impressions'
+                },
+                content: {
+                    ja: '統計学の重要性を再認識しました。データから有意義な情報を引き出す面白さを感じました。',
+                    en: 'Re-recognized the importance of statistics. Found it fascinating to extract meaningful information from data.'
+                }
+            }
+        ]
     },
     
     {
@@ -223,8 +411,55 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'assignment/05/assignment-5.py'
+        codeFilePath: 'assignment/05/assignment-5.py',
+        sections: [
+            {
+                icon: 'fa-cogs',
+                title: {
+                    ja: '使用技術',
+                    en: 'Technologies Used'
+                },
+                content: {
+                    ja: 'scikit-learn、Pandas、Numpy、Matplotlibを使用。交差検証やハイパーパラメータチューニングも実施しました。',
+                    en: 'Used scikit-learn, Pandas, Numpy, and Matplotlib. Also performed cross-validation and hyperparameter tuning.'
+                }
+            },
+            {
+                icon: 'fa-exclamation-triangle',
+                title: {
+                    ja: '苦労した点',
+                    en: 'Challenges'
+                },
+                content: {
+                    ja: '過学習と汎化性能のバランスを取るのが難しかったです。特徴量エンジニアリングにも苦労しました。',
+                    en: 'Balancing overfitting and generalization performance was difficult. Also struggled with feature engineering.'
+                }
+            },
+            {
+                icon: 'fa-lightbulb',
+                title: {
+                    ja: '工夫した点',
+                    en: 'Innovations'
+                },
+                content: {
+                    ja: 'モデルの評価指標を複数用いて、多角的に性能を評価しました。可視化により結果の解釈性を高めました。',
+                    en: 'Used multiple evaluation metrics for comprehensive performance assessment. Enhanced result interpretability through visualization.'
+                }
+            },
+            {
+                icon: 'fa-heart',
+                title: {
+                    ja: '感想',
+                    en: 'Impressions'
+                },
+                content: {
+                    ja: '機械学習の奥深さを感じました。今後はディープラーニングにも挑戦したいと思います。',
+                    en: 'Felt the depth of machine learning. Want to challenge deep learning in the future.'
+                }
+            }
+        ]
     }
 ];
 
 // 課題データをエクスポート
+// （グローバル変数として使用可能）

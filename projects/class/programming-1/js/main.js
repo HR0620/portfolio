@@ -16,9 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeEventListeners();
     startTypingAnimation();
     
-    // 最初の課題を表示（課題1）
+    // 最初の課題を表示（課題5から降順なので、最初は課題5）
     if (assignmentsData.length > 0) {
-        selectTab(assignmentsData[0].id);
+        const sortedAssignments = [...assignmentsData].sort((a, b) => b.number - a.number);
+        selectTab(sortedAssignments[0].id);
     }
 });
 
@@ -86,6 +87,17 @@ function renderAssignment(assignmentId) {
     const contentArea = document.getElementById('assignmentContent');
     const lang = currentLang;
     
+    // 追加セクション（技術、工夫、感想など）のHTMLを生成
+    const sectionsHTML = assignment.sections ? assignment.sections.map(section => `
+        <div class="detail-section">
+            <h3 class="detail-section-title">
+                <i class="fas ${section.icon}"></i>
+                ${section.title[lang]}
+            </h3>
+            <p class="detail-section-content">${section.content[lang]}</p>
+        </div>
+    `).join('') : '';
+    
     // HTMLを生成
     contentArea.innerHTML = `
         <div class="assignment-header">
@@ -110,6 +122,9 @@ function renderAssignment(assignmentId) {
         <div class="tags">
             ${assignment.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
         </div>
+        
+        <!-- 追加セクション（技術、工夫、感想など） -->
+        ${sectionsHTML}
         
         <!-- 画像ギャラリー -->
         <div class="images-section">
@@ -151,9 +166,11 @@ function renderAssignment(assignmentId) {
 function setupAssignmentEventListeners(assignment) {
     // コード表示ボタン
     const viewCodeBtn = document.getElementById('viewCodeBtn');
-    viewCodeBtn.addEventListener('click', () => {
-        loadAndShowCode(assignment);
-    });
+    if (viewCodeBtn) {
+        viewCodeBtn.addEventListener('click', () => {
+            loadAndShowCode(assignment);
+        });
+    }
     
     // 画像カードのクリックイベント
     const imageCards = document.querySelectorAll('.image-card');
