@@ -130,14 +130,28 @@ class Certifications {
         this.updateCarousel(false);
     }
 
+    // カード幅を取得（レスポンシブ対応）
+    getCardWidth() {
+        // スマホの場合は画面幅に応じて計算
+        if (window.innerWidth <= 600) {
+            // カード幅 = 100vw - 120px + gap(10px)
+            return window.innerWidth - 120 + 10;
+        }
+        // PC/タブレットの場合は固定幅
+        return 300; // カード幅(280px) + gap(20px)
+    }
+    
     // カルーセルの表示を更新する
     updateCarousel(animate = true) {
-        const cardWidth = 300; // カード幅 + gap
+        const cardWidth = this.getCardWidth();
         const cloneCount = Math.min(2, this.totalCards);
         
         // 実際の位置（クローンを考慮）
         const actualIndex = this.currentIndex + cloneCount;
         const offset = actualIndex * cardWidth;
+        
+        // 中央揃えのためのオフセット計算
+        const centerOffset = cardWidth / 2 - 10; // gapの半分を引く
         
         if (animate) {
             this.track.style.transition = 'transform 0.5s ease';
@@ -146,7 +160,7 @@ class Certifications {
         }
         
         // 中央に配置するための計算
-        this.track.style.transform = `translateX(calc(50% - ${offset}px - 140px))`;
+        this.track.style.transform = `translateX(calc(50% - ${offset}px - ${centerOffset}px))`;
         
         // activeクラスの更新
         const allCards = this.track.querySelectorAll('.certification-card');
@@ -259,7 +273,11 @@ class Certifications {
     init() {
         this.render();
         this.setupEventListeners();
-        // オート再生は廃止
+        
+        // ウィンドウリサイズ時にカルーセルを更新
+        window.addEventListener('resize', () => {
+            this.updateCarousel(false);
+        });
     }
 }
 

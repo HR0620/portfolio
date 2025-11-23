@@ -576,6 +576,52 @@ html[data-theme="light"] .theme-toggle-btn {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* スマホ対応：カードサイズを画面幅に合わせる */
+@media (max-width: 600px) {
+    .certifications-carousel-wrapper {
+        padding: 0 40px;
+    }
+    
+    .certifications-carousel {
+        gap: 10px;
+        padding: 15px 0;
+    }
+    
+    .carousel-track {
+        gap: 10px;
+    }
+    
+    .certification-card {
+        /* 画面幅 - ボタン幅(80px) - 余白 で計算 */
+        min-width: calc(100vw - 120px);
+        max-width: calc(100vw - 120px);
+        min-height: 140px;
+        padding: 15px;
+    }
+    
+    .certification-name {
+        font-size: 16px;
+    }
+    
+    .certification-organization {
+        font-size: 12px;
+    }
+    
+    .certification-date {
+        font-size: 11px;
+        margin-top: 10px;
+        padding-top: 8px;
+    }
+    
+    /* NEWバッジも小さく */
+    .certification-badge {
+        top: -8px;
+        right: -8px;
+        padding: 3px 8px;
+        font-size: 10px;
+    }
+}
+
 .certification-card:hover {
     border-color: var(--accent);
 }

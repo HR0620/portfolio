@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming 1 - Assignments</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../../index/images/icons/hr.png">
+    
+    <!-- Prism.js for Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-content">
+            <div class="brand">
+                <i class="fas fa-code"></i>
+                <div>
+                    <h1 id="headerTitle">Programming 1</h1>
+                    <p id="headerSubtitle" class="subtitle">Assignment Portfolio</p>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="langToggle" class="lang-btn" aria-label="Switch Language">
+                    <i class="fas fa-language"></i>
+                    <span>EN</span>
+                </button>
+                <a href="../../../index/index.html" class="back-btn" aria-label="Back to Portfolio">
+                    <i class="fas fa-arrow-left"></i>
+                    <span id="backText">Back</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- タイピングアニメーション付きイントロ -->
+    <section class="intro">
+        <div class="typing-container">
+            <span class="prompt">$</span>
+            <span id="typingText" class="typing-text"></span>
+            <span class="cursor">|</span>
+        </div>
+        <p id="introDesc" class="intro-desc"></p>
+    </section>
+
+    <!-- メインコンテンツ -->
+    <main class="container">
+        <!-- VS Code風タブエリア -->
+        <div class="vscode-tabs">
+            <div class="tabs-container" id="tabsContainer">
+                <!-- タブはJSで動的生成 -->
+            </div>
+            <div class="tab-actions">
+                <button class="tab-action-btn" id="expandAllBtn" title="Expand All">
+                    <i class="fas fa-expand-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 課題詳細エリア -->
+        <div class="assignment-content" id="assignmentContent">
+            <!-- 課題の詳細はJSで動的生成 -->
+        </div>
+    </main>
+
+    <!-- コードモーダル -->
+    <div id="codeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fab fa-python"></i>
+                    <h3 id="modalTitle">Code Preview</h3>
+                </div>
+                <div class="modal-actions">
+                    <button id="copyCodeBtn" class="modal-btn" title="Copy Code">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    <button id="closeModalBtn" class="modal-btn close-btn" title="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <pre><code id="modalCode" class="language-python"><!-- コードはここに表示 --></code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- 画像拡大モーダル -->
+    <div id="imageModal" class="modal image-modal">
+        <div class="image-modal-content">
+            <button id="closeImageModalBtn" class="image-modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modalImage" src="" alt="Enlarged view">
+            <div class="image-nav">
+                <button id="prevImageBtn" class="image-nav-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="nextImageBtn" class="image-nav-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prism.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

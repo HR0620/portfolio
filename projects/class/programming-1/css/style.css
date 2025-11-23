@@ -1,0 +1,703 @@
+/* style.css - Programming 1 Assignment Portfolio */
+
+/* ===== CSS変数定義 ===== */
+:root {
+    /* カラーパレット - 白ベース & VS Code風 */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --bg-tertiary: #e8e8e8;
+    --text-primary: #1e1e1e;
+    --text-secondary: #6a737d;
+    --accent-blue: #007acc;
+    --accent-green: #16a34a;
+    --accent-orange: #f97316;
+    --border-color: #d0d7de;
+    --shadow: rgba(0, 0, 0, 0.1);
+    
+    /* VS Codeカラー */
+    --vscode-tab-bg: #2d2d2d;
+    --vscode-tab-active: #1e1e1e;
+    --vscode-tab-text: #cccccc;
+    --vscode-tab-active-text: #ffffff;
+    
+    /* レイアウト */
+    --max-width: 1200px;
+    --gap: 20px;
+    --radius: 8px;
+    --header-height: 70px;
+}
+
+/* ===== リセット & 基本スタイル ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ===== ヘッダー ===== */
+.header {
+    background: var(--bg-primary);
+    border-bottom: 2px solid var(--accent-blue);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.header-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 15px var(--gap);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.brand i {
+    font-size: 32px;
+    color: var(--accent-blue);
+}
+
+.brand h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.subtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.lang-btn, .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.lang-btn:hover, .back-btn:hover {
+    background: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue);
+}
+
+/* ===== イントロセクション（タイピングアニメーション） ===== */
+.intro {
+    max-width: var(--max-width);
+    margin: 40px auto;
+    padding: 0 var(--gap);
+}
+
+.typing-container {
+    background: var(--vscode-tab-bg);
+    color: var(--accent-green);
+    padding: 20px;
+    border-radius: var(--radius);
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 4px 12px var(--shadow);
+    margin-bottom: 15px;
+}
+
+.prompt {
+    color: var(--accent-orange);
+    margin-right: 10px;
+}
+
+.typing-text {
+    color: var(--accent-green);
+}
+
+.cursor {
+    color: var(--vscode-tab-active-text);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.intro-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    padding: 0 5px;
+}
+
+/* ===== メインコンテナ ===== */
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto 60px;
+    padding: 0 var(--gap);
+}
+
+/* ===== VS Code風タブ ===== */
+.vscode-tabs {
+    background: var(--vscode-tab-bg);
+    border-radius: var(--radius) var(--radius) 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.tabs-container {
+    display: flex;
+    flex: 1;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.tabs-container::-webkit-scrollbar {
+    height: 4px;
+}
+
+.tabs-container::-webkit-scrollbar-track {
+    background: var(--vscode-tab-bg);
+}
+
+.tabs-container::-webkit-scrollbar-thumb {
+    background: var(--accent-blue);
+    border-radius: 2px;
+}
+
+.tab {
+    padding: 12px 20px;
+    background: var(--vscode-tab-bg);
+    color: var(--vscode-tab-text);
+    border: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.tab i {
+    font-size: 12px;
+}
+
+.tab:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.tab.active {
+    background: var(--bg-primary);
+    color: var(--accent-blue);
+    border-bottom: 2px solid var(--accent-blue);
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-blue);
+}
+
+.tab-actions {
+    padding: 0 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.tab-action-btn {
+    background: transparent;
+    border: none;
+    color: var(--vscode-tab-text);
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.tab-action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--vscode-tab-active-text);
+}
+
+/* ===== 課題コンテンツエリア ===== */
+.assignment-content {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    padding: 30px;
+    min-height: 400px;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.assignment-header {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--bg-tertiary);
+}
+
+.assignment-title {
+    font-size: 28px;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.assignment-title i {
+    color: var(--accent-blue);
+}
+
+.assignment-meta {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 4px 10px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+}
+
+.meta-item i {
+    font-size: 11px;
+}
+
+.assignment-description {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-bottom: 25px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.tag {
+    padding: 5px 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ===== 画像ギャラリー ===== */
+.images-section {
+    margin: 30px 0;
+}
+
+.section-title {
+    font-size: 18px;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title i {
+    color: var(--accent-blue);
+}
+
+.images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.image-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: pointer;
+    background: var(--bg-secondary);
+}
+
+.image-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow);
+    border-color: var(--accent-blue);
+}
+
+.image-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.image-caption {
+    padding: 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* ===== コードプレビュー ===== */
+.code-preview {
+    margin: 30px 0;
+}
+
+.code-preview-box {
+    background: #2d2d2d;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.code-header {
+    background: var(--vscode-tab-bg);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.code-header-title {
+    color: var(--vscode-tab-text);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.code-lang-badge {
+    background: var(--accent-blue);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.code-preview-box pre {
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.code-preview-box code {
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* ===== アクションボタン ===== */
+.actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.btn-primary {
+    background: var(--accent-blue);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #005a9e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 122, 204, 0.3);
+}
+
+.btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--accent-green);
+    color: white;
+    border-color: var(--accent-green);
+    transform: translateY(-2px);
+}
+
+.btn i {
+    font-size: 16px;
+}
+
+/* ===== モーダル（コード表示） ===== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 1000px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-secondary);
+}
+
+.modal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-title h3 {
+    font-size: 18px;
+    color: var(--text-primary);
+}
+
+.modal-title i {
+    color: var(--accent-blue);
+    font-size: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.modal-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: all 0.2s;
+}
+
+.modal-btn:hover {
+    background: var(--bg-tertiary);
+}
+
+.close-btn:hover {
+    background: #dc2626;
+    color: white;
+    border-color: #dc2626;
+}
+
+.modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.modal-body pre {
+    margin: 0;
+    border-radius: 0;
+    max-height: calc(90vh - 80px);
+}
+
+.modal-body code {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* ===== 画像拡大モーダル ===== */
+.image-modal {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+.image-modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-modal-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: var(--radius);
+}
+
+.image-modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-primary);
+    transition: all 0.2s;
+}
+
+.image-modal-close:hover {
+    background: #dc2626;
+    color: white;
+    transform: rotate(90deg);
+}
+
+.image-nav {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+}
+
+.image-nav-btn {
+    background: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-primary);
+    transition: all 0.2s;
+}
+
+.image-nav-btn:hover {
+    background: var(--accent-blue);
+    color: white;
+}
+
+/* ===== レスポンシブ対応 ===== */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .assignment-title {
+        font-size: 22px;
+    }
+    
+    .images-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .tabs-container {
+        font-size: 12px;
+    }
+    
+    .tab {
+        padding: 10px 15px;
+    }
+}
+
+/* ===== スクロールバーのスタイル ===== */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-blue);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #005a9e;
+}

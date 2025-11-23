@@ -168,7 +168,7 @@ const projects = [
         }, 
         tags: ["python","Numpy"],
         date: "2025/11/8,9", 
-        url: "../projects/class/programming1/index.html",
+        url: "../projects/class/programming-1/index.html",
         image: 'fa-solid fa-laptop-code'
     }
 ];
