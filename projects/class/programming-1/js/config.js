@@ -63,7 +63,7 @@ const assignmentsData = [
             }
         ],
         // Pythonコードファイルのパス
-        codeFilePath: 'code/assignment-1.py'
+        codeFilePath: 'assignment/01/assignment-1.py'
     },
     
     {
@@ -103,7 +103,7 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'code/assignment-2.py'
+        codeFilePath: 'assignment/02/assignment-2.py'
     },
     
     {
@@ -143,7 +143,7 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'code/assignment-3.py'
+        codeFilePath: 'assignment/03/assignment-3.py'
     },
     
     {
@@ -183,7 +183,7 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'code/assignment-4.py'
+        codeFilePath: 'assignment/04/assignment-4.py'
     },
     
     {
@@ -223,9 +223,8 @@ const assignmentsData = [
                 }
             }
         ],
-        codeFilePath: 'code/assignment-5.py'
+        codeFilePath: 'assignment/05/assignment-5.py'
     }
 ];
 
 // 課題データをエクスポート
-// （グローバル変数として使用可能）
