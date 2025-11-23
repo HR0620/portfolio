@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeEventListeners();
     startTypingAnimation();
     
+    // イントロの説明文を初期表示
+    document.getElementById('introDesc').textContent = getText('introDesc');
+    
     // 最初の課題を表示（課題5から降順なので、最初は課題5）
     if (assignmentsData.length > 0) {
         const sortedAssignments = [...assignmentsData].sort((a, b) => b.number - a.number);
@@ -87,6 +90,9 @@ function renderAssignment(assignmentId) {
     const contentArea = document.getElementById('assignmentContent');
     const lang = currentLang;
     
+    // 言語に応じたタグを取得
+    const displayTags = lang === 'ja' ? assignment.tags : (assignment.tagsEn || assignment.tags);
+    
     // 追加セクション（技術、工夫、感想など）のHTMLを生成
     const sectionsHTML = assignment.sections ? assignment.sections.map(section => `
         <div class="detail-section">
@@ -110,17 +116,13 @@ function renderAssignment(assignmentId) {
                     <i class="far fa-calendar-alt"></i>
                     ${getText('dateLabel')}: ${assignment.date}
                 </span>
-                <span class="meta-item">
-                    <i class="fas fa-hashtag"></i>
-                    ${getText('tagsLabel')}: ${assignment.tags.length}
-                </span>
             </div>
         </div>
         
         <p class="assignment-description">${assignment.description[lang]}</p>
         
         <div class="tags">
-            ${assignment.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            ${displayTags.map(tag => `<span class="tag">${tag}</span>`).join('')}
         </div>
         
         <!-- 追加セクション（技術、工夫、感想など） -->
@@ -224,12 +226,46 @@ async function loadAndShowCode(assignment) {
 }
 
 /**
- * コードをモーダルに表示（シンタックスハイライト付き）
+ * コードをモーダルに表示（シンタックスハイライト付き + 行番号）
  * @param {string} code - Pythonコード
  */
 function displayCode(code) {
     const modalCode = document.getElementById('modalCode');
+    const modalBody = modalCode.parentElement.parentElement;
+    
+    // コード全体を設定
     modalCode.textContent = code;
+    
+    // 行数をカウント
+    const lines = code.split('\n');
+    const lineCount = lines.length;
+    
+    // 行番号の幅を計算（最大桁数に合わせる）
+    const maxDigits = lineCount.toString().length;
+    const lineNumberWidth = Math.max(50, maxDigits * 10 + 30); // 最小50px
+    
+    // 行番号を生成
+    const lineNumbers = document.createElement('div');
+    lineNumbers.className = 'line-numbers';
+    lineNumbers.style.width = lineNumberWidth + 'px';
+    
+    for (let i = 1; i <= lineCount; i++) {
+        const lineNum = document.createElement('span');
+        lineNum.textContent = i;
+        lineNumbers.appendChild(lineNum);
+    }
+    
+    // 既存の行番号を削除
+    const existingLineNumbers = modalBody.querySelector('.line-numbers');
+    if (existingLineNumbers) {
+        existingLineNumbers.remove();
+    }
+    
+    // 行番号をpreタグの前に挿入
+    const pre = modalCode.parentElement;
+    pre.style.position = 'relative';
+    pre.style.paddingLeft = (lineNumberWidth + 10) + 'px';
+    pre.insertBefore(lineNumbers, modalCode);
     
     // Prism.jsでシンタックスハイライトを適用
     if (typeof Prism !== 'undefined') {

@@ -8,7 +8,7 @@ let currentLang = 'ja';
 const i18nData = {
     ja: {
         // ヘッダー
-        headerTitle: 'Programming 1',
+        headerTitle: 'プログラミング1',
         headerSubtitle: '課題ポートフォリオ',
         backText: '戻る',
         
@@ -121,7 +121,7 @@ function updateUILanguage() {
     document.getElementById('headerSubtitle').textContent = getText('headerSubtitle');
     document.getElementById('backText').textContent = getText('backText');
     
-    // イントロ（タイピングアニメーションは再実行しない）
+    // イントロの説明文を更新
     document.getElementById('introDesc').textContent = getText('introDesc');
     
     // 言語ボタンのテキスト更新
@@ -132,6 +132,13 @@ function updateUILanguage() {
     // タブを再生成（言語に応じたプレフィックス）
     if (typeof initializeTabs === 'function') {
         initializeTabs();
+        // タブ再生成後、選択状態を復元
+        if (window.currentAssignmentId) {
+            const selectedTab = document.querySelector(`[data-id="${window.currentAssignmentId}"]`);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+        }
     }
     
     // 現在選択されている課題を再レンダリング

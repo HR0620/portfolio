@@ -583,6 +583,62 @@ body {
     line-height: 1.6;
 }
 
+/* ===== コードプレビュー用の行番号スタイル ===== */
+.modal-body pre {
+    margin: 0;
+    border-radius: 0;
+    max-height: calc(90vh - 80px);
+    position: relative;
+    counter-reset: line;
+}
+
+.modal-body code {
+    font-size: 14px;
+    line-height: 1.6;
+    display: block;
+    padding-left: 60px; /* 行番号分のスペース */
+}
+
+.modal-body code::before {
+    counter-increment: line;
+    content: counter(line);
+    position: absolute;
+    left: 0;
+    width: 50px;
+    text-align: right;
+    padding-right: 15px;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(0, 0, 0, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    user-select: none;
+}
+
+/* 各行ごとに行番号を表示するためのスタイル */
+.line-numbers-wrapper {
+    position: relative;
+    padding-left: 60px;
+}
+
+.line-numbers {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50px;
+    text-align: right;
+    padding-right: 15px;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(0, 0, 0, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    user-select: none;
+    font-family: 'Courier New', monospace;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.line-numbers span {
+    display: block;
+}
+
 /* ===== 画像拡大モーダル ===== */
 .image-modal {
     background: rgba(0, 0, 0, 0.9);

@@ -41,6 +41,7 @@ const assignmentsData = [
             en: 'Learned basic Numpy array operations, slicing, broadcasting, and other features through practical exercises. Mastered fundamentals of matrix operations and statistical calculations.'
         },
         tags: ['Python', 'Numpy', '配列操作', 'データ分析'],
+        tagsEn: ['Python', 'Numpy', 'Array Operations', 'Data Analysis'],
         date: '2025/04/15',
         colabLink: '#',
         images: [
@@ -128,6 +129,7 @@ const assignmentsData = [
             en: 'Learned basics of data loading, processing, and visualization using Pandas DataFrames. Mastered practical operations such as CSV file processing, handling missing values, and grouping.'
         },
         tags: ['Python', 'Pandas', 'データ分析', '可視化'],
+        tagsEn: ['Python', 'Pandas', 'Data Analysis', 'Visualization'],
         date: '2025/04/22',
         colabLink: '#',
         images: [
@@ -214,6 +216,7 @@ const assignmentsData = [
             en: 'Learned to create various graphs using Matplotlib. Mastered a wide range of skills from basic graphs such as line graphs, bar charts, scatter plots, and histograms to subplots and customization.'
         },
         tags: ['Python', 'Matplotlib', '可視化', 'グラフ'],
+        tagsEn: ['Python', 'Matplotlib', 'Visualization', 'Graphs'],
         date: '2025/05/01',
         colabLink: '#',
         images: [
@@ -300,6 +303,7 @@ const assignmentsData = [
             en: 'Learned basic statistical analysis methods using Python. Understood fundamentals of descriptive statistics, probability distributions, hypothesis testing, and correlation analysis, and learned how to apply them to real data.'
         },
         tags: ['Python', 'Numpy', '統計', 'データ分析'],
+        tagsEn: ['Python', 'Numpy', 'Statistics', 'Data Analysis'],
         date: '2025/05/10',
         colabLink: '#',
         images: [
@@ -386,6 +390,7 @@ const assignmentsData = [
             en: 'As an introduction to machine learning, learned algorithms such as linear regression, logistic regression, and decision trees. Mastered implementation using scikit-learn and model evaluation methods, and applied them to real data.'
         },
         tags: ['Python', 'scikit-learn', '機械学習', 'データ分析'],
+        tagsEn: ['Python', 'scikit-learn', 'Machine Learning', 'Data Analysis'],
         date: '2025/05/20',
         colabLink: '#',
         images: [
