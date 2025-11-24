@@ -14,7 +14,7 @@ const i18nData = {
         
         // イントロ
         typingText: 'cd ~/Programming1 && ls -la',
-        introDesc: 'プログラミング1で作成した課題の一覧です。各課題のコード、実行結果、説明を確認できます。',
+        introDesc: 'プログラミング1の授業で作成した課題の一覧です。各課題のコード、実行結果、説明を確認できます。',
         
         // タブ
         tabPrefix: '課題',

@@ -33,42 +33,41 @@ const assignmentsData = [
         id: 'assignment-1',
         number: 1,
         title: {
-            ja: 'Numpyの基礎演習',
-            en: 'Numpy Basics Exercise'
+            ja: 'pythonを用いた数学解答',
+            en: 'Mathematical Problem Solving with Python'
         },
         description: {
-            ja: 'Numpyの基本的な配列操作、スライス、ブロードキャストなどの機能を学習し、実践的な演習を通じて理解を深めました。行列演算や統計計算の基礎を習得しました。',
-            en: 'Learned basic Numpy array operations, slicing, broadcasting, and other features through practical exercises. Mastered fundamentals of matrix operations and statistical calculations.'
+            ja: '条件分岐・例外処理・配列等について学べました。',
+            en: 'Learned about conditionals, exception handling, arrays, and more.'
         },
-        tags: ['Python', 'Numpy', '配列操作', 'データ分析'],
-        tagsEn: ['Python', 'Numpy', 'Array Operations', 'Data Analysis'],
-        date: '2025/04/15',
-        colabLink: '#',
+        tags: ['Python', '配列操作'],
+        tagsEn: ['Python', 'Array Operations'],
+        date: '2025/04/30',
+        colabLink: 'https://colab.research.google.com/drive/1gKPFu2A_OY4BLfTLFnxHTvf2Ig-M-4xy?usp=sharing',
         images: [
             {
-                src: 'images/assignment1/screenshot1.png',
+                src: 'assignment/01/photos/question.png',
                 caption: {
-                    ja: '配列の生成と基本操作',
-                    en: 'Array Creation and Basic Operations'
+                    ja: '問題文(設問5のみ抜粋)',
+                    en: 'Problem Statement (Excerpt of Question 5)'
                 }
             },
             {
-                src: 'images/assignment1/screenshot2.png',
+                src: 'assignment/01/photos/answer.png',
                 caption: {
-                    ja: 'スライシングとインデックス',
-                    en: 'Slicing and Indexing'
+                    ja: '出力例',
+                    en: 'Example Output'
                 }
             },
             {
-                src: 'images/assignment1/result.gif',
+                src: 'assignment/01/photos/playing.gif',
                 caption: {
                     ja: '実行結果のアニメーション',
-                    en: 'Animation of Execution Results'
+                    en: 'Animation of Execution Result'
                 }
             }
         ],
         codeFilePath: 'assignment/01/assignment-1.py',
-        // 追加セクション（自由に編集可能）
         sections: [
             {
                 icon: 'fa-cogs', // Font Awesomeアイコン
@@ -121,34 +120,34 @@ const assignmentsData = [
         id: 'assignment-2',
         number: 2,
         title: {
-            ja: 'Pandasによるデータ分析',
-            en: 'Data Analysis with Pandas'
+            ja: 'タートルグラフィックスで図形描画',
+            en: 'Described Shapes with Turtle Graphics'
         },
         description: {
             ja: 'PandasのDataFrameを使ったデータの読み込み、加工、可視化の基礎を学びました。CSVファイルの処理、欠損値の処理、グループ化などの実践的な操作を習得しました。',
             en: 'Learned basics of data loading, processing, and visualization using Pandas DataFrames. Mastered practical operations such as CSV file processing, handling missing values, and grouping.'
         },
-        tags: ['Python', 'Pandas', 'データ分析', '可視化'],
-        tagsEn: ['Python', 'Pandas', 'Data Analysis', 'Visualization'],
-        date: '2025/04/22',
-        colabLink: '#',
+        tags: ['Python', 'Turtle Graphics', '可視化'],
+        tagsEn: ['Python', 'Turtle Graphics','Visualization'],
+        date: '2025/05/14',
+        colabLink: 'https://colab.research.google.com/drive/1sTbTR-mPJlvHiVnhGi1Tlz3rsQTuUBWd?usp=sharing',
         images: [
             {
-                src: 'images/assignment2/screenshot1.png',
+                src: 'assignment/02/photos/task-5_flash.gif',
                 caption: {
                     ja: 'DataFrameの基本操作',
                     en: 'Basic DataFrame Operations'
                 }
             },
             {
-                src: 'images/assignment2/screenshot2.png',
+                src: 'assignment/02/photos/task-5_flash.gif',
                 caption: {
                     ja: 'グループ化と集計',
                     en: 'Grouping and Aggregation'
                 }
             },
             {
-                src: 'images/assignment2/visualization.gif',
+                src: 'assignment/02/photos/task-5_flash.gif',
                 caption: {
                     ja: 'データの可視化',
                     en: 'Data Visualization'
@@ -203,126 +202,39 @@ const assignmentsData = [
             }
         ]
     },
-    
-    {
-        id: 'assignment-3',
-        number: 3,
-        title: {
-            ja: 'Matplotlibでデータ可視化',
-            en: 'Data Visualization with Matplotlib'
-        },
-        description: {
-            ja: 'Matplotlibを使った様々なグラフの作成方法を学習しました。折れ線グラフ、棒グラフ、散布図、ヒストグラムなどの基本的なグラフから、サブプロットやカスタマイズまで幅広く習得しました。',
-            en: 'Learned to create various graphs using Matplotlib. Mastered a wide range of skills from basic graphs such as line graphs, bar charts, scatter plots, and histograms to subplots and customization.'
-        },
-        tags: ['Python', 'Matplotlib', '可視化', 'グラフ'],
-        tagsEn: ['Python', 'Matplotlib', 'Visualization', 'Graphs'],
-        date: '2025/05/01',
-        colabLink: '#',
-        images: [
-            {
-                src: 'images/assignment3/linechart.png',
-                caption: {
-                    ja: '折れ線グラフの例',
-                    en: 'Line Chart Example'
-                }
-            },
-            {
-                src: 'images/assignment3/barchart.png',
-                caption: {
-                    ja: '棒グラフの比較',
-                    en: 'Bar Chart Comparison'
-                }
-            },
-            {
-                src: 'images/assignment3/scatter.gif',
-                caption: {
-                    ja: '散布図のアニメーション',
-                    en: 'Scatter Plot Animation'
-                }
-            }
-        ],
-        codeFilePath: 'assignment/03/assignment-3.py',
-        sections: [
-            {
-                icon: 'fa-cogs',
-                title: {
-                    ja: '使用技術',
-                    en: 'Technologies Used'
-                },
-                content: {
-                    ja: 'Matplotlib、Seaborn、Numpyを使用。複数のグラフタイプとスタイルのカスタマイズを学習しました。',
-                    en: 'Used Matplotlib, Seaborn, and Numpy. Learned multiple graph types and style customization.'
-                }
-            },
-            {
-                icon: 'fa-exclamation-triangle',
-                title: {
-                    ja: '苦労した点',
-                    en: 'Challenges'
-                },
-                content: {
-                    ja: 'サブプロットのレイアウト調整が難しかったです。また、日本語フォントの設定に苦労しました。',
-                    en: 'Subplot layout adjustment was difficult. Also struggled with Japanese font configuration.'
-                }
-            },
-            {
-                icon: 'fa-lightbulb',
-                title: {
-                    ja: '工夫した点',
-                    en: 'Innovations'
-                },
-                content: {
-                    ja: 'カラーマップを効果的に使い、視覚的に分かりやすいグラフを作成しました。凡例の配置にも配慮しました。',
-                    en: 'Effectively used colormaps to create visually clear graphs. Paid attention to legend placement.'
-                }
-            },
-            {
-                icon: 'fa-heart',
-                title: {
-                    ja: '感想',
-                    en: 'Impressions'
-                },
-                content: {
-                    ja: 'データを視覚化することの重要性を実感しました。見やすいグラフ作りのセンスを磨きたいと思います。',
-                    en: 'Realized the importance of data visualization. Want to refine my sense for creating clear graphs.'
-                }
-            }
-        ]
-    },
-    
+ //課題3は省略
     {
         id: 'assignment-4',
         number: 4,
         title: {
-            ja: '統計分析の基礎',
-            en: 'Fundamentals of Statistical Analysis'
+            ja: '乱数の利用によるガチャ',
+            en: 'Gacha Simulation Using Random Numbers'
         },
         description: {
             ja: 'Pythonを使った基本的な統計分析手法を学習しました。記述統計、確率分布、仮説検定、相関分析などの基礎を理解し、実データへの適用方法を習得しました。',
             en: 'Learned basic statistical analysis methods using Python. Understood fundamentals of descriptive statistics, probability distributions, hypothesis testing, and correlation analysis, and learned how to apply them to real data.'
         },
-        tags: ['Python', 'Numpy', '統計', 'データ分析'],
-        tagsEn: ['Python', 'Numpy', 'Statistics', 'Data Analysis'],
-        date: '2025/05/10',
-        colabLink: '#',
+        tags: ['Python', 'Random', 'Numpy'],
+        tagsEn: ['Python', 'Rondom', 'Numpy'],
+        date: '2025/06/25',
+        colabLink: 'https://colab.research.google.com/drive/1wM2VRFl7teGG2rD1T7hoP9QZoHlF4Qvj?usp=sharing',
         images: [
             {
-                src: 'images/assignment4/distribution.png',
+                src: 'assignment/04/photos/task-5_flash.gif',
                 caption: {
                     ja: '確率分布の可視化',
                     en: 'Probability Distribution Visualization'
                 }
             },
             {
-                src: 'images/assignment4/correlation.png',
+                src: 'assignment/04/photos/task-5_flash.gif',
                 caption: {
                     ja: '相関分析の結果',
                     en: 'Correlation Analysis Results'
                 }
             },
             {
-                src: 'images/assignment4/hypothesis.gif',
+                src: 'assignment/04/photos/task-5_flash.gif',
                 caption: {
                     ja: '仮説検定のプロセス',
                     en: 'Hypothesis Testing Process'
@@ -395,24 +307,24 @@ const assignmentsData = [
         colabLink: '#',
         images: [
             {
-                src: 'assignment/05/photos/task-5_flash.gif',
+                src: 'assignment/05/photos/memorize.gif',
                 caption: {
-                    ja: '線形回帰モデル',
-                    en: 'Linear Regression Model'
+                    ja: '「瞬間記憶ゲーム」プレイ動画',
+                    en: 'Instant Memory Game Gameplay Video'
                 }
             },
             {
-                src: 'assignment/05/photos/task-5_flash.gif',
+                src: 'assignment/05/photos/flash.gif',
                 caption: {
-                    ja: '結果',
-                    en: 'Classification Results'
-                }
-            },
-            {
-                src: 'assignment/05/photos/task-5_flash.gif',
-                caption: {
-                    ja: 'フラッシュ暗算プレイ動画',
+                    ja: '「フラッシュ暗算」プレイ動画',
                     en: 'flash Anzan Gameplay Video'
+                }
+            },
+            {
+                src: 'assignment/05/photos/keyboard.gif',
+                caption: {
+                    ja: 'キーボード早押し対決プレイ動画',
+                    en: 'Keyboard Fast-Press Showdown Gameplay Video'
                 }
             }
         ],
