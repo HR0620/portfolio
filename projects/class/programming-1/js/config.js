@@ -395,24 +395,24 @@ const assignmentsData = [
         colabLink: '#',
         images: [
             {
-                src: 'images/assignment5/regression.png',
+                src: 'assignment/05/photos/task-5_flash.gif',
                 caption: {
                     ja: '線形回帰モデル',
                     en: 'Linear Regression Model'
                 }
             },
             {
-                src: 'images/assignment5/classification.png',
+                src: 'assignment/05/photos/task-5_flash.gif',
                 caption: {
-                    ja: '分類問題の結果',
+                    ja: '結果',
                     en: 'Classification Results'
                 }
             },
             {
-                src: 'images/assignment5/training.gif',
+                src: 'assignment/05/photos/task-5_flash.gif',
                 caption: {
-                    ja: 'モデルの学習過程',
-                    en: 'Model Training Process'
+                    ja: 'フラッシュ暗算プレイ動画',
+                    en: 'flash Anzan Gameplay Video'
                 }
             }
         ],
