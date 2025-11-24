@@ -18,7 +18,7 @@ const projectData = {
         en: "A vertical scrolling action game inspired by 'Only Up', featuring Muroya Fumiyoshi-sensei, the 2I homeroom teacher, as the main character. Players control Muroya-sensei and aim to reach the top while overcoming various obstacles. Exhibited at Kosen Festival 2025 and enjoyed by many visitors."
     },
     // デモGIFのパス（仮）
-    demoMedia: "./images/demo.gif",
+    demoMedia: "./images/playing_jump.gif",
     // 開発期間
     duration: {
         ja: "約4ヶ月",
