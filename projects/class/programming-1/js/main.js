@@ -1,12 +1,13 @@
-// main.js - メインロジック
+// main.js - メインロジック（修正版）
 // ============================================
-// 課題の表示、コードの読み込み、モーダル制御などを管理
+// 複数ファイル対応、行番号重複バグ修正、ヘッダークリックでスクロール
 
 // グローバル変数
 let currentAssignmentId = null; // 現在表示中の課題ID
-let currentCodeCache = {}; // コードのキャッシュ
+let currentCodeCache = {}; // コードのキャッシュ（複数ファイル対応）
 let currentImageIndex = 0; // 画像モーダルの現在のインデックス
 let currentImages = []; // 現在の画像リスト
+let currentFileIndex = 0; // 現在表示中のコードファイルのインデックス
 
 /**
  * 初期化処理
@@ -186,38 +187,201 @@ function setupAssignmentEventListeners(assignment) {
 }
 
 /**
- * コードを読み込んでモーダルに表示
+ * ファイルの拡張子からアイコン情報を取得
+ * @param {string} fileName - ファイル名
+ * @returns {Object} - { type, icon, useDevicon } の形式で返す
+ */
+function getFileIcon(fileName) {
+    const ext = fileName.split('.').pop().toLowerCase();
+    
+    // Font Awesomeで対応可能な拡張子
+    const fontAwesomeIcons = {
+        'py': { type: 'fontawesome', icon: 'fab fa-python', color: '#3776AB' },
+        'html': { type: 'fontawesome', icon: 'fab fa-html5', color: '#E34F26' },
+        'css': { type: 'fontawesome', icon: 'fab fa-css3-alt', color: '#1572B6' },
+        'js': { type: 'fontawesome', icon: 'fab fa-js', color: '#F7DF1E' },
+        'json': { type: 'fontawesome', icon: 'fas fa-file-code', color: '#5E5C5C' },
+        'md': { type: 'fontawesome', icon: 'fab fa-markdown', color: '#000000' },
+        'txt': { type: 'fontawesome', icon: 'fas fa-file-alt', color: '#5E5C5C' }
+    };
+    
+    // Deviconで対応可能な拡張子（Font Awesomeにないもの）
+    const deviconIcons = {
+        'java': { type: 'devicon', icon: 'devicon-java-plain', color: '#007396' },
+        'cpp': { type: 'devicon', icon: 'devicon-cplusplus-plain', color: '#00599C' },
+        'c': { type: 'devicon', icon: 'devicon-c-plain', color: '#A8B9CC' },
+        'ts': { type: 'devicon', icon: 'devicon-typescript-plain', color: '#3178C6' },
+        'jsx': { type: 'devicon', icon: 'devicon-react-original', color: '#61DAFB' },
+        'tsx': { type: 'devicon', icon: 'devicon-react-original', color: '#61DAFB' },
+        'php': { type: 'devicon', icon: 'devicon-php-plain', color: '#777BB4' },
+        'rb': { type: 'devicon', icon: 'devicon-ruby-plain', color: '#CC342D' },
+        'go': { type: 'devicon', icon: 'devicon-go-original-wordmark', color: '#00ADD8' },
+        'rs': { type: 'devicon', icon: 'devicon-rust-plain', color: '#000000' },
+        'sh': { type: 'devicon', icon: 'devicon-bash-plain', color: '#4EAA25' },
+        'tex': { type: 'devicon', icon: 'devicon-latex-original', color: '#008080' },
+        'xml': { type: 'devicon', icon: 'devicon-xml-plain', color: '#E34F26' },
+        'yml': { type: 'devicon', icon: 'devicon-yaml-plain', color: '#CB171E' },
+        'yaml': { type: 'devicon', icon: 'devicon-yaml-plain', color: '#CB171E' }
+    };
+    
+    // Font Awesomeで対応
+    if (fontAwesomeIcons[ext]) {
+        return fontAwesomeIcons[ext];
+    }
+    
+    // Deviconで対応
+    if (deviconIcons[ext]) {
+        return deviconIcons[ext];
+    }
+    
+    // デフォルト（一般的なファイルアイコン）
+    return { type: 'fontawesome', icon: 'fas fa-file', color: '#5E5C5C' };
+}
+
+/**
+ * コードを読み込んでモーダルに表示（複数ファイル対応）
  * @param {Object} assignment - 課題データ
  */
 async function loadAndShowCode(assignment) {
     const modal = document.getElementById('codeModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalCode = document.getElementById('modalCode');
     
     // モーダルを表示
     modal.classList.add('active');
-    modalTitle.textContent = assignment.title[currentLang];
+    
+    // 複数ファイル対応: codeFiles が存在するか確認
+    const hasMultipleFiles = assignment.codeFiles && assignment.codeFiles.length > 0;
+    const files = hasMultipleFiles 
+        ? assignment.codeFiles 
+        : [{
+            name: assignment.codeFilePath ? assignment.codeFilePath.split('/').pop() : 'code.py',
+            path: assignment.codeFilePath,
+            language: 'python'
+        }];
+    
+    // タブUIを生成
+    renderCodeTabs(files, assignment);
+    
+    // 最初のファイルを表示
+    currentFileIndex = 0;
+    await loadCodeFile(files[0], assignment);
+}
+
+/**
+ * コードファイルのタブUIを生成
+ * @param {Array} files - ファイル情報の配列
+ * @param {Object} assignment - 課題データ
+ */
+function renderCodeTabs(files, assignment) {
+    const modalContent = document.getElementById('codeModal').querySelector('.modal-content');
+    
+    // 既存のタブとヘッダーを削除
+    const existingTabs = modalContent.querySelector('.code-modal-tabs');
+    const existingHeader = modalContent.querySelector('.modal-header');
+    if (existingTabs) existingTabs.remove();
+    if (existingHeader) existingHeader.remove();
+    
+    // タブコンテナを作成
+    const tabsHTML = `
+        <div class="code-modal-tabs">
+            <div class="code-tabs-container" id="codeTabsContainer">
+                ${files.map((file, index) => {
+                    const iconInfo = getFileIcon(file.name);
+                    let iconHTML = '';
+                    
+                    if (iconInfo.type === 'fontawesome') {
+                        iconHTML = `<i class="${iconInfo.icon}" style="color: ${iconInfo.color}"></i>`;
+                    } else if (iconInfo.type === 'devicon') {
+                        iconHTML = `<i class="${iconInfo.icon}" style="color: ${iconInfo.color}"></i>`;
+                    } else if (iconInfo.type === 'custom') {
+                        iconHTML = `<img src="${iconInfo.icon}" alt="${file.name}" />`;
+                    }
+                    
+                    return `
+                        <button class="code-tab ${index === 0 ? 'active' : ''}" data-index="${index}">
+                            ${iconHTML}
+                            <span>${file.name}</span>
+                        </button>
+                    `;
+                }).join('')}
+            </div>
+            <div class="modal-actions">
+                <button id="copyCodeBtn" class="modal-btn" title="${getText('copyCodeBtn')}">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button id="closeModalBtn" class="modal-btn close-btn" title="${getText('closeBtn')}">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    `;
+    
+    modalContent.insertAdjacentHTML('afterbegin', tabsHTML);
+    
+    // タブクリックイベント
+    const codeTabs = modalContent.querySelectorAll('.code-tab');
+    codeTabs.forEach((tab, index) => {
+        tab.addEventListener('click', async () => {
+            // すべてのタブからactiveを削除
+            codeTabs.forEach(t => t.classList.remove('active'));
+            // クリックされたタブにactiveを追加
+            tab.classList.add('active');
+            
+            // ファイルを読み込み
+            currentFileIndex = index;
+            await loadCodeFile(files[index], assignment);
+        });
+    });
+    
+    // コピーボタンと閉じるボタンのイベント（再設定）
+    document.getElementById('copyCodeBtn').addEventListener('click', () => {
+        const code = document.getElementById('modalCode').textContent;
+        navigator.clipboard.writeText(code).then(() => {
+            const btn = document.getElementById('copyCodeBtn');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+            }, 2000);
+        });
+    });
+    
+    document.getElementById('closeModalBtn').addEventListener('click', () => {
+        document.getElementById('codeModal').classList.remove('active');
+    });
+}
+
+/**
+ * 個別のコードファイルを読み込んで表示
+ * @param {Object} file - ファイル情報 { name, path, language }
+ * @param {Object} assignment - 課題データ
+ */
+async function loadCodeFile(file, assignment) {
+    const modalCode = document.getElementById('modalCode');
+    
     modalCode.textContent = getText('loadingCode');
     
+    // キャッシュキーを生成
+    const cacheKey = `${assignment.id}_${file.name}`;
+    
     // キャッシュにコードがあればそれを使用
-    if (currentCodeCache[assignment.id]) {
-        displayCode(currentCodeCache[assignment.id]);
+    if (currentCodeCache[cacheKey]) {
+        displayCode(currentCodeCache[cacheKey], file.language);
         return;
     }
     
     // コードファイルを読み込み
     try {
-        const response = await fetch(assignment.codeFilePath);
+        const response = await fetch(file.path);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const code = await response.text();
         
         // キャッシュに保存
-        currentCodeCache[assignment.id] = code;
+        currentCodeCache[cacheKey] = code;
         
         // コードを表示
-        displayCode(code);
+        displayCode(code, file.language);
         
     } catch (error) {
         console.error('Failed to load code:', error);
@@ -227,14 +391,25 @@ async function loadAndShowCode(assignment) {
 
 /**
  * コードをモーダルに表示（シンタックスハイライト付き + 行番号）
- * @param {string} code - Pythonコード
+ * 【修正】行番号の重複バグを修正
+ * @param {string} code - コード
+ * @param {string} language - 言語（python, html, css, javascript など）
  */
-function displayCode(code) {
+function displayCode(code, language = 'python') {
     const modalCode = document.getElementById('modalCode');
-    const modalBody = modalCode.parentElement.parentElement;
+    const pre = modalCode.parentElement;
+    
+    // 既存の行番号を削除
+    const existingLineNumbers = pre.querySelector('.line-numbers');
+    if (existingLineNumbers) {
+        existingLineNumbers.remove();
+    }
     
     // コード全体を設定
     modalCode.textContent = code;
+    
+    // 言語クラスを設定
+    modalCode.className = `language-${language}`;
     
     // 行数をカウント
     const lines = code.split('\n');
@@ -242,7 +417,7 @@ function displayCode(code) {
     
     // 行番号の幅を計算（最大桁数に合わせる）
     const maxDigits = lineCount.toString().length;
-    const lineNumberWidth = Math.max(50, maxDigits * 10 + 30); // 最小50px
+    const lineNumberWidth = Math.max(50, maxDigits * 10 + 30);
     
     // 行番号を生成
     const lineNumbers = document.createElement('div');
@@ -255,16 +430,11 @@ function displayCode(code) {
         lineNumbers.appendChild(lineNum);
     }
     
-    // 既存の行番号を削除
-    const existingLineNumbers = modalBody.querySelector('.line-numbers');
-    if (existingLineNumbers) {
-        existingLineNumbers.remove();
-    }
-    
-    // 行番号をpreタグの前に挿入
-    const pre = modalCode.parentElement;
+    // preタグのスタイルを設定
     pre.style.position = 'relative';
     pre.style.paddingLeft = (lineNumberWidth + 10) + 'px';
+    
+    // 行番号をpreタグ内に挿入（codeの前）
     pre.insertBefore(lineNumbers, modalCode);
     
     // Prism.jsでシンタックスハイライトを適用
@@ -309,31 +479,28 @@ function changeImage(direction) {
 }
 
 /**
+ * ページトップにスムーズスクロール
+ */
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+/**
  * イベントリスナーを初期化
  */
 function initializeEventListeners() {
+    // ヘッダーのブランドエリアをクリックでトップにスクロール
+    const brand = document.querySelector('.brand');
+    if (brand) {
+        brand.addEventListener('click', scrollToTop);
+    }
+    
     // 言語切り替えボタン
     document.getElementById('langToggle').addEventListener('click', () => {
         toggleLanguage();
-    });
-    
-    // コードモーダルを閉じる
-    document.getElementById('closeModalBtn').addEventListener('click', () => {
-        document.getElementById('codeModal').classList.remove('active');
-    });
-    
-    // コードをコピー
-    document.getElementById('copyCodeBtn').addEventListener('click', () => {
-        const code = document.getElementById('modalCode').textContent;
-        navigator.clipboard.writeText(code).then(() => {
-            // コピー成功のフィードバック
-            const btn = document.getElementById('copyCodeBtn');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i>';
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-            }, 2000);
-        });
     });
     
     // 画像モーダルを閉じる

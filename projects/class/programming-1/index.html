@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programming 1 - Assignments</title>
+    <title>プログラミング1 - 課題ポートフォリオ</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../../index/images/icons/hr.png">
@@ -13,6 +13,9 @@
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Devicon (プログラミング言語アイコン) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -24,8 +27,8 @@
             <div class="brand">
                 <i class="fas fa-code"></i>
                 <div>
-                    <h1 id="headerTitle">Programming 1</h1>
-                    <p id="headerSubtitle" class="subtitle">Assignment Portfolio</p>
+                    <h1 id="headerTitle">プログラミング1</h1>
+                    <p id="headerSubtitle" class="subtitle">課題ポートフォリオ</p>
                 </div>
             </div>
             
@@ -36,7 +39,7 @@
                 </button>
                 <a href="../../../index/index.html" class="back-btn" aria-label="Back to Portfolio">
                     <i class="fas fa-arrow-left"></i>
-                    <span id="backText">Back</span>
+                    <span id="backText">戻る</span>
                 </a>
             </div>
         </div>
@@ -49,7 +52,7 @@
             <span id="typingText" class="typing-text"></span>
             <span class="cursor">|</span>
         </div>
-        <p id="introDesc" class="intro-desc"></p>
+        <p id="introDesc" class="intro-desc">プログラミング1の授業で作成した課題の一覧です。各課題のコード、実行結果、説明を確認できます。</p>
     </section>
 
     <!-- メインコンテンツ -->
@@ -75,20 +78,7 @@
     <!-- コードモーダル -->
     <div id="codeModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <i class="fab fa-python"></i>
-                    <h3 id="modalTitle">Code Preview</h3>
-                </div>
-                <div class="modal-actions">
-                    <button id="copyCodeBtn" class="modal-btn" title="Copy Code">
-                        <i class="fas fa-copy"></i>
-                    </button>
-                    <button id="closeModalBtn" class="modal-btn close-btn" title="Close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
+            <!-- タブとヘッダーはJSで動的生成 -->
             <div class="modal-body">
                 <pre><code id="modalCode" class="language-python"><!-- コードはここに表示 --></code></pre>
             </div>
@@ -116,6 +106,9 @@
     <!-- Prism.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
     
     <!-- Custom Scripts -->
     <script src="js/config.js"></script>
