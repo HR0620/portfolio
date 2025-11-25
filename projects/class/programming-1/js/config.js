@@ -93,7 +93,7 @@ const assignmentsData = [
         colabLink: 'https://colab.research.google.com/drive/1sTbTR-mPJlvHiVnhGi1Tlz3rsQTuUBWd?usp=sharing',
         images: [
             {
-                src: 'assignment/02/photos/task-5_flash.gif',
+                src: 'assignment/02/photos/candy.png',
                 caption: {
                     ja: '実行結果',
                     en: 'Execution Result'
@@ -122,10 +122,24 @@ const assignmentsData = [
         colabLink: 'https://colab.research.google.com/drive/1wM2VRFl7teGG2rD1T7hoP9QZoHlF4Qvj?usp=sharing',
         images: [
             {
-                src: 'assignment/04/photos/task-5_flash.gif',
+                src: 'assignment/04/photos/result.png',
                 caption: {
                     ja: '実行結果',
                     en: 'Execution Result'
+                }
+            },
+            {
+                src: 'assignment/04/photos/demo_gacha.gif',
+                caption: {
+                    ja: '「ガチャ」プレイ動画',
+                    en: '"Gacha" Gameplay Video'
+                }
+            },
+            {
+                src: 'assignment/04/photos/demo_toruneko.gif',
+                caption: {
+                    ja: 'ガチャ...?',
+                    en: 'Gacha...?'
                 }
             }
         ],
@@ -154,14 +168,21 @@ const assignmentsData = [
                 src: 'assignment/05/photos/memorize.gif',
                 caption: {
                     ja: '「瞬間記憶ゲーム」プレイ動画',
-                    en: 'Instant Memory Game Gameplay Video'
+                    en: '"Instant Memory Game" Gameplay Video'
                 }
             },
             {
                 src: 'assignment/05/photos/flash.gif',
                 caption: {
                     ja: '「フラッシュ暗算」プレイ動画',
-                    en: 'Flash Anzan Gameplay Video'
+                    en: '"Flash Mental Arithmetic" Gameplay Video'
+                }
+            },
+            {
+                src: 'assignment/05/photos/keyboard.gif',
+                caption: {
+                    ja: '「キーボード早押し対決」プレイ動画',
+                    en: '"Keyboard Fast-Press Showdown" Gameplay Video'
                 }
             }
         ],

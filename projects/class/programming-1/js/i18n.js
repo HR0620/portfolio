@@ -54,7 +54,7 @@ const i18nData = {
         backText: 'Back',
         
         // Intro
-        typingText: 'cd ~/Programming1 && ls -la',
+        typingText: 'cd ../projects/class/programming-1 && ls -la',
         introDesc: 'A collection of assignments created in Programming 1. View code, execution results, and descriptions for each assignment.',
         
         // Tabs
