@@ -29,7 +29,7 @@ const projectData = {
     // GitHubリポジトリURL
     githubUrl: "https://github.com/HR0620/2025_2I_kosen-fes",
     // サムネイル画像パス
-    thumbnail: "./images/hisayoshi.png"
+    thumbnail: "./images/thumbnails/hisayoshi.png"
 };
 
 // ===== チームメンバーデータ =====
@@ -223,47 +223,20 @@ const timelineData = [
 const galleryData = [
     {
         id: "g1",
-        src: "./images/gallery/photo1.jpg",
-        thumbnail: "./images/gallery/photo1_thumb.jpg",
-        caption: {
-            ja: "Hisayoshiの展示ブース",
-            en: "Hisayoshi Exhibition Booth"
-        }
-    },
-    {
-        id: "g2",
-        src: "./images/gallery/photo2.jpg",
-        thumbnail: "./images/gallery/photo2_thumb.jpg",
+        src: "./images/photo-1.png",
+        thumbnail: "./images/photo-1.png",
         caption: {
             ja: "来場者がゲームをプレイ中",
             en: "Visitors Playing the Game"
         }
     },
     {
-        id: "g3",
-        src: "./images/gallery/photo3.jpg",
-        thumbnail: "./images/gallery/photo3_thumb.jpg",
+        id: "g2",
+        src: "./images/playing-1.png",
+        thumbnail: "./images/playing-1.png",
         caption: {
-            ja: "チームメンバー集合写真",
-            en: "Team Members Group Photo"
-        }
-    },
-    {
-        id: "g4",
-        src: "./images/gallery/photo4.jpg",
-        thumbnail: "./images/gallery/photo4_thumb.jpg",
-        caption: {
-            ja: "ゲーム画面のクローズアップ",
-            en: "Game Screen Close-up"
-        }
-    },
-    {
-        id: "g6",
-        src: "./images/gallery/photo6.jpg",
-        thumbnail: "./images/gallery/photo6_thumb.jpg",
-        caption: {
-            ja: "高専祭会場全景",
-            en: "Kosen Festival Venue Overview"
+            ja: "ゲーム画面",
+            en: "Game Screen"
         }
     }
 ];
