@@ -1,4 +1,4 @@
-// main.js - メインロジック
+// main.js - メインロジック (バグ修正版)
 
 let currentAssignmentId = null;
 let currentCodeCache = {};
@@ -20,10 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeEventListeners();
     initScrollProgress();
     initScrollToTop();
-    startTypingAnimation();
+    
+    // タイピングアニメーションを開始
+    setTimeout(() => {
+        startTypingAnimation();
+    }, 300);
     
     document.getElementById('introDesc').textContent = getText('introDesc');
     
+    // 最新の課題（課題5）を選択
     if (assignmentsData.length > 0) {
         const sortedAssignments = [...assignmentsData].sort((a, b) => b.number - a.number);
         selectTab(sortedAssignments[0].id);
@@ -68,7 +73,6 @@ function switchSubject(subjectId) {
     if (!subject) return;
     
     currentSubject = subjectId;
-    
     window.location.href = `../${subjectId}/index.html`;
 }
 
@@ -332,7 +336,9 @@ async function loadCodeFile(file, assignment) {
     
     if (currentCodeCache[cacheKey]) {
         modalBody.classList.remove('loading');
-        modalBody.removeChild(loadingDiv);
+        if (loadingDiv.parentNode) {
+            modalBody.removeChild(loadingDiv);
+        }
         displayCode(currentCodeCache[cacheKey], file.language);
         return;
     }
@@ -347,13 +353,17 @@ async function loadCodeFile(file, assignment) {
         currentCodeCache[cacheKey] = code;
         
         modalBody.classList.remove('loading');
-        modalBody.removeChild(loadingDiv);
+        if (loadingDiv.parentNode) {
+            modalBody.removeChild(loadingDiv);
+        }
         displayCode(code, file.language);
         
     } catch (error) {
         console.error('Failed to load code:', error);
         modalBody.classList.remove('loading');
-        modalBody.removeChild(loadingDiv);
+        if (loadingDiv.parentNode) {
+            modalBody.removeChild(loadingDiv);
+        }
         modalCode.textContent = getText('errorLoadingCode');
     }
 }
@@ -421,39 +431,59 @@ function changeImage(direction) {
 }
 
 function initializeEventListeners() {
-    const brand = document.querySelector('.brand');
-    if (brand) {
-        brand.addEventListener('click', scrollToTop);
-    }
+    // ブランドエリアクリックでトップにスクロール
+    const brandElements = document.querySelectorAll('.brand, .brand *');
+    brandElements.forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            scrollToTop();
+        });
+    });
     
-    document.getElementById('langToggle').addEventListener('click', () => {
+    // 言語切り替えボタン
+    document.getElementById('langToggle').addEventListener('click', (e) => {
+        e.stopPropagation();
         toggleLanguage();
     });
     
-    document.getElementById('closeImageModalBtn').addEventListener('click', () => {
-        document.getElementById('imageModal').classList.remove('active');
-    });
+    // 画像モーダルを閉じる
+    const closeImageBtn = document.getElementById('closeImageModalBtn');
+    if (closeImageBtn) {
+        closeImageBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('imageModal').classList.remove('active');
+        });
+    }
     
-    document.getElementById('prevImageBtn').addEventListener('click', () => {
+    // 画像モーダルのナビゲーション
+    document.getElementById('prevImageBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
         changeImage(-1);
     });
     
-    document.getElementById('nextImageBtn').addEventListener('click', () => {
+    document.getElementById('nextImageBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
         changeImage(1);
     });
     
+    // モーダルの背景をクリックしたら閉じる
     document.getElementById('codeModal').addEventListener('click', (e) => {
         if (e.target.id === 'codeModal') {
             document.getElementById('codeModal').classList.remove('active');
         }
     });
     
-    document.getElementById('imageModal').addEventListener('click', (e) => {
-        if (e.target.id === 'imageModal') {
-            document.getElementById('imageModal').classList.remove('active');
-        }
-    });
+    const imageModal = document.getElementById('imageModal');
+    if (imageModal) {
+        imageModal.addEventListener('click', (e) => {
+            if (e.target.id === 'imageModal') {
+                imageModal.classList.remove('active');
+            }
+        });
+    }
     
+    // キーボードショートカット
     document.addEventListener('keydown', (e) => {
         const codeModal = document.getElementById('codeModal');
         const imageModal = document.getElementById('imageModal');
@@ -475,6 +505,11 @@ function initializeEventListeners() {
 
 function startTypingAnimation() {
     const typingElement = document.getElementById('typingText');
+    if (!typingElement) {
+        console.error('Typing element not found');
+        return;
+    }
+    
     const text = getText('typingText');
     let index = 0;
     
@@ -484,9 +519,9 @@ function startTypingAnimation() {
         if (index < text.length) {
             typingElement.textContent += text.charAt(index);
             index++;
-            setTimeout(type, 80);
+            setTimeout(type, 50);
         }
     }
     
-    setTimeout(type, 500);
+    type();
 }

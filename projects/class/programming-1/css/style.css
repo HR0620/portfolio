@@ -77,11 +77,17 @@ body {
     align-items: center;
     gap: 15px;
     cursor: pointer;
-    transition: opacity var(--transition-fast);
+    transition: all var(--transition-normal);
+    user-select: none;
 }
 
 .brand:hover {
     opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+.brand:active {
+    transform: translateY(0);
 }
 
 .brand i {
@@ -149,7 +155,7 @@ body {
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
-    z-index: 200;
+    z-index: 50;
 }
 
 .subject-dropdown-menu.active {
@@ -585,10 +591,10 @@ body {
     display: block;
 }
 
-/* 1枚だけの場合はアスペクト比を3:4に */
+/* 1枚だけの場合はアスペクト比を16:9に */
 .images-grid .image-card:only-child img {
     height: auto;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
 }
 
