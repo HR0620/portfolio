@@ -513,18 +513,9 @@ function initializeEventListeners() {
 
 function startTypingAnimation() {
     const typingElement = document.getElementById('typingText');
-    
-    if (!typingElement) {
-        console.error('Typing element not found! ID: typingText');
-        console.log('Available elements:', document.querySelector('.typing-container'));
-        return;
-    }
-    
-    console.log('Typing element found:', typingElement);
+    if (!typingElement) return;
     
     const text = getText('typingText');
-    console.log('Text to type:', text);
-    
     let index = 0;
     typingElement.textContent = '';
     
@@ -532,12 +523,9 @@ function startTypingAnimation() {
         if (index < text.length) {
             typingElement.textContent += text.charAt(index);
             index++;
-            setTimeout(type, 50);
-        } else {
-            console.log('Typing animation complete');
+            setTimeout(type, 40);
         }
     }
     
-    console.log('Starting to type...');
     type();
 }
