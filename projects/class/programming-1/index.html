@@ -5,29 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>プログラミング1 - 課題ポートフォリオ</title>
     
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../../index/images/icons/hr.png">
     
-    <!-- Prism.js for Syntax Highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Devicon (プログラミング言語アイコン) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
     
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- ヘッダー -->
     <header class="header">
         <div class="header-content">
             <div class="brand">
                 <i class="fas fa-code"></i>
                 <div>
-                    <h1 id="headerTitle">プログラミング1</h1>
+                    <div class="subject-selector">
+                        <button class="subject-dropdown-btn" id="subjectDropdownBtn">
+                            <span id="headerTitle">プログラミング1</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="subject-dropdown-menu" id="subjectDropdownMenu">
+                            <!-- 科目リストはJSで生成 -->
+                        </div>
+                    </div>
                     <p id="headerSubtitle" class="subtitle">課題ポートフォリオ</p>
                 </div>
             </div>
@@ -45,7 +48,6 @@
         </div>
     </header>
 
-    <!-- タイピングアニメーション付きイントロ -->
     <section class="intro">
         <div class="typing-container">
             <span class="prompt">$</span>
@@ -55,13 +57,11 @@
         <p id="introDesc" class="intro-desc">プログラミング1の授業で作成した課題の一覧です。各課題のコード、実行結果、説明を確認できます。</p>
     </section>
 
-    <!-- メインコンテンツ -->
     <main class="container">
-        <!-- VS Code風タブエリア -->
+        <!-- フィルターセクションはJSで生成 -->
+        
         <div class="vscode-tabs">
-            <div class="tabs-container" id="tabsContainer">
-                <!-- タブはJSで動的生成 -->
-            </div>
+            <div class="tabs-container" id="tabsContainer"></div>
             <div class="tab-actions">
                 <button class="tab-action-btn" id="expandAllBtn" title="Expand All">
                     <i class="fas fa-expand-alt"></i>
@@ -69,23 +69,17 @@
             </div>
         </div>
 
-        <!-- 課題詳細エリア -->
-        <div class="assignment-content" id="assignmentContent">
-            <!-- 課題の詳細はJSで動的生成 -->
-        </div>
+        <div class="assignment-content" id="assignmentContent"></div>
     </main>
 
-    <!-- コードモーダル -->
     <div id="codeModal" class="modal">
         <div class="modal-content">
-            <!-- タブとヘッダーはJSで動的生成 -->
             <div class="modal-body">
-                <pre><code id="modalCode" class="language-python"><!-- コードはここに表示 --></code></pre>
+                <pre><code id="modalCode" class="language-python"></code></pre>
             </div>
         </div>
     </div>
 
-    <!-- 画像拡大モーダル -->
     <div id="imageModal" class="modal image-modal">
         <div class="image-modal-content">
             <button id="closeImageModalBtn" class="image-modal-close">
@@ -103,16 +97,17 @@
         </div>
     </div>
 
-    <!-- Prism.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
     
-    <!-- Custom Scripts -->
     <script src="js/config.js"></script>
     <script src="js/i18n.js"></script>
+    <script src="js/ui/toast.js"></script>
+    <script src="js/ui/filter.js"></script>
+    <script src="js/utils/scroll.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

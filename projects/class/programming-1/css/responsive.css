@@ -1,0 +1,96 @@
+/* responsive.css - レスポンシブ専用スタイル */
+
+/* ===== タブレット (768px以下) ===== */
+@media (max-width: 768px) {
+    /* ヘッダー */
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    /* タイトル */
+    .assignment-title {
+        font-size: 24px;
+    }
+    
+    /* 画像グリッド */
+    .images-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* アクションボタン */
+    .actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* タブ */
+    .tabs-container {
+        font-size: 13px;
+    }
+    
+    .tab {
+        padding: 10px 16px;
+    }
+    
+    /* コンテンツエリア */
+    .assignment-content {
+        padding: 24px;
+    }
+}
+
+/* ===== スマートフォン (480px以下) ===== */
+@media (max-width: 480px) {
+    /* ターミナル - 横スクロール対応 */
+    .typing-container {
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 14px;
+        padding: 18px;
+    }
+    
+    .typing-container::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .typing-container::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .typing-container::-webkit-scrollbar-thumb {
+        background: var(--accent-green);
+        border-radius: 2px;
+    }
+    
+    /* ヘッダー */
+    .brand h1 {
+        font-size: 20px;
+    }
+    
+    .subtitle {
+        font-size: 11px;
+    }
+    
+    /* タブ */
+    .tab {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+    
+    /* コンテンツ */
+    .assignment-content {
+        padding: 20px;
+    }
+    
+    .assignment-title {
+        font-size: 20px;
+    }
+    
+    .assignment-description {
+        font-size: 14px;
+    }
+}

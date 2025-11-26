@@ -1,40 +1,81 @@
-// main.js - メインロジック（修正版）
-// ============================================
-// 複数ファイル対応、行番号重複バグ修正、ヘッダークリックでスクロール
+// main.js - メインロジック
 
-// グローバル変数
-let currentAssignmentId = null; // 現在表示中の課題ID
-let currentCodeCache = {}; // コードのキャッシュ（複数ファイル対応）
-let currentImageIndex = 0; // 画像モーダルの現在のインデックス
-let currentImages = []; // 現在の画像リスト
-let currentFileIndex = 0; // 現在表示中のコードファイルのインデックス
+let currentAssignmentId = null;
+let currentCodeCache = {};
+let currentImageIndex = 0;
+let currentImages = [];
+let currentFileIndex = 0;
+let currentSubject = 'programming-1';
 
-/**
- * 初期化処理
- */
+const subjects = [
+    { id: 'programming-1', name: { ja: 'プログラミング1', en: 'Programming 1' }, icon: 'fa-code' },
+    { id: 'programming-2', name: { ja: 'プログラミング2', en: 'Programming 2' }, icon: 'fa-laptop-code' },
+    { id: 'programming-3', name: { ja: 'プログラミング3', en: 'Programming 3' }, icon: 'fa-terminal' }
+];
+
 document.addEventListener('DOMContentLoaded', () => {
+    initializeSubjectSelector();
+    initializeFilter();
     initializeTabs();
     initializeEventListeners();
+    initScrollProgress();
+    initScrollToTop();
     startTypingAnimation();
     
-    // イントロの説明文を初期表示
     document.getElementById('introDesc').textContent = getText('introDesc');
     
-    // 最初の課題を表示（課題5から降順なので、最初は課題5）
     if (assignmentsData.length > 0) {
         const sortedAssignments = [...assignmentsData].sort((a, b) => b.number - a.number);
         selectTab(sortedAssignments[0].id);
     }
 });
 
-/**
- * タブを初期化
- */
+function initializeSubjectSelector() {
+    const dropdown = document.getElementById('subjectDropdownMenu');
+    
+    dropdown.innerHTML = subjects.map(subject => `
+        <div class="subject-option ${subject.id === currentSubject ? 'active' : ''}" data-subject="${subject.id}">
+            <i class="fas ${subject.icon}"></i>
+            <span>${subject.name[currentLang]}</span>
+        </div>
+    `).join('');
+    
+    const btn = document.getElementById('subjectDropdownBtn');
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('active');
+        btn.classList.toggle('active');
+    });
+    
+    document.addEventListener('click', () => {
+        dropdown.classList.remove('active');
+        btn.classList.remove('active');
+    });
+    
+    dropdown.addEventListener('click', (e) => {
+        const option = e.target.closest('.subject-option');
+        if (option) {
+            const subjectId = option.getAttribute('data-subject');
+            if (subjectId !== currentSubject) {
+                switchSubject(subjectId);
+            }
+        }
+    });
+}
+
+function switchSubject(subjectId) {
+    const subject = subjects.find(s => s.id === subjectId);
+    if (!subject) return;
+    
+    currentSubject = subjectId;
+    
+    window.location.href = `../${subjectId}/index.html`;
+}
+
 function initializeTabs() {
     const tabsContainer = document.getElementById('tabsContainer');
     tabsContainer.innerHTML = '';
     
-    // 課題番号の降順でソート（課題5、4、3、2、1の順）
     const sortedAssignments = [...assignmentsData].sort((a, b) => b.number - a.number);
     
     sortedAssignments.forEach(assignment => {
@@ -46,41 +87,24 @@ function initializeTabs() {
             <span>${getText('tabPrefix')} ${assignment.number}</span>
         `;
         
-        // タブクリックイベント
-        tab.addEventListener('click', () => {
-            selectTab(assignment.id);
-        });
-        
+        tab.addEventListener('click', () => selectTab(assignment.id));
         tabsContainer.appendChild(tab);
     });
 }
 
-/**
- * タブを選択
- * @param {string} assignmentId - 課題ID
- */
 function selectTab(assignmentId) {
-    // すべてのタブから active クラスを削除
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
     
-    // 選択されたタブに active クラスを追加
     const selectedTab = document.querySelector(`[data-id="${assignmentId}"]`);
     if (selectedTab) {
         selectedTab.classList.add('active');
     }
     
-    // 課題の詳細を表示
     currentAssignmentId = assignmentId;
-    window.currentAssignmentId = assignmentId; // グローバルに保存
+    window.currentAssignmentId = assignmentId;
     renderAssignment(assignmentId);
 }
 
-/**
- * 課題の詳細をレンダリング
- * @param {string} assignmentId - 課題ID
- */
 function renderAssignment(assignmentId) {
     const assignment = assignmentsData.find(a => a.id === assignmentId);
     if (!assignment) {
@@ -90,11 +114,8 @@ function renderAssignment(assignmentId) {
     
     const contentArea = document.getElementById('assignmentContent');
     const lang = currentLang;
-    
-    // 言語に応じたタグを取得
     const displayTags = lang === 'ja' ? assignment.tags : (assignment.tagsEn || assignment.tags);
     
-    // 追加セクション（技術、工夫、感想など）のHTMLを生成
     const sectionsHTML = assignment.sections ? assignment.sections.map(section => `
         <div class="detail-section">
             <h3 class="detail-section-title">
@@ -105,7 +126,6 @@ function renderAssignment(assignmentId) {
         </div>
     `).join('') : '';
     
-    // HTMLを生成
     contentArea.innerHTML = `
         <div class="assignment-header">
             <h2 class="assignment-title">
@@ -126,10 +146,8 @@ function renderAssignment(assignmentId) {
             ${displayTags.map(tag => `<span class="tag">${tag}</span>`).join('')}
         </div>
         
-        <!-- 追加セクション（技術、工夫、感想など） -->
         ${sectionsHTML}
         
-        <!-- 画像ギャラリー -->
         <div class="images-section">
             <h3 class="section-title">
                 <i class="far fa-images"></i>
@@ -137,15 +155,14 @@ function renderAssignment(assignmentId) {
             </h3>
             <div class="images-grid">
                 ${assignment.images.map((img, index) => `
-                    <div class="image-card" data-index="${index}">
-                        <img src="${img.src}" alt="${img.caption[lang]}" loading="lazy">
+                    <div class="image-card loading" data-index="${index}">
+                        <img src="${img.src}" alt="${img.caption[lang]}" loading="lazy" onload="this.parentElement.classList.remove('loading')">
                         <div class="image-caption">${img.caption[lang]}</div>
                     </div>
                 `).join('')}
             </div>
         </div>
         
-        <!-- アクションボタン -->
         <div class="actions">
             <button class="btn btn-primary" id="viewCodeBtn">
                 <i class="fas fa-code"></i>
@@ -158,24 +175,15 @@ function renderAssignment(assignmentId) {
         </div>
     `;
     
-    // イベントリスナーを設定
     setupAssignmentEventListeners(assignment);
 }
 
-/**
- * 課題ページのイベントリスナーを設定
- * @param {Object} assignment - 課題データ
- */
 function setupAssignmentEventListeners(assignment) {
-    // コード表示ボタン
     const viewCodeBtn = document.getElementById('viewCodeBtn');
     if (viewCodeBtn) {
-        viewCodeBtn.addEventListener('click', () => {
-            loadAndShowCode(assignment);
-        });
+        viewCodeBtn.addEventListener('click', () => loadAndShowCode(assignment));
     }
     
-    // 画像カードのクリックイベント
     const imageCards = document.querySelectorAll('.image-card');
     imageCards.forEach((card) => {
         card.addEventListener('click', () => {
@@ -186,15 +194,9 @@ function setupAssignmentEventListeners(assignment) {
     });
 }
 
-/**
- * ファイルの拡張子からアイコン情報を取得
- * @param {string} fileName - ファイル名
- * @returns {Object} - { type, icon, useDevicon } の形式で返す
- */
 function getFileIcon(fileName) {
     const ext = fileName.split('.').pop().toLowerCase();
     
-    // Font Awesomeで対応可能な拡張子
     const fontAwesomeIcons = {
         'py': { type: 'fontawesome', icon: 'fab fa-python', color: '#3776AB' },
         'html': { type: 'fontawesome', icon: 'fab fa-html5', color: '#E34F26' },
@@ -205,7 +207,6 @@ function getFileIcon(fileName) {
         'txt': { type: 'fontawesome', icon: 'fas fa-file-alt', color: '#5E5C5C' }
     };
     
-    // Deviconで対応可能な拡張子（Font Awesomeにないもの）
     const deviconIcons = {
         'java': { type: 'devicon', icon: 'devicon-java-plain', color: '#007396' },
         'cpp': { type: 'devicon', icon: 'devicon-cplusplus-plain', color: '#00599C' },
@@ -224,31 +225,16 @@ function getFileIcon(fileName) {
         'yaml': { type: 'devicon', icon: 'devicon-yaml-plain', color: '#CB171E' }
     };
     
-    // Font Awesomeで対応
-    if (fontAwesomeIcons[ext]) {
-        return fontAwesomeIcons[ext];
-    }
+    if (fontAwesomeIcons[ext]) return fontAwesomeIcons[ext];
+    if (deviconIcons[ext]) return deviconIcons[ext];
     
-    // Deviconで対応
-    if (deviconIcons[ext]) {
-        return deviconIcons[ext];
-    }
-    
-    // デフォルト（一般的なファイルアイコン）
     return { type: 'fontawesome', icon: 'fas fa-file', color: '#5E5C5C' };
 }
 
-/**
- * コードを読み込んでモーダルに表示（複数ファイル対応）
- * @param {Object} assignment - 課題データ
- */
 async function loadAndShowCode(assignment) {
     const modal = document.getElementById('codeModal');
-    
-    // モーダルを表示
     modal.classList.add('active');
     
-    // 複数ファイル対応: codeFiles が存在するか確認
     const hasMultipleFiles = assignment.codeFiles && assignment.codeFiles.length > 0;
     const files = hasMultipleFiles 
         ? assignment.codeFiles 
@@ -258,29 +244,20 @@ async function loadAndShowCode(assignment) {
             language: 'python'
         }];
     
-    // タブUIを生成
     renderCodeTabs(files, assignment);
     
-    // 最初のファイルを表示
     currentFileIndex = 0;
     await loadCodeFile(files[0], assignment);
 }
 
-/**
- * コードファイルのタブUIを生成
- * @param {Array} files - ファイル情報の配列
- * @param {Object} assignment - 課題データ
- */
 function renderCodeTabs(files, assignment) {
     const modalContent = document.getElementById('codeModal').querySelector('.modal-content');
     
-    // 既存のタブとヘッダーを削除
     const existingTabs = modalContent.querySelector('.code-modal-tabs');
     const existingHeader = modalContent.querySelector('.modal-header');
     if (existingTabs) existingTabs.remove();
     if (existingHeader) existingHeader.remove();
     
-    // タブコンテナを作成
     const tabsHTML = `
         <div class="code-modal-tabs">
             <div class="code-tabs-container" id="codeTabsContainer">
@@ -317,31 +294,21 @@ function renderCodeTabs(files, assignment) {
     
     modalContent.insertAdjacentHTML('afterbegin', tabsHTML);
     
-    // タブクリックイベント
     const codeTabs = modalContent.querySelectorAll('.code-tab');
     codeTabs.forEach((tab, index) => {
         tab.addEventListener('click', async () => {
-            // すべてのタブからactiveを削除
             codeTabs.forEach(t => t.classList.remove('active'));
-            // クリックされたタブにactiveを追加
             tab.classList.add('active');
             
-            // ファイルを読み込み
             currentFileIndex = index;
             await loadCodeFile(files[index], assignment);
         });
     });
     
-    // コピーボタンと閉じるボタンのイベント（再設定）
     document.getElementById('copyCodeBtn').addEventListener('click', () => {
         const code = document.getElementById('modalCode').textContent;
         navigator.clipboard.writeText(code).then(() => {
-            const btn = document.getElementById('copyCodeBtn');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i>';
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-            }, 2000);
+            showToast(getText('codeCopied'), 'success');
         });
     });
     
@@ -350,26 +317,26 @@ function renderCodeTabs(files, assignment) {
     });
 }
 
-/**
- * 個別のコードファイルを読み込んで表示
- * @param {Object} file - ファイル情報 { name, path, language }
- * @param {Object} assignment - 課題データ
- */
 async function loadCodeFile(file, assignment) {
     const modalCode = document.getElementById('modalCode');
+    const modalBody = modalCode.parentElement.parentElement;
     
-    modalCode.textContent = getText('loadingCode');
+    modalBody.classList.add('loading');
+    modalCode.textContent = '';
     
-    // キャッシュキーを生成
+    const loadingDiv = document.createElement('div');
+    loadingDiv.innerHTML = '<div class="loading-spinner"></div>';
+    modalBody.appendChild(loadingDiv);
+    
     const cacheKey = `${assignment.id}_${file.name}`;
     
-    // キャッシュにコードがあればそれを使用
     if (currentCodeCache[cacheKey]) {
+        modalBody.classList.remove('loading');
+        modalBody.removeChild(loadingDiv);
         displayCode(currentCodeCache[cacheKey], file.language);
         return;
     }
     
-    // コードファイルを読み込み
     try {
         const response = await fetch(file.path);
         if (!response.ok) {
@@ -377,49 +344,37 @@ async function loadCodeFile(file, assignment) {
         }
         const code = await response.text();
         
-        // キャッシュに保存
         currentCodeCache[cacheKey] = code;
         
-        // コードを表示
+        modalBody.classList.remove('loading');
+        modalBody.removeChild(loadingDiv);
         displayCode(code, file.language);
         
     } catch (error) {
         console.error('Failed to load code:', error);
+        modalBody.classList.remove('loading');
+        modalBody.removeChild(loadingDiv);
         modalCode.textContent = getText('errorLoadingCode');
     }
 }
 
-/**
- * コードをモーダルに表示（シンタックスハイライト付き + 行番号）
- * 【修正】行番号の重複バグを修正
- * @param {string} code - コード
- * @param {string} language - 言語（python, html, css, javascript など）
- */
 function displayCode(code, language = 'python') {
     const modalCode = document.getElementById('modalCode');
     const pre = modalCode.parentElement;
     
-    // 既存の行番号を削除
     const existingLineNumbers = pre.querySelector('.line-numbers');
     if (existingLineNumbers) {
         existingLineNumbers.remove();
     }
     
-    // コード全体を設定
     modalCode.textContent = code;
-    
-    // 言語クラスを設定
     modalCode.className = `language-${language}`;
     
-    // 行数をカウント
     const lines = code.split('\n');
     const lineCount = lines.length;
-    
-    // 行番号の幅を計算（最大桁数に合わせる）
     const maxDigits = lineCount.toString().length;
     const lineNumberWidth = Math.max(50, maxDigits * 10 + 30);
     
-    // 行番号を生成
     const lineNumbers = document.createElement('div');
     lineNumbers.className = 'line-numbers';
     lineNumbers.style.width = lineNumberWidth + 'px';
@@ -430,23 +385,15 @@ function displayCode(code, language = 'python') {
         lineNumbers.appendChild(lineNum);
     }
     
-    // preタグのスタイルを設定
     pre.style.position = 'relative';
     pre.style.paddingLeft = (lineNumberWidth + 10) + 'px';
-    
-    // 行番号をpreタグ内に挿入（codeの前）
     pre.insertBefore(lineNumbers, modalCode);
     
-    // Prism.jsでシンタックスハイライトを適用
     if (typeof Prism !== 'undefined') {
         Prism.highlightElement(modalCode);
     }
 }
 
-/**
- * 画像モーダルを表示
- * @param {number} index - 画像のインデックス
- */
 function showImageModal(index) {
     currentImageIndex = index;
     const modal = document.getElementById('imageModal');
@@ -461,14 +408,9 @@ function showImageModal(index) {
     modal.classList.add('active');
 }
 
-/**
- * 画像モーダルの画像を切り替え
- * @param {number} direction - 方向（-1: 前, 1: 次）
- */
 function changeImage(direction) {
     currentImageIndex += direction;
     
-    // 範囲外の場合はループ
     if (currentImageIndex < 0) {
         currentImageIndex = currentImages.length - 1;
     } else if (currentImageIndex >= currentImages.length) {
@@ -478,37 +420,20 @@ function changeImage(direction) {
     showImageModal(currentImageIndex);
 }
 
-/**
- * ページトップにスムーズスクロール
- */
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
-
-/**
- * イベントリスナーを初期化
- */
 function initializeEventListeners() {
-    // ヘッダーのブランドエリアをクリックでトップにスクロール
     const brand = document.querySelector('.brand');
     if (brand) {
         brand.addEventListener('click', scrollToTop);
     }
     
-    // 言語切り替えボタン
     document.getElementById('langToggle').addEventListener('click', () => {
         toggleLanguage();
     });
     
-    // 画像モーダルを閉じる
     document.getElementById('closeImageModalBtn').addEventListener('click', () => {
         document.getElementById('imageModal').classList.remove('active');
     });
     
-    // 画像モーダルのナビゲーション
     document.getElementById('prevImageBtn').addEventListener('click', () => {
         changeImage(-1);
     });
@@ -517,7 +442,6 @@ function initializeEventListeners() {
         changeImage(1);
     });
     
-    // モーダルの背景をクリックしたら閉じる
     document.getElementById('codeModal').addEventListener('click', (e) => {
         if (e.target.id === 'codeModal') {
             document.getElementById('codeModal').classList.remove('active');
@@ -530,18 +454,15 @@ function initializeEventListeners() {
         }
     });
     
-    // キーボードショートカット
     document.addEventListener('keydown', (e) => {
         const codeModal = document.getElementById('codeModal');
         const imageModal = document.getElementById('imageModal');
         
-        // Escapeキーでモーダルを閉じる
         if (e.key === 'Escape') {
             codeModal.classList.remove('active');
             imageModal.classList.remove('active');
         }
         
-        // 画像モーダルが開いている場合の矢印キー
         if (imageModal.classList.contains('active')) {
             if (e.key === 'ArrowLeft') {
                 changeImage(-1);
@@ -552,9 +473,6 @@ function initializeEventListeners() {
     });
 }
 
-/**
- * タイピングアニメーションを開始
- */
 function startTypingAnimation() {
     const typingElement = document.getElementById('typingText');
     const text = getText('typingText');
@@ -566,10 +484,9 @@ function startTypingAnimation() {
         if (index < text.length) {
             typingElement.textContent += text.charAt(index);
             index++;
-            setTimeout(type, 80); // 80msごとに1文字追加
+            setTimeout(type, 80);
         }
     }
     
-    // アニメーション開始
     setTimeout(type, 500);
 }
