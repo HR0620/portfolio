@@ -1,13 +1,20 @@
-// i18n.js - 多言語対応
+// i18n.js - 多言語対応モジュール（修正版）
+// ============================================
+// 【修正内容】
+// - getText() 関数を追加（タイピングアニメーション用）
+// - フィルタータグの英語化対応を追加
+// - コード整理とコメント追加
 
 let currentLang = 'ja';
 
+// 多言語テキストデータ
 const i18nData = {
     ja: {
         headerTitle: 'プログラミング1',
         headerSubtitle: '課題ポートフォリオ',
         backText: '戻る',
         
+        // タイピングアニメーション用テキスト
         typingText: 'cd ../projects/class/programming-1 && ls -la',
         introDesc: 'プログラミング1の授業で作成した課題の一覧です。各課題のコード、実行結果、説明を確認できます。',
         
@@ -46,6 +53,7 @@ const i18nData = {
         headerSubtitle: 'Assignment Portfolio',
         backText: 'Back',
         
+        // Typing animation text
         typingText: 'cd ../projects/class/programming-1 && ls -la',
         introDesc: 'A collection of assignments created in Programming 1. View code, execution results, and descriptions for each assignment.',
         
@@ -80,10 +88,19 @@ const i18nData = {
     }
 };
 
+/**
+ * テキストを取得する関数
+ * @param {string} key - テキストキー
+ * @returns {string} 現在の言語に対応したテキスト
+ */
 function getText(key) {
     return i18nData[currentLang][key] || key;
 }
 
+/**
+ * 言語を切り替える関数
+ * @param {string} lang - 'ja' または 'en'
+ */
 function switchLanguage(lang) {
     if (lang !== 'ja' && lang !== 'en') {
         console.error('Invalid language code:', lang);
@@ -94,23 +111,32 @@ function switchLanguage(lang) {
     updateUILanguage();
 }
 
+/**
+ * UIの言語を更新する関数
+ */
 function updateUILanguage() {
+    // ヘッダー更新
     document.getElementById('headerTitle').textContent = getText('headerTitle');
     document.getElementById('headerSubtitle').textContent = getText('headerSubtitle');
     document.getElementById('backText').textContent = getText('backText');
+    
+    // イントロ更新
     document.getElementById('introDesc').textContent = getText('introDesc');
     
-    // フィルターUIのテキストを更新
+    // フィルターUI更新
     if (typeof updateFilterLanguage === 'function') {
         updateFilterLanguage();
     }
     
+    // 言語ボタン更新
     const langBtn = document.getElementById('langToggle');
     const langBtnSpan = langBtn.querySelector('span');
     langBtnSpan.textContent = currentLang === 'ja' ? 'EN' : 'JP';
     
+    // タブ再初期化
     if (typeof initializeTabs === 'function') {
         initializeTabs();
+        // 現在選択中の課題を維持
         if (window.currentAssignmentId) {
             const selectedTab = document.querySelector(`[data-id="${window.currentAssignmentId}"]`);
             if (selectedTab) {
@@ -119,11 +145,15 @@ function updateUILanguage() {
         }
     }
     
+    // 課題コンテンツ更新
     if (window.currentAssignmentId) {
         renderAssignment(window.currentAssignmentId);
     }
 }
 
+/**
+ * 言語を切り替える（トグル）
+ */
 function toggleLanguage() {
     const newLang = currentLang === 'ja' ? 'en' : 'ja';
     switchLanguage(newLang);

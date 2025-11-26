@@ -1,5 +1,7 @@
-// components.js - 高専祭2025 各セクションのコンポーネント
+// components.js - 高専祭2025 各セクションのコンポーネント（修正版）
 // ============================================
+// 【修正内容】
+// - チームメンバー名の英語化対応を追加（nameEnフィールドを使用）
 
 // ===== プロジェクトセクション =====
 class ProjectSection {
@@ -66,7 +68,7 @@ class TeamSection {
         
         const lang = currentLang;
         
-        // メンバーカードを生成
+        // 【修正】メンバーカードで nameEn フィールドを使用
         const memberCards = teamMembers.map(member => {
             const avatarContent = member.avatar 
                 ? `<img src="${member.avatar}" alt="${member.name}">`
@@ -78,10 +80,13 @@ class TeamSection {
                    </a>`
                 : '';
             
+            // 【修正】英語モード時は nameEn を使用
+            const displayName = lang === 'en' && member.nameEn ? member.nameEn : member.name;
+            
             return `
                 <div class="member-card">
                     <div class="member-avatar">${avatarContent}</div>
-                    <div class="member-name">${member.name}</div>
+                    <div class="member-name">${displayName}</div>
                     <div class="member-role">${member.role[lang]}</div>
                     ${githubLink}
                 </div>
@@ -123,7 +128,6 @@ class TimelineSection {
         
         const lang = currentLang;
         
-        // タイムラインアイテムを生成
         const timelineItems = timelineData.map(item => `
             <div class="timeline-item ${item.position}" data-id="${item.id}">
                 <span class="timeline-date">${item.date}</span>
@@ -143,11 +147,9 @@ class TimelineSection {
             <div class="timeline">${timelineItems}</div>
         `;
         
-        // スクロールアニメーションを設定
         this.setupScrollAnimation();
     }
     
-    // スクロールアニメーションの設定
     setupScrollAnimation() {
         if (this.observer) {
             this.observer.disconnect();
@@ -267,11 +269,9 @@ class FaqSection {
             <div class="faq-list">${items}</div>
         `;
         
-        // FAQのアコーディオン機能を設定
         this.setupAccordion();
     }
     
-    // アコーディオン機能の設定
     setupAccordion() {
         const questions = document.querySelectorAll('.faq-question');
         
@@ -280,12 +280,10 @@ class FaqSection {
                 const faqItem = question.parentElement;
                 const isActive = faqItem.classList.contains('active');
                 
-                // 他のアイテムを閉じる
                 document.querySelectorAll('.faq-item').forEach(item => {
                     item.classList.remove('active');
                 });
                 
-                // クリックしたアイテムを開く/閉じる
                 if (!isActive) {
                     faqItem.classList.add('active');
                 }
@@ -325,11 +323,9 @@ class OtherActivitiesSection {
             <div class="activities-grid">${cards}</div>
         `;
         
-        // カードクリックイベントを設定
         this.setupCardClick();
     }
     
-    // カードクリックでモーダルを表示
     setupCardClick() {
         const cards = document.querySelectorAll('.activity-card');
         
@@ -341,25 +337,21 @@ class OtherActivitiesSection {
         });
     }
     
-    // モーダルを表示
     showModal(activityId) {
         const activity = otherActivitiesData.find(a => a.id === activityId);
         if (!activity || !this.modal) return;
         
         const lang = currentLang;
         
-        // モーダル内容を更新
         document.getElementById('activityModalTitle').textContent = activity.title[lang];
         document.getElementById('activityModalRole').innerHTML = 
             `<strong>${t('role')}:</strong> ${activity.role[lang]}`;
         document.getElementById('activityModalDesc').textContent = activity.fullDesc[lang];
         
-        // モーダルを表示
         this.modal.classList.add('active');
         document.body.classList.add('modal-open');
     }
     
-    // モーダルを閉じる
     closeModal() {
         if (this.modal) {
             this.modal.classList.remove('active');
@@ -379,7 +371,6 @@ class TechSection {
         
         const lang = currentLang;
         
-        // 技術解説の内容（日英対応）
         const techContent = {
             ja: {
                 overview: "Hisayoshiは、Pythonのゲームライブラリ「pygame」を使用して開発されました。シンプルながらも拡張性のある設計を心がけました。",

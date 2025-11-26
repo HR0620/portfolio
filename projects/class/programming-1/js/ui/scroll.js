@@ -1,4 +1,8 @@
 // scroll.js - スクロール制御
+// ============================================
+// 【修正内容】
+// - ファイルパスを js/utils/ から js/ui/ に修正
+// - コメント追加
 
 /**
  * スクロールプログレスバーを初期化
@@ -37,6 +41,7 @@ function initScrollToTop() {
     button.setAttribute('aria-label', 'Scroll to top');
     document.body.appendChild(button);
     
+    // スクロール位置に応じてボタンを表示/非表示
     window.addEventListener('scroll', () => {
         if (window.pageYOffset > 300) {
             button.classList.add('visible');

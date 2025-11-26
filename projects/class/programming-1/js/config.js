@@ -1,32 +1,12 @@
-// config.js - Programming 1 課題データ設定（複数ファイル対応版）
+// config.js - Programming 1 課題データ設定（修正版）
 // ============================================
-// 【重要】codeFilePath（単一ファイル）と codeFiles（複数ファイル）の両方に対応
-
-/**
- * 課題データの構造
- * 
- * === 単一ファイルの場合 ===
- * codeFilePath: 'assignment/01/assignment-1.py'
- * 
- * === 複数ファイルの場合 ===
- * codeFiles: [
- *   {
- *     name: 'main.py',           // ファイル名（タブに表示）
- *     path: 'assignment/01/main.py',  // ファイルパス
- *     language: 'python'         // 言語（python, html, css, javascript, java, cpp など）
- *   },
- *   {
- *     name: 'index.html',
- *     path: 'assignment/01/index.html',
- *     language: 'html'
- *   }
- * ]
- * 
- * 【注意】codeFiles が存在する場合、codeFilePath は無視されます
- */
+// 【修正内容】
+// - 課題5の複数ファイル例を削除（実際には.pyファイルのみ）
+// - tagsEn フィールドを全課題に追加
+// - コメント整理
 
 const assignmentsData = [
-    // ===== 課題1: 単一ファイルの例 =====
+    // ===== 課題1: 数学解答 =====
     {
         id: 'assignment-1',
         number: 1,
@@ -38,7 +18,9 @@ const assignmentsData = [
             ja: '条件分岐・例外処理・配列等について学べました。',
             en: 'Learned about conditionals, exception handling, arrays, and more.'
         },
+        // 日本語タグ
         tags: ['Python', '配列操作'],
+        // 英語タグ（フィルター用）
         tagsEn: ['Python', 'Array Operations'],
         date: '2025/04/30',
         colabLink: 'https://colab.research.google.com/drive/1gKPFu2A_OY4BLfTLFnxHTvf2Ig-M-4xy?usp=sharing',
@@ -58,7 +40,6 @@ const assignmentsData = [
                 }
             }
         ],
-        // 単一ファイルの場合はこちらを使用
         codeFilePath: 'assignment/01/assignment-1.py',
         sections: [
             {
@@ -88,7 +69,7 @@ const assignmentsData = [
             en: 'Drew various shapes using Turtle Graphics.'
         },
         tags: ['Python', 'Turtle Graphics', '可視化'],
-        tagsEn: ['Python', 'Turtle Graphics','Visualization'],
+        tagsEn: ['Python', 'Turtle Graphics', 'Visualization'],
         date: '2025/05/14',
         colabLink: 'https://colab.research.google.com/drive/1sTbTR-mPJlvHiVnhGi1Tlz3rsQTuUBWd?usp=sharing',
         images: [
@@ -147,7 +128,7 @@ const assignmentsData = [
         sections: []
     },
     
-    // ===== 課題5: 機械学習入門（複数ファイルの例） =====
+    // ===== 課題5: 機械学習入門（修正：単一ファイルに変更）=====
     {
         id: 'assignment-5',
         number: 5,
@@ -186,35 +167,8 @@ const assignmentsData = [
                 }
             }
         ],
-        // 複数ファイルの場合はこちらを使用
-        // codeFilePath は無視されます
-        codeFiles: [
-            {
-                name: 'main.py',
-                path: 'assignment/05/main.py',
-                language: 'python'
-            },
-            {
-                name: 'game.py',
-                path: 'assignment/05/game.py',
-                language: 'python'
-            },
-            {
-                name: 'index.html',
-                path: 'assignment/05/index.html',
-                language: 'html'
-            },
-            {
-                name: 'style.css',
-                path: 'assignment/05/style.css',
-                language: 'css'
-            },
-            {
-                name: 'script.js',
-                path: 'assignment/05/script.js',
-                language: 'javascript'
-            }
-        ],
+        // 単一ファイルパス（複数ファイル対応は将来的に実装）
+        codeFilePath: 'assignment/05/assignment-5.py',
         sections: [
             {
                 icon: 'fa-cogs',
@@ -223,8 +177,8 @@ const assignmentsData = [
                     en: 'Technologies Used'
                 },
                 content: {
-                    ja: 'HTML, CSS, JavaScript, Pythonを使用。ゲームロジックとUIを分離しました。',
-                    en: 'Used HTML, CSS, JavaScript, and Python. Separated game logic and UI.'
+                    ja: 'Python, scikit-learnを使用。データの前処理から予測モデルの構築までを実装しました。',
+                    en: 'Used Python and scikit-learn. Implemented everything from data preprocessing to predictive model construction.'
                 }
             },
             {
@@ -234,31 +188,26 @@ const assignmentsData = [
                     en: 'Innovations'
                 },
                 content: {
-                    ja: 'モジュール設計により、各ファイルの役割を明確に分けました。',
-                    en: 'Clearly separated roles of each file through modular design.'
+                    ja: '複数のアルゴリズムを比較検証し、最適なモデルを選定しました。',
+                    en: 'Compared and verified multiple algorithms to select the optimal model.'
                 }
             }
         ]
     }
 ];
 
-// ===== 追加の課題例（複数ファイル対応） =====
-// 将来的にオブジェクト指向プログラミングの課題を追加する場合は以下のような形式で追加できます：
+// ===== 将来の拡張用テンプレート =====
 /*
+複数ファイル対応が必要になった場合は、以下のように codeFiles 配列を追加:
+
 {
     id: 'assignment-6',
     number: 6,
-    title: {
-        ja: 'オブジェクト指向プログラミング',
-        en: 'Object-Oriented Programming'
-    },
-    description: {
-        ja: 'クラスと継承を用いたプログラム設計。',
-        en: 'Program design using classes and inheritance.'
-    },
-    tags: ['Python', 'OOP', 'クラス設計'],
-    tagsEn: ['Python', 'OOP', 'Class Design'],
-    date: '2025/07/10',
+    title: { ja: '課題名', en: 'Assignment Name' },
+    description: { ja: '説明', en: 'Description' },
+    tags: ['Tag1', 'Tag2'],
+    tagsEn: ['Tag1', 'Tag2'],
+    date: '2025/XX/XX',
     colabLink: '#',
     images: [],
     codeFiles: [
@@ -268,18 +217,8 @@ const assignmentsData = [
             language: 'python'
         },
         {
-            name: 'models.py',
-            path: 'assignment/06/models.py',
-            language: 'python'
-        },
-        {
             name: 'utils.py',
             path: 'assignment/06/utils.py',
-            language: 'python'
-        },
-        {
-            name: 'test.py',
-            path: 'assignment/06/test.py',
             language: 'python'
         }
     ],

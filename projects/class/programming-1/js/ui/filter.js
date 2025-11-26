@@ -1,4 +1,9 @@
-// filter.js - タグフィルタリング機能
+// filter.js - タグフィルタリング機能（修正版）
+// ============================================
+// 【修正内容】
+// - フィルタータグの英語化対応を追加
+// - タグ抽出ロジックを多言語対応に変更
+// - コード整理
 
 let selectedTags = new Set();
 
@@ -11,21 +16,34 @@ function initializeFilter() {
 }
 
 /**
- * 全課題からタグを抽出
+ * 全課題からタグを抽出（現在の言語に応じて）
+ * @returns {Array<string>} タグの配列
  */
 function extractAllTags() {
     const tagsSet = new Set();
+    const lang = currentLang;
+    
     assignmentsData.forEach(assignment => {
-        assignment.tags.forEach(tag => tagsSet.add(tag));
+        // 現在の言語に応じたタグを使用
+        const tags = lang === 'ja' ? assignment.tags : (assignment.tagsEn || assignment.tags);
+        tags.forEach(tag => tagsSet.add(tag));
     });
+    
     return Array.from(tagsSet).sort();
 }
 
 /**
  * フィルターUIをレンダリング
+ * @param {Array<string>} tags - 表示するタグの配列
  */
 function renderFilterUI(tags) {
     const container = document.querySelector('.container');
+    
+    // 既存のフィルターセクションがあれば削除
+    const existingFilter = container.querySelector('.filter-section');
+    if (existingFilter) {
+        existingFilter.remove();
+    }
     
     const filterHTML = `
         <div class="filter-section">
@@ -52,6 +70,7 @@ function renderFilterUI(tags) {
     const vscodeTabs = container.querySelector('.vscode-tabs');
     vscodeTabs.insertAdjacentHTML('beforebegin', filterHTML);
     
+    // イベントリスナーを設定
     document.querySelectorAll('.filter-tag').forEach(btn => {
         btn.addEventListener('click', () => toggleTagFilter(btn));
     });
@@ -60,7 +79,7 @@ function renderFilterUI(tags) {
 }
 
 /**
- * フィルターUIのテキストを更新
+ * フィルターUIのテキストを更新（言語切り替え時）
  */
 function updateFilterLanguage() {
     const filterTitleText = document.getElementById('filterTitleText');
@@ -73,10 +92,30 @@ function updateFilterLanguage() {
     if (clearFilterText) {
         clearFilterText.textContent = getText('clearFilter');
     }
+    
+    // タグ自体も再生成（言語切り替え時）
+    clearAllFilters();
+    const allTags = extractAllTags();
+    
+    // タグ部分のみ更新
+    const tagsContainer = document.getElementById('filterTags');
+    if (tagsContainer) {
+        tagsContainer.innerHTML = allTags.map(tag => `
+            <button class="filter-tag" data-tag="${tag}">
+                ${tag}
+            </button>
+        `).join('');
+        
+        // イベントリスナーを再設定
+        document.querySelectorAll('.filter-tag').forEach(btn => {
+            btn.addEventListener('click', () => toggleTagFilter(btn));
+        });
+    }
 }
 
 /**
  * タグフィルターを切り替え
+ * @param {HTMLElement} button - クリックされたボタン
  */
 function toggleTagFilter(button) {
     const tag = button.getAttribute('data-tag');
@@ -110,10 +149,8 @@ function clearAllFilters() {
  */
 function updateClearButtonVisibility() {
     const clearBtn = document.getElementById('clearFilterBtn');
-    if (selectedTags.size > 0) {
-        clearBtn.style.display = 'flex';
-    } else {
-        clearBtn.style.display = 'none';
+    if (clearBtn) {
+        clearBtn.style.display = selectedTags.size > 0 ? 'flex' : 'none';
     }
 }
 
@@ -121,6 +158,9 @@ function updateClearButtonVisibility() {
  * フィルターを適用
  */
 function applyFilters() {
+    const lang = currentLang;
+    
+    // フィルターなしの場合は全課題を表示
     if (selectedTags.size === 0) {
         initializeTabs();
         const sortedAssignments = [...assignmentsData].sort((a, b) => b.number - a.number);
@@ -130,10 +170,14 @@ function applyFilters() {
         return;
     }
     
+    // フィルター条件に一致する課題を抽出
     const filteredAssignments = assignmentsData.filter(assignment => {
-        return Array.from(selectedTags).some(tag => assignment.tags.includes(tag));
+        // 現在の言語に応じたタグを使用
+        const tags = lang === 'ja' ? assignment.tags : (assignment.tagsEn || assignment.tags);
+        return Array.from(selectedTags).some(selectedTag => tags.includes(selectedTag));
     });
     
+    // タブを再生成
     const tabsContainer = document.getElementById('tabsContainer');
     tabsContainer.innerHTML = '';
     
@@ -155,9 +199,11 @@ function applyFilters() {
         tabsContainer.appendChild(tab);
     });
     
+    // 最初の課題を選択
     if (sortedAssignments.length > 0) {
         selectTab(sortedAssignments[0].id);
     } else {
+        // 該当する課題がない場合
         document.getElementById('assignmentContent').innerHTML = `
             <div style="text-align: center; padding: 60px 20px; color: var(--text-secondary);">
                 <i class="fas fa-search" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
