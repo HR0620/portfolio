@@ -30,13 +30,13 @@ function renderFilterUI(tags) {
     const filterHTML = `
         <div class="filter-section">
             <div class="filter-header">
-                <h3 class="filter-title">
+                <h3 class="filter-title" id="filterTitle">
                     <i class="fas fa-filter"></i>
-                    ${getText('filterByTag')}
+                    <span id="filterTitleText">${getText('filterByTag')}</span>
                 </h3>
                 <button class="filter-clear-btn" id="clearFilterBtn" style="display: none;">
                     <i class="fas fa-times"></i>
-                    ${getText('clearFilter')}
+                    <span id="clearFilterText">${getText('clearFilter')}</span>
                 </button>
             </div>
             <div class="filter-tags" id="filterTags">
@@ -57,6 +57,22 @@ function renderFilterUI(tags) {
     });
     
     document.getElementById('clearFilterBtn').addEventListener('click', clearAllFilters);
+}
+
+/**
+ * フィルターUIのテキストを更新
+ */
+function updateFilterLanguage() {
+    const filterTitleText = document.getElementById('filterTitleText');
+    const clearFilterText = document.getElementById('clearFilterText');
+    
+    if (filterTitleText) {
+        filterTitleText.textContent = getText('filterByTag');
+    }
+    
+    if (clearFilterText) {
+        clearFilterText.textContent = getText('clearFilter');
+    }
 }
 
 /**
