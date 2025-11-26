@@ -14,6 +14,8 @@ const subjects = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, starting initialization...');
+    
     initializeSubjectSelector();
     initializeFilter();
     initializeTabs();
@@ -21,16 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollProgress();
     initScrollToTop();
     
-    // タイピングアニメーションを開始
-    setTimeout(() => {
-        startTypingAnimation();
-    }, 300);
+    // イントロの説明文を設定
+    const introDesc = document.getElementById('introDesc');
+    if (introDesc) {
+        introDesc.textContent = getText('introDesc');
+    }
     
-    document.getElementById('introDesc').textContent = getText('introDesc');
+    // タイピングアニメーションを遅延実行
+    setTimeout(() => {
+        console.log('Starting typing animation...');
+        startTypingAnimation();
+    }, 500);
     
     // 最新の課題（課題5）を選択
     if (assignmentsData.length > 0) {
         const sortedAssignments = [...assignmentsData].sort((a, b) => b.number - a.number);
+        console.log('Selecting assignment:', sortedAssignments[0].id);
         selectTab(sortedAssignments[0].id);
     }
 });
@@ -431,15 +439,15 @@ function changeImage(direction) {
 }
 
 function initializeEventListeners() {
-    // ブランドエリアクリックでトップにスクロール
-    const brandElements = document.querySelectorAll('.brand, .brand *');
-    brandElements.forEach(el => {
-        el.addEventListener('click', (e) => {
+    // アイコンのみクリックでトップにスクロール
+    const brandIcon = document.querySelector('.brand > i');
+    if (brandIcon) {
+        brandIcon.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             scrollToTop();
         });
-    });
+    }
     
     // 言語切り替えボタン
     document.getElementById('langToggle').addEventListener('click', (e) => {
@@ -505,14 +513,19 @@ function initializeEventListeners() {
 
 function startTypingAnimation() {
     const typingElement = document.getElementById('typingText');
+    
     if (!typingElement) {
-        console.error('Typing element not found');
+        console.error('Typing element not found! ID: typingText');
+        console.log('Available elements:', document.querySelector('.typing-container'));
         return;
     }
     
-    const text = getText('typingText');
-    let index = 0;
+    console.log('Typing element found:', typingElement);
     
+    const text = getText('typingText');
+    console.log('Text to type:', text);
+    
+    let index = 0;
     typingElement.textContent = '';
     
     function type() {
@@ -520,8 +533,11 @@ function startTypingAnimation() {
             typingElement.textContent += text.charAt(index);
             index++;
             setTimeout(type, 50);
+        } else {
+            console.log('Typing animation complete');
         }
     }
     
+    console.log('Starting to type...');
     type();
 }

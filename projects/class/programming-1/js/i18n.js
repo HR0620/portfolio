@@ -100,6 +100,11 @@ function updateUILanguage() {
     document.getElementById('backText').textContent = getText('backText');
     document.getElementById('introDesc').textContent = getText('introDesc');
     
+    // フィルターUIのテキストを更新
+    if (typeof updateFilterLanguage === 'function') {
+        updateFilterLanguage();
+    }
+    
     const langBtn = document.getElementById('langToggle');
     const langBtnSpan = langBtn.querySelector('span');
     langBtnSpan.textContent = currentLang === 'ja' ? 'EN' : 'JP';

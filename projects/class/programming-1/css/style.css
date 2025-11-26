@@ -76,23 +76,24 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-    cursor: pointer;
-    transition: all var(--transition-normal);
-    user-select: none;
 }
 
-.brand:hover {
-    opacity: 0.8;
+.brand > i {
+    font-size: 32px;
+    color: var(--accent-blue);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    padding: 8px;
+    border-radius: var(--radius-xs);
+}
+
+.brand > i:hover {
+    background: var(--bg-secondary);
     transform: translateY(-2px);
 }
 
-.brand:active {
+.brand > i:active {
     transform: translateY(0);
-}
-
-.brand i {
-    font-size: 32px;
-    color: var(--accent-blue);
 }
 
 .brand h1 {
