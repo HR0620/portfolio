@@ -522,6 +522,7 @@ async function loadCodeFile(file, assignment) {
 }
 
 // ===== コード表示 =====
+// ===== コード表示 =====
 function displayCode(code, language = 'python') {
     const modalCode = document.getElementById('modalCode');
     const pre = modalCode.parentElement;
@@ -535,11 +536,12 @@ function displayCode(code, language = 'python') {
     modalCode.textContent = code;
     modalCode.className = `language-${language}`;
     
-// 行番号を生成
+    // 【修正】行番号を生成 - 幅を調整
     const lines = code.split('\n');
     const lineCount = lines.length;
     const maxDigits = lineCount.toString().length;
-    const lineNumberWidth = Math.max(50, maxDigits * 10 + 20);
+    // 行番号の幅を最小限に（余白を削減）
+    const lineNumberWidth = Math.max(40, maxDigits * 9 + 16);
     
     const lineNumbers = document.createElement('div');
     lineNumbers.className = 'line-numbers';
@@ -552,7 +554,8 @@ function displayCode(code, language = 'python') {
     }
     
     pre.style.position = 'relative';
-    pre.style.paddingLeft = (lineNumberWidth + 10) + 'px';
+    // 【修正】コードの左マージンも調整（行番号幅 + 少しの余白）
+    pre.style.paddingLeft = (lineNumberWidth + 5) + 'px';
     pre.insertBefore(lineNumbers, modalCode);
     
     // シンタックスハイライト

@@ -606,6 +606,7 @@ html[data-theme="light"] .theme-toggle-btn {
     position: relative;
     opacity: 0.5;
     transform: scale(0.9);
+    cursor: pointer;
 }
 
 .certification-card.active {
@@ -613,52 +614,6 @@ html[data-theme="light"] .theme-toggle-btn {
     transform: scale(1);
     border-color: var(--accent);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* スマホ対応：カードサイズを画面幅に合わせる */
-@media (max-width: 600px) {
-    .certifications-carousel-wrapper {
-        padding: 0 40px;
-    }
-    
-    .certifications-carousel {
-        gap: 10px;
-        padding: 15px 0;
-    }
-    
-    .carousel-track {
-        gap: 10px;
-    }
-    
-    .certification-card {
-        /* 画面幅 - ボタン幅(80px) - 余白 で計算 */
-        min-width: calc(100vw - 120px);
-        max-width: calc(100vw - 120px);
-        min-height: 140px;
-        padding: 15px;
-    }
-    
-    .certification-name {
-        font-size: 16px;
-    }
-    
-    .certification-organization {
-        font-size: 12px;
-    }
-    
-    .certification-date {
-        font-size: 11px;
-        margin-top: 10px;
-        padding-top: 8px;
-    }
-    
-    /* NEWバッジも小さく */
-    .certification-badge {
-        top: -8px;
-        right: -8px;
-        padding: 3px 8px;
-        font-size: 10px;
-    }
 }
 
 .certification-card:hover {
@@ -701,6 +656,125 @@ html[data-theme="light"] .theme-toggle-btn {
     text-transform: uppercase;
     box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
     animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* カルーセルナビゲーションボタン */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--card);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: 18px;
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.carousel-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+}
+
+.carousel-btn.prev {
+    left: 0;
+}
+
+.carousel-btn.next {
+    right: 0;
+}
+
+/* カルーセルインジケーター */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(128, 128, 128, 0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.carousel-dot.active {
+    background: var(--accent);
+    transform: scale(1.2);
+}
+
+/* 【修正】スマホ対応：カード全体を表示、前後は非表示 */
+@media (max-width: 600px) {
+    .certifications-carousel-wrapper {
+        padding: 0 50px;
+    }
+    
+    .certifications-carousel {
+        gap: 10px;
+        padding: 15px 0;
+    }
+    
+    .carousel-track {
+        gap: 10px;
+    }
+    
+    .certification-card {
+        /* 画面幅 - ボタン幅(100px) - 余白(20px) で計算 */
+        min-width: calc(100vw - 120px);
+        max-width: calc(100vw - 120px);
+        min-height: 160px;
+        padding: 20px;
+        /* スマホ時は常に不透明度1 */
+        opacity: 1 !important;
+        /* スマホ時は常にスケール1 */
+        transform: scale(1) !important;
+        /* カーソルはデフォルトに */
+        cursor: default;
+    }
+    
+    /* スマホ時はactiveクラスの追加効果を無効化 */
+    .certification-card.active {
+        /* ボーダー色はそのまま */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .certification-name {
+        font-size: 17px;
+    }
+    
+    .certification-organization {
+        font-size: 13px;
+    }
+    
+    .certification-date {
+        font-size: 12px;
+        margin-top: 12px;
+        padding-top: 10px;
+    }
+    
+    /* NEWバッジも少し小さく */
+    .certification-badge {
+        top: -8px;
+        right: -8px;
+        padding: 4px 10px;
+        font-size: 10px;
+    }
 }
 
 @keyframes pulse {

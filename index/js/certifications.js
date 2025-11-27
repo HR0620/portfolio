@@ -1,5 +1,9 @@
-// certifications.js - 資格カルーセル機能モジュール
-// オート再生なし、無限ループ対応版
+// certifications.js - 資格カルーセル機能モジュール（修正版）
+// ============================================
+// 【修正内容】
+// 1. PCで前後のカードをクリックして移動可能に
+// 2. 無限ループのアニメーションを滑らかに（ジャンプ時のちらつき防止）
+// 3. スマホ時はカード全体を表示、前後カードは非表示
 
 // ===== 資格カルーセル管理クラス =====
 class Certifications {
@@ -12,8 +16,8 @@ class Certifications {
         this.currentIndex = 0;
         this.cards = [];
         this.newestIndex = 0;
-        this.isAnimating = false; // アニメーション中フラグ
-        this.totalCards = 0;      // 実際のカード数
+        this.isAnimating = false;
+        this.totalCards = 0;
     }
 
     // 最新の資格を特定する（取得日が一番新しいもの）
@@ -22,7 +26,6 @@ class Certifications {
         let newestIdx = 0;
         
         certificationsData.forEach((cert, index) => {
-            // 日付形式: "2024/11" → Date変換
             const parts = cert.date.split('/');
             const date = new Date(parts[0], parseInt(parts[1]) - 1);
             
@@ -49,17 +52,14 @@ class Certifications {
             card.appendChild(badge);
         }
         
-        // 資格名
         const name = document.createElement('div');
         name.className = 'certification-name';
         name.textContent = cert.name[currentLang];
         
-        // 運営団体
         const organization = document.createElement('div');
         organization.className = 'certification-organization';
         organization.textContent = cert.organization[currentLang];
         
-        // 取得年月日
         const date = document.createElement('div');
         date.className = 'certification-date';
         date.textContent = cert.date;
@@ -77,13 +77,11 @@ class Certifications {
         this.indicators.innerHTML = "";
         this.cards = [];
         
-        // 最新の資格を特定
         this.newestIndex = this.findNewestCertification();
         this.totalCards = certificationsData.length;
         
         // 無限ループ用に前後にクローンを追加
-        // 構成: [クローン末尾2枚] + [本体] + [クローン先頭2枚]
-        const cloneCount = Math.min(2, this.totalCards); // クローン数（最大2枚）
+        const cloneCount = Math.min(2, this.totalCards);
         
         // 末尾のクローン（先頭に配置）
         for (let i = cloneCount; i > 0; i--) {
@@ -132,13 +130,10 @@ class Certifications {
 
     // カード幅を取得（レスポンシブ対応）
     getCardWidth() {
-        // スマホの場合は画面幅に応じて計算
         if (window.innerWidth <= 600) {
-            // カード幅 = 100vw - 120px + gap(10px)
-            return window.innerWidth - 120 + 10;
+            return window.innerWidth - 100 + 10;
         }
-        // PC/タブレットの場合は固定幅
-        return 300; // カード幅(280px) + gap(20px)
+        return 300;
     }
     
     // カルーセルの表示を更新する
@@ -146,12 +141,10 @@ class Certifications {
         const cardWidth = this.getCardWidth();
         const cloneCount = Math.min(2, this.totalCards);
         
-        // 実際の位置（クローンを考慮）
         const actualIndex = this.currentIndex + cloneCount;
         const offset = actualIndex * cardWidth;
         
-        // 中央揃えのためのオフセット計算
-        const centerOffset = cardWidth / 2 - 10; // gapの半分を引く
+        const centerOffset = cardWidth / 2 - 10;
         
         if (animate) {
             this.track.style.transition = 'transform 0.5s ease';
@@ -159,20 +152,18 @@ class Certifications {
             this.track.style.transition = 'none';
         }
         
-        // 中央に配置するための計算
         this.track.style.transform = `translateX(calc(50% - ${offset}px - ${centerOffset}px))`;
         
         // activeクラスの更新
         const allCards = this.track.querySelectorAll('.certification-card');
         allCards.forEach((card, idx) => {
             card.classList.remove('active');
-            // クローンを考慮した位置でactive判定
             if (idx === actualIndex) {
                 card.classList.add('active');
             }
         });
         
-        // インジケーターの更新（0〜totalCards-1 の範囲に正規化）
+        // インジケーターの更新
         const normalizedIndex = ((this.currentIndex % this.totalCards) + this.totalCards) % this.totalCards;
         const dots = this.indicators.querySelectorAll('.carousel-dot');
         dots.forEach((dot, idx) => {
@@ -188,12 +179,18 @@ class Certifications {
         this.currentIndex++;
         this.updateCarousel(true);
         
-        // 最後のカードに達したら、アニメーション完了後に先頭にジャンプ
+        // 【修正】最後のカードに達したら、トランジション終了後に先頭にジャンプ
         if (this.currentIndex >= this.totalCards) {
             setTimeout(() => {
+                this.track.style.transition = 'none';
                 this.currentIndex = 0;
                 this.updateCarousel(false);
-                this.isAnimating = false;
+                
+                // 次フレームでトランジションを再有効化
+                requestAnimationFrame(() => {
+                    this.track.style.transition = 'transform 0.5s ease';
+                    this.isAnimating = false;
+                });
             }, 500);
         } else {
             setTimeout(() => {
@@ -210,12 +207,18 @@ class Certifications {
         this.currentIndex--;
         this.updateCarousel(true);
         
-        // 先頭のカードの前に達したら、アニメーション完了後に末尾にジャンプ
+        // 【修正】先頭のカードの前に達したら、トランジション終了後に末尾にジャンプ
         if (this.currentIndex < 0) {
             setTimeout(() => {
+                this.track.style.transition = 'none';
                 this.currentIndex = this.totalCards - 1;
                 this.updateCarousel(false);
-                this.isAnimating = false;
+                
+                // 次フレームでトランジションを再有効化
+                requestAnimationFrame(() => {
+                    this.track.style.transition = 'transform 0.5s ease';
+                    this.isAnimating = false;
+                });
             }, 500);
         } else {
             setTimeout(() => {
@@ -225,14 +228,13 @@ class Certifications {
     }
 
     // 特定のスライドへジャンプ
-// 特定のスライドへジャンプ
     goToSlide(index) {
         if (this.isAnimating) return;
         this.currentIndex = index;
         this.updateCarousel(true);
     }
     
-    // カードクリックイベントを設定（PC版のみ）
+    // 【新規】カードクリックイベントを設定（PC版のみ）
     setupCardClick() {
         const allCards = this.track.querySelectorAll('.certification-card');
         allCards.forEach((card) => {
@@ -241,6 +243,7 @@ class Certifications {
                 if (window.innerWidth <= 600) return;
                 
                 const cardIndex = parseInt(card.getAttribute('data-index'));
+                
                 // クローンカードのクリックを処理
                 if (card.classList.contains('clone')) {
                     this.goToSlide(cardIndex);
@@ -256,12 +259,10 @@ class Certifications {
 
     // イベントリスナーを設定
     setupEventListeners() {
-        // 前へボタン
         this.prevBtn.addEventListener('click', () => {
             this.prev();
         });
         
-        // 次へボタン
         this.nextBtn.addEventListener('click', () => {
             this.next();
         });
@@ -292,10 +293,11 @@ class Certifications {
         }
     }
 
-    // 初期化処理（オート再生なし）
+    // 初期化処理
     init() {
         this.render();
         this.setupEventListeners();
+        this.setupCardClick(); // カードクリックイベントを追加
         
         // ウィンドウリサイズ時にカルーセルを更新
         window.addEventListener('resize', () => {
@@ -308,5 +310,6 @@ class Certifications {
 function renderCertifications() {
     if (window.certificationsInstance) {
         window.certificationsInstance.render();
+        window.certificationsInstance.setupCardClick();
     }
 }
