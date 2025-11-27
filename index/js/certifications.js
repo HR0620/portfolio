@@ -225,10 +225,33 @@ class Certifications {
     }
 
     // 特定のスライドへジャンプ
+// 特定のスライドへジャンプ
     goToSlide(index) {
         if (this.isAnimating) return;
         this.currentIndex = index;
         this.updateCarousel(true);
+    }
+    
+    // カードクリックイベントを設定（PC版のみ）
+    setupCardClick() {
+        const allCards = this.track.querySelectorAll('.certification-card');
+        allCards.forEach((card) => {
+            card.addEventListener('click', () => {
+                // スマホの場合はクリックイベントを無効化
+                if (window.innerWidth <= 600) return;
+                
+                const cardIndex = parseInt(card.getAttribute('data-index'));
+                // クローンカードのクリックを処理
+                if (card.classList.contains('clone')) {
+                    this.goToSlide(cardIndex);
+                } else {
+                    // 通常カードのクリック
+                    if (cardIndex !== this.currentIndex) {
+                        this.goToSlide(cardIndex);
+                    }
+                }
+            });
+        });
     }
 
     // イベントリスナーを設定

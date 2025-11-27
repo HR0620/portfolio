@@ -535,11 +535,11 @@ function displayCode(code, language = 'python') {
     modalCode.textContent = code;
     modalCode.className = `language-${language}`;
     
-    // 行番号を生成
+// 行番号を生成
     const lines = code.split('\n');
     const lineCount = lines.length;
     const maxDigits = lineCount.toString().length;
-    const lineNumberWidth = Math.max(50, maxDigits * 10 + 30);
+    const lineNumberWidth = Math.max(50, maxDigits * 10 + 20);
     
     const lineNumbers = document.createElement('div');
     lineNumbers.className = 'line-numbers';

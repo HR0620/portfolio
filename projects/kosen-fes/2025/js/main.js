@@ -40,12 +40,13 @@ class KosenFesApp {
     }
     
     // ===== 各セクションのインスタンスを作成 =====
+// ===== 各セクションのインスタンスを作成 =====
     createSections() {
         this.sections = {
             project: new ProjectSection(),
             team: new TeamSection(),
             timeline: new TimelineSection(),
-            gallery: new GallerySection(),
+            gallery: new GallerySlideshow(), // 額縁式スライドショーに変更
             testimonial: new TestimonialSection(),
             reflection: new ReflectionSection(),
             faq: new FaqSection(),

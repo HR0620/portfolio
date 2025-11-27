@@ -149,7 +149,8 @@
     font-size: 13px;
     line-height: 1.6;
     display: block;
-    padding-left: 60px;
+    padding-left: 0px;
+    margin-left: 60px;
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
 }
 
