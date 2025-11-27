@@ -1,35 +1,15 @@
-/* Undertaleのようにランダムでイベントが発生する機能を実装するためのJavaScriptコード
-FUN値(1-100)をサイト訪問時に与えてそれに基づいてランダムイベントを発生させる
-*/
-//ダークモードボタンの三日月を満月に変える
-//ハンバーガーメニューのボタンの見た目をハンバーガーに変える
-//高専祭サムネをhisayoshi_thumbnail-color.pngに変える
-
-// random-event.js - Undertale風FUN値イベントシステム
+// random-event.js - Undertale風FUN値イベントシステム（修正版）
 // ============================================
-// ページ訪問時に1-100のFUN値を生成し、確率に基づいてイベントを発動
+// 【修正内容】
+// 1. 確率判定を正しく実装（各イベントが独立した確率で発動）
+// 2. ハンバーガーメニューのイベント修正（機能を維持）
 
 class FunEventSystem {
     constructor() {
-        this.funValue = this.generateFunValue();
         this.events = this.defineEvents();
         this.triggeredEvents = [];
         
-        console.log(`🎲 FUN Value: ${this.funValue}`);
-    }
-
-    // FUN値を生成（1-100のランダム値）
-    generateFunValue() {
-        // セッションストレージから取得（ページ内では同じ値を維持）
-        const stored = sessionStorage.getItem('funValue');
-        if (stored) {
-            return parseInt(stored);
-        }
-        
-        // 新規生成
-        const funValue = Math.floor(Math.random() * 100) + 1;
-        sessionStorage.setItem('funValue', funValue);
-        return funValue;
+        console.log('🎲 FUN Event System initialized');
     }
 
     // イベント定義（拡張しやすい構造）
@@ -102,13 +82,17 @@ class FunEventSystem {
         ];
     }
 
-    // イベント発動判定
+    // 【修正】イベント発動判定（各イベントが独立した確率で判定）
     checkAndTriggerEvents() {
         this.events.forEach(event => {
-            // 確率判定
-            if (this.funValue <= event.probability) {
+            // 【修正】1-100のランダム値を生成し、確率以下なら発動
+            const roll = Math.floor(Math.random() * 100) + 1;
+            const shouldTrigger = roll <= event.probability;
+            
+            if (shouldTrigger) {
                 // 条件チェック（あれば）
                 if (event.condition && !event.condition()) {
+                    console.log(`⏭️ Event "${event.name}" skipped (condition not met)`);
                     return;
                 }
                 
@@ -116,7 +100,7 @@ class FunEventSystem {
                 try {
                     event.execute();
                     this.triggeredEvents.push(event);
-                    console.log(`✨ Event triggered: ${event.name}`);
+                    console.log(`✨ Event triggered: ${event.name} (Roll: ${roll}/${event.probability})`);
                 } catch (error) {
                     console.error(`❌ Event failed: ${event.id}`, error);
                 }
@@ -149,26 +133,25 @@ class FunEventSystem {
         }
     }
 
-    // 2. ハンバーガーメニューのアイコンを🍔に
+    // 【修正】2. ハンバーガーメニューのアイコンを🍔に
     event_hamburgerIcon() {
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         if (!hamburgerBtn) return;
         
-        // 既存のspanを非表示
+        // 既存のspanに絵文字を設定（spanは維持）
         const spans = hamburgerBtn.querySelectorAll('span');
-        spans.forEach(span => span.style.display = 'none');
+        if (spans.length >= 3) {
+            // 中央のspanだけにハンバーガー絵文字を表示
+            spans[0].style.display = 'none';
+            spans[1].innerHTML = '🍔';
+            spans[1].style.transform = 'none'; // トランスフォームをリセット
+            spans[1].style.fontSize = '24px';
+            spans[1].style.lineHeight = '1';
+            spans[2].style.display = 'none';
+        }
         
-        // 絵文字を追加
-        hamburgerBtn.innerHTML = '<span style="font-size: 24px;">🍔</span>';
-        
-        // クリック時の処理を再設定（ハンバーガーメニュー機能は維持）
-        hamburgerBtn.addEventListener('click', () => {
-            const menuOverlay = document.getElementById('menuOverlay');
-            if (menuOverlay) {
-                menuOverlay.classList.toggle('open');
-                hamburgerBtn.classList.toggle('active');
-            }
-        });
+        // ハンバーガーメニューの機能は既存のHamburgerMenuクラスが管理しているので
+        // ここでは見た目だけを変更（機能は維持される）
     }
 
     // 3. アバター画像を別バージョンに（要：別画像）
@@ -228,6 +211,7 @@ class FunEventSystem {
         
         // 虹色グラデーションのCSS追加
         const style = document.createElement('style');
+        style.id = 'rainbow-timeline-style';
         style.textContent = `
             .timeline-container::before {
                 background: linear-gradient(
@@ -256,33 +240,34 @@ class FunEventSystem {
         if (!langBtn) return;
         
         let mysteryMode = false;
-        const originalToggle = window.toggleLanguage;
-        
-        // 3回クリックで謎言語モード
         let clickCount = 0;
-        langBtn.addEventListener('click', () => {
+        
+        // オリジナルのクリックイベントを保存
+        const originalText = langBtn.textContent;
+        
+        // カスタムクリックリスナー追加
+        const mysteryClickHandler = () => {
             clickCount++;
             if (clickCount === 3 && !mysteryMode) {
                 mysteryMode = true;
                 langBtn.textContent = '？？？';
                 
-                // 次回クリックで元に戻す
-                setTimeout(() => {
-                    langBtn.addEventListener('click', () => {
-                        if (mysteryMode) {
-                            mysteryMode = false;
-                            clickCount = 0;
-                            originalToggle();
-                        }
-                    }, { once: true });
-                }, 100);
+                console.log('🌀 Mystery language mode activated!');
+            } else if (mysteryMode) {
+                // 謎言語モード解除
+                mysteryMode = false;
+                clickCount = 0;
+                langBtn.textContent = currentLang === 'ja' ? 'EN' : 'JP';
             }
-        });
+        };
+        
+        langBtn.addEventListener('click', mysteryClickHandler);
     }
 
     // 8. スキルアイコンを揺らす
     event_skillShake() {
         const style = document.createElement('style');
+        style.id = 'skill-shake-style';
         style.textContent = `
             @keyframes skill-shake {
                 0%, 100% { transform: rotate(0deg); }
@@ -310,8 +295,24 @@ class FunEventSystem {
             ID: e.id,
             Name: e.name,
             Probability: `${e.probability}%`,
-            Triggered: this.triggeredEvents.includes(e) ? '✓' : '✗'
+            Triggered: this.triggeredEvents.some(t => t.id === e.id) ? '✓' : '✗'
         })));
+    }
+
+    // 【デバッグ用】特定のイベントを強制発動
+    forceEvent(eventId) {
+        const event = this.events.find(e => e.id === eventId);
+        if (!event) {
+            console.error(`Event "${eventId}" not found`);
+            return;
+        }
+        
+        try {
+            event.execute();
+            console.log(`🔧 Force triggered: ${event.name}`);
+        } catch (error) {
+            console.error(`❌ Force trigger failed:`, error);
+        }
     }
 }
 
@@ -329,18 +330,26 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // グローバルに公開（デバッグ用）
-window.getFunValue = () => funSystem ? funSystem.funValue : null;
 window.showFunEvents = () => funSystem ? funSystem.logAllEvents() : null;
+window.forceEvent = (eventId) => funSystem ? funSystem.forceEvent(eventId) : null;
 
-console.log('🎲 FUN Event System loaded! Type showFunEvents() to see all events.');
+// デバッグコマンド一覧を表示
+console.log(`
+🎲 FUN Event System loaded!
 
+Available debug commands:
+- showFunEvents()           : Show all events and their status
+- forceEvent('event-id')    : Force trigger a specific event
+  
+Available event IDs:
+- 'full-moon'        (1%)  : Full moon icon
+- 'avatar-variant'   (5%)  : Avatar variant
+- 'timeline-rainbow' (8%)  : Rainbow timeline
+- 'hamburger-icon'   (10%) : Hamburger emoji
+- 'footer-text'      (15%) : Changed footer text
+- 'skill-shake'      (20%) : Shaking skill icons
+- 'lang-mystery'     (25%) : Mystery language button
+- 'hisayoshi-color'  (30%) : Color thumbnail
 
-
-
-
-
-
-
-
-
-console.log("Oh...! You found me! So embarrassing.");
+Example: forceEvent('hamburger-icon')
+`);
