@@ -1,6 +1,4 @@
-// random-event.js - Undertale風FUN値イベントシステム（シンプル版）
-// ============================================
-// Math.random()を使ったシンプルな確率判定
+// random-event.js - Undertale風FUN値イベントシステム
 
 class FunEventSystem {
     constructor() {
@@ -8,72 +6,85 @@ class FunEventSystem {
         console.log('🎲 FUN Event System initialized');
     }
 
-    // イベント発動判定（シンプル版）
+    // イベント発動判定
     checkAndTriggerEvents() {
-        // 各イベントごとに0-100のランダム値を生成して判定
+        const events = [
+            // ===== 超レア (1-5%) =====
+            { prob: 1, name: 'スプラッシュ画面', fn: () => this.event_splash() },
+            { prob: 2, name: '満月', fn: () => this.event_fullMoon(), cond: () => document.documentElement.getAttribute('data-theme') === 'dark' },
+            { prob: 3, name: '雪が降る', fn: () => this.event_snow() },
+            { prob: 5, name: 'アバター別版', fn: () => this.event_avatarVariant() },
+            
+            // ===== レア (8-15%) =====
+            { prob: 8, name: 'タイムライン虹色', fn: () => this.event_timelineRainbow() },
+            { prob: 10, name: 'ハンバーガー🍔', fn: () => this.event_hamburgerIcon() },
+            { prob: 12, name: '桜吹雪', fn: () => this.event_sakura() },
+            
+            // ===== アンコモン (18-30%) =====
+            { prob: 18, name: 'カード浮遊', fn: () => this.event_floatingCards() },
+            { prob: 20, name: 'スキル揺れ', fn: () => this.event_skillShake() },
+            { prob: 30, name: '高専祭カラー', fn: () => this.event_hisayoshiColor() },
+            
+            // ===== コモン (35-50%) =====
+            { prob: 35, name: 'ヘッダーグラデーション', fn: () => this.event_headerGradient() },
+            { prob: 50, name: '装飾ライン', fn: () => this.event_decorativeLines() }
+        ];
         
-        // 1. 満月イベント（1%） - ダークモード時のみ
-        const funValue1 = Math.random() * 100;
-        if (funValue1 < 1 && document.documentElement.getAttribute('data-theme') === 'dark') {
-            this.event_fullMoon();
-            console.log('✨ Event triggered: Full Moon (1%)');
-        }
-        
-        // 2. アバター別バージョン（5%）
-        const funValue2 = Math.random() * 100;
-        if (funValue2 < 5) {
-            this.event_avatarVariant();
-            console.log('✨ Event triggered: Avatar Variant (5%)');
-        }
-        
-        // 3. タイムライン虹色（8%）
-        const funValue3 = Math.random() * 100;
-        if (funValue3 < 8) {
-            this.event_timelineRainbow();
-            console.log('✨ Event triggered: Rainbow Timeline (8%)');
-        }
-        
-        // 4. ハンバーガー🍔（10%）
-        const funValue4 = Math.random() * 100;
-        if (funValue4 < 10) {
-            this.event_hamburgerIcon();
-            console.log('✨ Event triggered: Hamburger Icon (10%)');
-        }
-        
-        // 5. フッターテキスト変更（15%）
-        const funValue5 = Math.random() * 100;
-        if (funValue5 < 15) {
-            this.event_footerText();
-            console.log('✨ Event triggered: Footer Text (15%)');
-        }
-        
-        // 6. スキルアイコン揺れ（20%）
-        const funValue6 = Math.random() * 100;
-        if (funValue6 < 20) {
-            this.event_skillShake();
-            console.log('✨ Event triggered: Skill Shake (20%)');
-        }
-        
-        // 7. 謎の言語ボタン（25%）
-        const funValue7 = Math.random() * 100;
-        if (funValue7 < 25) {
-            this.event_langMystery();
-            console.log('✨ Event triggered: Mystery Language (25%)');
-        }
-        
-        // 8. 高専祭カラー版（30%）
-        const funValue8 = Math.random() * 100;
-        if (funValue8 < 30) {
-            this.event_hisayoshiColor();
-            console.log('✨ Event triggered: Hisayoshi Color (30%)');
-        }
-        
-        console.log('🎉 FUN events check completed!');
+        events.forEach(event => {
+            const roll = Math.random() * 100;
+            if (roll < event.prob) {
+                if (event.cond && !event.cond()) return;
+                try {
+                    event.fn();
+                    console.log(`✨ ${event.name} (${event.prob}%)`);
+                } catch (e) {
+                    console.error(`❌ ${event.name} failed`, e);
+                }
+            }
+        });
     }
 
-    // ===== イベント実装 =====
+    // ===== 超レアイベント (1-5%) =====
 
-    // 1. ダークモードボタンを満月に
+    // 1. スプラッシュ画面（1%）
+    event_splash() {
+        const splash = document.createElement('div');
+        splash.style.cssText = `
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            z-index: 10000; animation: fadeOut 2s 1s forwards;
+        `;
+        splash.innerHTML = `
+            <div style="font-size: 48px; margin-bottom: 20px; animation: bounce 1s infinite;">
+                🎲
+            </div>
+            <div style="color: white; font-size: 24px; font-weight: 700;">
+                FUN Value: ${Math.floor(Math.random() * 100)}
+            </div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 14px; margin-top: 10px;">
+                Loading Portfolio...
+            </div>
+        `;
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                to { opacity: 0; pointer-events: none; }
+            }
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-20px); }
+            }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(splash);
+        
+        setTimeout(() => splash.remove(), 3000);
+    }
+
+    // 2. 満月（2%）
     event_fullMoon() {
         const themeBtn = document.getElementById('themeToggle');
         if (!themeBtn) return;
@@ -82,77 +93,64 @@ class FunEventSystem {
         if (icon && icon.className.includes('fa-moon')) {
             icon.className = 'fas fa-circle';
             icon.style.color = '#ffd700';
-            themeBtn.style.boxShadow = '0 0 15px rgba(255, 215, 0, 0.5)';
+            themeBtn.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.6)';
         }
     }
 
-    // 2. ハンバーガーメニューのアイコンを🍔に
-    event_hamburgerIcon() {
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        if (!hamburgerBtn) return;
+    // 3. 雪が降る（3%）
+    event_snow() {
+        const snowContainer = document.createElement('div');
+        snowContainer.style.cssText = `
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none; z-index: 9999; overflow: hidden;
+        `;
         
-        const spans = hamburgerBtn.querySelectorAll('span');
-        if (spans.length >= 3) {
-            spans[0].style.display = 'none';
-            spans[1].innerHTML = '🍔';
-            spans[1].style.transform = 'none';
-            spans[1].style.fontSize = '24px';
-            spans[1].style.lineHeight = '1';
-            spans[2].style.display = 'none';
+        for (let i = 0; i < 50; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.textContent = '❄️';
+            snowflake.style.cssText = `
+                position: absolute;
+                top: -20px;
+                left: ${Math.random() * 100}%;
+                font-size: ${Math.random() * 10 + 10}px;
+                animation: fall ${Math.random() * 3 + 2}s linear infinite;
+                animation-delay: ${Math.random() * 2}s;
+                opacity: ${Math.random() * 0.6 + 0.4};
+            `;
+            snowContainer.appendChild(snowflake);
         }
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to { 
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(snowContainer);
     }
 
-    // 3. アバター画像を別バージョンに
+    // 4. アバター別版（5%）
     event_avatarVariant() {
         const avatarImg = document.querySelector('.avatar-img');
         if (!avatarImg) return;
         
-        const variantPath = 'images/icons/hr-variant.png';
         const img = new Image();
-        img.onload = () => {
-            avatarImg.src = variantPath;
-        };
-        img.onerror = () => {
-            console.log('⚠️ Avatar variant not found');
-        };
-        img.src = variantPath;
+        img.onload = () => avatarImg.src = 'images/icons/hr-variant.png';
+        img.src = 'images/icons/hr-variant.png';
     }
 
-    // 4. 高専祭サムネイルをカラー版に
-    event_hisayoshiColor() {
-        const hisayoshiProject = projects.find(p => p.id === 'p1');
-        if (hisayoshiProject) {
-            hisayoshiProject.image = 'images/hisayoshi_thumbnail-color.png';
-            if (window.projectsInstance) {
-                window.projectsInstance.render();
-            }
-        }
-    }
+    // ===== レアイベント (8-15%) =====
 
-    // 5. フッターテキストを変更
-    event_footerText() {
-        const footer = document.querySelector('footer');
-        if (!footer) return;
-        
-        const messages = [
-            '© 2024 Renju Harada. All wrongs reversed.',
-            '© 2024 Renju Harada. Some rights reserved.',
-            '© 2024 Renju Harada. No rights, only lefts.',
-            '© ∞ Renju Harada. Time is an illusion.'
-        ];
-        
-        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-        footer.textContent = randomMsg;
-    }
-
-    // 6. タイムラインを虹色に
+    // 5. タイムライン虹色（8%）
     event_timelineRainbow() {
         const style = document.createElement('style');
-        style.id = 'rainbow-timeline';
         style.textContent = `
             .timeline-container::before {
-                background: linear-gradient(
-                    180deg,
+                background: linear-gradient(180deg,
                     #ff0000 0%, #ff7f00 16.66%, #ffff00 33.33%,
                     #00ff00 50%, #0000ff 66.66%, #4b0082 83.33%, #9400d3 100%
                 ) !important;
@@ -166,34 +164,74 @@ class FunEventSystem {
         document.head.appendChild(style);
     }
 
-    // 7. 謎の言語ボタン
-    event_langMystery() {
-        const langBtn = document.getElementById('langToggle');
-        if (!langBtn) return;
+    // 6. ハンバーガー🍔（10%）
+    event_hamburgerIcon() {
+        const btn = document.getElementById('hamburgerBtn');
+        if (!btn) return;
         
-        let clickCount = 0;
-        let mysteryMode = false;
-        
-        const mysteryHandler = () => {
-            clickCount++;
-            if (clickCount === 3 && !mysteryMode) {
-                mysteryMode = true;
-                langBtn.textContent = '？？？';
-                console.log('🌀 Mystery mode activated!');
-            } else if (mysteryMode) {
-                mysteryMode = false;
-                clickCount = 0;
-                langBtn.textContent = currentLang === 'ja' ? 'EN' : 'JP';
-            }
-        };
-        
-        langBtn.addEventListener('click', mysteryHandler);
+        const spans = btn.querySelectorAll('span');
+        if (spans.length >= 3) {
+            spans[0].style.display = 'none';
+            spans[1].innerHTML = '🍔';
+            spans[1].style.transform = 'none';
+            spans[1].style.fontSize = '24px';
+            spans[2].style.display = 'none';
+        }
     }
 
-    // 8. スキルアイコンを揺らす
+    // 7. 桜吹雪（12%）
+    event_sakura() {
+        const container = document.createElement('div');
+        container.style.cssText = `
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none; z-index: 9999; overflow: hidden;
+        `;
+        
+        for (let i = 0; i < 30; i++) {
+            const petal = document.createElement('div');
+            petal.textContent = '🌸';
+            petal.style.cssText = `
+                position: absolute;
+                top: -20px;
+                left: ${Math.random() * 100}%;
+                font-size: ${Math.random() * 15 + 15}px;
+                animation: sakura-fall ${Math.random() * 4 + 3}s linear infinite;
+                animation-delay: ${Math.random() * 3}s;
+            `;
+            container.appendChild(petal);
+        }
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sakura-fall {
+                to { 
+                    transform: translateY(100vh) translateX(${Math.random() * 100 - 50}px) rotate(${Math.random() * 360}deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(container);
+    }
+
+    // ===== アンコモンイベント (18-30%) =====
+
+    // 9. カード浮遊（18%）
+    event_floatingCards() {
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float-card {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+            .card { animation: float-card 3s ease-in-out infinite; }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // 10. スキル揺れ（20%）
     event_skillShake() {
         const style = document.createElement('style');
-        style.id = 'skill-shake';
         style.textContent = `
             @keyframes skill-shake {
                 0%, 100% { transform: rotate(0deg); }
@@ -206,41 +244,83 @@ class FunEventSystem {
         `;
         document.head.appendChild(style);
     }
+
+    // 12. 高専祭カラー（30%）
+    event_hisayoshiColor() {
+        const project = projects.find(p => p.id === 'p1');
+        if (project) {
+            project.image = 'images/hisayoshi_thumbnail-color.png';
+            if (window.projectsInstance) {
+                window.projectsInstance.render();
+            }
+        }
+    }
+
+    // ===== コモンイベント (35-50%) =====
+
+    // 13. ヘッダーグラデーション（35%）
+    event_headerGradient() {
+        const header = document.getElementById('stickyHeader');
+        if (!header) return;
+        
+        header.style.background = 'linear-gradient(90deg, rgba(94, 234, 212, 0.1) 0%, transparent 100%)';
+    }
+
+    // 15. 装飾ライン（50%）
+    event_decorativeLines() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 4px;
+                height: 100%;
+                background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+                border-radius: 12px 0 0 12px;
+            }
+            .card {
+                position: relative;
+            }
+        `;
+        document.head.appendChild(style);
+    }
 }
 
-// ===== 初期化 =====
+// 初期化
 let funSystem;
 
 document.addEventListener('DOMContentLoaded', () => {
     funSystem = new FunEventSystem();
-    
-    // ページ読み込み完了後にイベント発動
     window.addEventListener('load', () => {
         funSystem.checkAndTriggerEvents();
     });
 });
 
-// デバッグ用：各イベントを手動テスト
-window.testEvent = (eventName) => {
-    if (!funSystem) return;
-    
-    const eventMap = {
+// デバッグ
+window.testEvent = (name) => {
+    const map = {
+        'splash': () => funSystem.event_splash(),
         'moon': () => funSystem.event_fullMoon(),
-        'hamburger': () => funSystem.event_hamburgerIcon(),
+        'snow': () => funSystem.event_snow(),
         'avatar': () => funSystem.event_avatarVariant(),
-        'hisayoshi': () => funSystem.event_hisayoshiColor(),
-        'footer': () => funSystem.event_footerText(),
         'rainbow': () => funSystem.event_timelineRainbow(),
-        'mystery': () => funSystem.event_langMystery(),
-        'shake': () => funSystem.event_skillShake()
+        'hamburger': () => funSystem.event_hamburgerIcon(),
+        'sakura': () => funSystem.event_sakura(),
+        'float': () => funSystem.event_floatingCards(),
+        'shake': () => funSystem.event_skillShake(),
+        'hisayoshi': () => funSystem.event_hisayoshiColor(),
+        'header': () => funSystem.event_headerGradient(),
+        'lines': () => funSystem.event_decorativeLines()
     };
     
-    if (eventMap[eventName]) {
-        eventMap[eventName]();
-        console.log(`🔧 Tested: ${eventName}`);
+    if (map[name]) {
+        map[name]();
+        console.log(`🔧 Tested: ${name}`);
     } else {
-        console.log('Available: moon, hamburger, avatar, hisayoshi, footer, rainbow, mystery, shake');
+        console.log('Available:', Object.keys(map).join(', '));
     }
 };
 
-console.log('🎲 FUN System ready! Test with: testEvent("hamburger")');
+console.log('🎲 Type testEvent("splash") to test events!');

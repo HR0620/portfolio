@@ -1,11 +1,10 @@
-// certifications.js - 資格カルーセル機能モジュール（修正版）
+// certifications.js - 資格カルーセル（完全版・回転テーブル方式）
 // ============================================
-// 【修正内容】
-// 1. PCで前後のカードをクリックして移動可能に
-// 2. 無限ループのアニメーションを滑らかに（ジャンプ時のちらつき防止）
-// 3. スマホ時はカード全体を表示、前後カードは非表示
+// 【改善内容】
+// 1. 前後1枚ずつ表示される中央揃えレイアウト
+// 2. 回転テーブル方式の無限ループ（要素を循環させる）
+// 3. スマホでの完璧な表示
 
-// ===== 資格カルーセル管理クラス =====
 class Certifications {
     constructor() {
         this.track = document.getElementById("carouselTrack");
@@ -14,13 +13,12 @@ class Certifications {
         this.nextBtn = document.getElementById("carouselNext");
         
         this.currentIndex = 0;
-        this.cards = [];
-        this.newestIndex = 0;
-        this.isAnimating = false;
         this.totalCards = 0;
+        this.isAnimating = false;
+        this.newestIndex = 0;
     }
 
-    // 最新の資格を特定する（取得日が一番新しいもの）
+    // 最新の資格を特定
     findNewestCertification() {
         let newestDate = new Date(0);
         let newestIdx = 0;
@@ -38,13 +36,13 @@ class Certifications {
         return newestIdx;
     }
 
-    // 資格カードを生成する
+    // 資格カードを生成
     createCard(cert, index, isNewest) {
         const card = document.createElement('div');
         card.className = 'certification-card';
         card.setAttribute('data-index', index);
         
-        // NEWバッジ（最新の資格のみ）
+        // NEWバッジ
         if (isNewest) {
             const badge = document.createElement('div');
             badge.className = 'certification-badge';
@@ -71,51 +69,59 @@ class Certifications {
         return card;
     }
 
-    // カルーセルをレンダリングする
+    // 【新方式】カルーセルをレンダリング（回転テーブル方式）
     render() {
         this.track.innerHTML = "";
         this.indicators.innerHTML = "";
-        this.cards = [];
         
         this.newestIndex = this.findNewestCertification();
         this.totalCards = certificationsData.length;
         
-        // 無限ループ用に前後にクローンを追加
-        const cloneCount = Math.min(2, this.totalCards);
+        // 【回転テーブル方式】前後のクローンを多めに配置
+        const cardsToRender = [];
         
-        // 末尾のクローン（先頭に配置）
-        for (let i = cloneCount; i > 0; i--) {
-            const idx = this.totalCards - i;
-            const clone = this.createCard(
-                certificationsData[idx], 
-                idx, 
-                this.newestIndex === idx
-            );
-            clone.classList.add('clone');
-            clone.setAttribute('data-clone', 'end');
-            this.track.appendChild(clone);
+        // 前方3枚のクローン
+        for (let i = 3; i > 0; i--) {
+            const idx = (this.totalCards - i + this.totalCards) % this.totalCards;
+            cardsToRender.push({
+                cert: certificationsData[idx],
+                index: idx,
+                isNewest: this.newestIndex === idx,
+                isClone: true
+            });
         }
         
-        // 本体のカード
+        // メインのカード
         certificationsData.forEach((cert, index) => {
-            const card = this.createCard(cert, index, this.newestIndex === index);
-            this.cards.push(card);
+            cardsToRender.push({
+                cert: cert,
+                index: index,
+                isNewest: this.newestIndex === index,
+                isClone: false
+            });
+        });
+        
+        // 後方3枚のクローン
+        for (let i = 0; i < 3; i++) {
+            const idx = i % this.totalCards;
+            cardsToRender.push({
+                cert: certificationsData[idx],
+                index: idx,
+                isNewest: this.newestIndex === idx,
+                isClone: true
+            });
+        }
+        
+        // カードを生成
+        cardsToRender.forEach(item => {
+            const card = this.createCard(item.cert, item.index, item.isNewest);
+            if (item.isClone) {
+                card.classList.add('clone');
+            }
             this.track.appendChild(card);
         });
         
-        // 先頭のクローン（末尾に配置）
-        for (let i = 0; i < cloneCount; i++) {
-            const clone = this.createCard(
-                certificationsData[i], 
-                i, 
-                this.newestIndex === i
-            );
-            clone.classList.add('clone');
-            clone.setAttribute('data-clone', 'start');
-            this.track.appendChild(clone);
-        }
-        
-        // インジケーターを生成
+        // インジケーター生成
         certificationsData.forEach((_, index) => {
             const dot = document.createElement('div');
             dot.className = 'carousel-dot';
@@ -123,36 +129,40 @@ class Certifications {
             this.indicators.appendChild(dot);
         });
         
-        // 初期位置を設定
+        // 初期位置を設定（クローン3枚分オフセット）
         this.currentIndex = 0;
         this.updateCarousel(false);
     }
 
-    // カード幅を取得（レスポンシブ対応）
+    // カード幅とギャップを取得
     getCardWidth() {
-        if (window.innerWidth <= 600) {
-            return window.innerWidth - 100 + 10;
+        const isMobile = window.innerWidth <= 600;
+        if (isMobile) {
+            // スマホ時は画面幅いっぱい
+            return window.innerWidth - 120;
         }
-        return 300;
+        // PC時は320px（カード300px + gap 20px）
+        return 320;
     }
-    
-    // カルーセルの表示を更新する
+
+    // 【新方式】カルーセル表示を更新
     updateCarousel(animate = true) {
         const cardWidth = this.getCardWidth();
-        const cloneCount = Math.min(2, this.totalCards);
+        const cloneOffset = 3; // 前方クローン数
         
-        const actualIndex = this.currentIndex + cloneCount;
-        const offset = actualIndex * cardWidth;
+        // 実際の位置（クローンを考慮）
+        const actualIndex = this.currentIndex + cloneOffset;
         
-        const centerOffset = cardWidth / 2 - 10;
-        
+        // トランジション制御
         if (animate) {
-            this.track.style.transition = 'transform 0.5s ease';
+            this.track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         } else {
             this.track.style.transition = 'none';
         }
         
-        this.track.style.transform = `translateX(calc(50% - ${offset}px - ${centerOffset}px))`;
+        // 中央揃えの計算（前後1枚ずつ表示）
+        const offset = actualIndex * cardWidth;
+        this.track.style.transform = `translateX(calc(50% - ${offset}px - ${cardWidth / 2}px))`;
         
         // activeクラスの更新
         const allCards = this.track.querySelectorAll('.certification-card');
@@ -171,7 +181,7 @@ class Certifications {
         });
     }
 
-    // 次のスライドへ
+    // 【新方式】次のスライドへ（回転テーブル方式）
     next() {
         if (this.isAnimating) return;
         this.isAnimating = true;
@@ -179,27 +189,18 @@ class Certifications {
         this.currentIndex++;
         this.updateCarousel(true);
         
-        // 【修正】最後のカードに達したら、トランジション終了後に先頭にジャンプ
-        if (this.currentIndex >= this.totalCards) {
-            setTimeout(() => {
+        setTimeout(() => {
+            // 最後に到達したら先頭にループ
+            if (this.currentIndex >= this.totalCards) {
                 this.track.style.transition = 'none';
                 this.currentIndex = 0;
                 this.updateCarousel(false);
-                
-                // 次フレームでトランジションを再有効化
-                requestAnimationFrame(() => {
-                    this.track.style.transition = 'transform 0.5s ease';
-                    this.isAnimating = false;
-                });
-            }, 500);
-        } else {
-            setTimeout(() => {
-                this.isAnimating = false;
-            }, 500);
-        }
+            }
+            this.isAnimating = false;
+        }, 500);
     }
 
-    // 前のスライドへ
+    // 【新方式】前のスライドへ（回転テーブル方式）
     prev() {
         if (this.isAnimating) return;
         this.isAnimating = true;
@@ -207,65 +208,49 @@ class Certifications {
         this.currentIndex--;
         this.updateCarousel(true);
         
-        // 【修正】先頭のカードの前に達したら、トランジション終了後に末尾にジャンプ
-        if (this.currentIndex < 0) {
-            setTimeout(() => {
+        setTimeout(() => {
+            // 先頭より前に達したら末尾にループ
+            if (this.currentIndex < 0) {
                 this.track.style.transition = 'none';
                 this.currentIndex = this.totalCards - 1;
                 this.updateCarousel(false);
-                
-                // 次フレームでトランジションを再有効化
-                requestAnimationFrame(() => {
-                    this.track.style.transition = 'transform 0.5s ease';
-                    this.isAnimating = false;
-                });
-            }, 500);
-        } else {
-            setTimeout(() => {
-                this.isAnimating = false;
-            }, 500);
-        }
+            }
+            this.isAnimating = false;
+        }, 500);
     }
 
     // 特定のスライドへジャンプ
     goToSlide(index) {
         if (this.isAnimating) return;
+        this.isAnimating = true;
+        
         this.currentIndex = index;
         this.updateCarousel(true);
+        
+        setTimeout(() => {
+            this.isAnimating = false;
+        }, 500);
     }
-    
-    // 【新規】カードクリックイベントを設定（PC版のみ）
+
+    // カードクリックイベント（PC版のみ）
     setupCardClick() {
         const allCards = this.track.querySelectorAll('.certification-card');
         allCards.forEach((card) => {
             card.addEventListener('click', () => {
-                // スマホの場合はクリックイベントを無効化
                 if (window.innerWidth <= 600) return;
                 
                 const cardIndex = parseInt(card.getAttribute('data-index'));
-                
-                // クローンカードのクリックを処理
-                if (card.classList.contains('clone')) {
+                if (cardIndex !== this.currentIndex) {
                     this.goToSlide(cardIndex);
-                } else {
-                    // 通常カードのクリック
-                    if (cardIndex !== this.currentIndex) {
-                        this.goToSlide(cardIndex);
-                    }
                 }
             });
         });
     }
 
-    // イベントリスナーを設定
+    // イベントリスナー設定
     setupEventListeners() {
-        this.prevBtn.addEventListener('click', () => {
-            this.prev();
-        });
-        
-        this.nextBtn.addEventListener('click', () => {
-            this.next();
-        });
+        this.prevBtn.addEventListener('click', () => this.prev());
+        this.nextBtn.addEventListener('click', () => this.next());
         
         // タッチスワイプ対応
         let touchStartX = 0;
@@ -277,36 +262,36 @@ class Certifications {
         
         this.track.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
-            this.handleSwipe(touchStartX, touchEndX);
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    this.next();
+                } else {
+                    this.prev();
+                }
+            }
         }, { passive: true });
     }
 
-    // スワイプ処理
-    handleSwipe(startX, endX) {
-        const threshold = 50;
-        const diff = startX - endX;
-        
-        if (diff > threshold) {
-            this.next();
-        } else if (diff < -threshold) {
-            this.prev();
-        }
-    }
-
-    // 初期化処理
+    // 初期化
     init() {
         this.render();
         this.setupEventListeners();
-        this.setupCardClick(); // カードクリックイベントを追加
+        this.setupCardClick();
         
-        // ウィンドウリサイズ時にカルーセルを更新
+        // ウィンドウリサイズ時に更新
+        let resizeTimer;
         window.addEventListener('resize', () => {
-            this.updateCarousel(false);
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                this.updateCarousel(false);
+            }, 100);
         });
     }
 }
 
-// グローバルに公開するための関数
+// グローバルに公開
 function renderCertifications() {
     if (window.certificationsInstance) {
         window.certificationsInstance.render();
