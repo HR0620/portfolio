@@ -9,25 +9,18 @@ class FunEventSystem {
     // イベント発動判定
     checkAndTriggerEvents() {
         const events = [
-            // ===== 超レア (1-5%) =====
             { prob: 1, name: 'スプラッシュ画面', fn: () => this.event_splash() },
             { prob: 2, name: '満月', fn: () => this.event_fullMoon(), cond: () => document.documentElement.getAttribute('data-theme') === 'dark' },
             { prob: 3, name: '雪が降る', fn: () => this.event_snow() },
-            { prob: 5, name: 'アバター別版', fn: () => this.event_avatarVariant() },
-            
-            // ===== レア (8-15%) =====
+            { prob: 3, name: 'アバター別版', fn: () => this.event_avatarVariant() },
+            { prob: 5, name: 'カード浮遊', fn: () => this.event_floatingCards() },
+            { prob: 5, name: 'ヘッダーグラデーション', fn: () => this.event_headerGradient() },
             { prob: 8, name: 'タイムライン虹色', fn: () => this.event_timelineRainbow() },
             { prob: 10, name: 'ハンバーガー🍔', fn: () => this.event_hamburgerIcon() },
-            { prob: 12, name: '桜吹雪', fn: () => this.event_sakura() },
-            
-            // ===== アンコモン (18-30%) =====
-            { prob: 18, name: 'カード浮遊', fn: () => this.event_floatingCards() },
-            { prob: 20, name: 'スキル揺れ', fn: () => this.event_skillShake() },
-            { prob: 30, name: '高専祭カラー', fn: () => this.event_hisayoshiColor() },
-            
-            // ===== コモン (35-50%) =====
-            { prob: 35, name: 'ヘッダーグラデーション', fn: () => this.event_headerGradient() },
-            { prob: 50, name: '装飾ライン', fn: () => this.event_decorativeLines() }
+            { prob: 10, name: '桜吹雪', fn: () => this.event_sakura() },
+            { prob: 10, name: '高専祭カラー', fn: () => this.event_hisayoshiColor() },
+            { prob: 10, name: '装飾ライン', fn: () => this.event_decorativeLines() },
+            { prob: 20, name: 'スキル揺れ', fn: () => this.event_skillShake() }
         ];
         
         events.forEach(event => {
@@ -44,47 +37,98 @@ class FunEventSystem {
         });
     }
 
-    // ===== 超レアイベント (1-5%) =====
+ // スプラッシュ画面（Undertale/Flowey Style）
+event_splash() {
+    const splash = document.createElement('div');
+    
+    // スタイル定義（Google Fontsの読み込みを含む）
+    const style = document.createElement('style');
+    style.textContent = `
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-    // 1. スプラッシュ画面（1%）
-    event_splash() {
-        const splash = document.createElement('div');
-        splash.style.cssText = `
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            z-index: 10000; animation: fadeOut 2s 1s forwards;
-        `;
-        splash.innerHTML = `
-            <div style="font-size: 48px; margin-bottom: 20px; animation: bounce 1s infinite;">
-                🎲
-            </div>
-            <div style="color: white; font-size: 24px; font-weight: 700;">
-                FUN Value: ${Math.floor(Math.random() * 100)}
-            </div>
-            <div style="color: rgba(255,255,255,0.8); font-size: 14px; margin-top: 10px;">
-                Loading Portfolio...
-            </div>
-        `;
-        
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeOut {
-                to { opacity: 0; pointer-events: none; }
-            }
-            @keyframes bounce {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-20px); }
-            }
-        `;
-        document.head.appendChild(style);
-        document.body.appendChild(splash);
-        
-        setTimeout(() => splash.remove(), 3000);
-    }
+        /* 全体のフェードアウト */
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            90% { opacity: 1; } /* 読む時間を確保するため、消える直前まで不透明 */
+            100% { opacity: 0; pointer-events: none; }
+        }
 
-    // 2. 満月（2%）
+        /* 花のゆらゆらアニメーション */
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* テキストの点滅（カーソル待ちのような表現） */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // スプラッシュ画面のコンテナスタイル
+    splash.style.cssText = `
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background-color: black;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        z-index: 10000;
+        font-family: 'VT323', monospace; /* ドット絵風フォント */
+        animation: fadeOut 4s forwards; /* 少し時間を長めに確保 */
+        cursor: default;
+    `;
+
+    // Flowey風のセリフ
+    // "Howdy! Thanks for visiting my portfolio! Golly, make yourself at home!"
+    const funValue = Math.floor(Math.random() * 100);
+
+    splash.innerHTML = `
+        <div style="font-size: 80px; margin-bottom: 20px; animation: sway 2s ease-in-out infinite;">
+            🌻
+        </div>
+
+        <div style="
+            border: 4px solid white;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            background: black;
+            color: white;
+            position: relative;
+        ">
+            <div style="font-size: 28px; line-height: 1.4; text-align: left;">
+                * Howdy! Thanks for visiting!<br>
+                * Golly, take your time and<br>
+                &nbsp;&nbsp;have some <span style="color: #ffff00;">FUN</span> looking around!
+            </div>
+            
+            <div style="
+                position: absolute; bottom: 10px; right: 15px; 
+                font-size: 20px; animation: blink 1s infinite;
+            ">▼</div>
+        </div>
+
+        <div style="
+            color: gray; 
+            font-size: 16px; 
+            margin-top: 20px; 
+            font-family: monospace;
+        ">
+            FUN Value: ${funValue}
+        </div>
+    `;
+
+    document.body.appendChild(splash);
+
+    // アニメーションに合わせて要素を削除 (4000ms = 4s)
+    setTimeout(() => {
+        splash.remove();
+        style.remove(); // スタイルタグも掃除
+    }, 4000);
+}
+
+    // 満月
     event_fullMoon() {
         const themeBtn = document.getElementById('themeToggle');
         if (!themeBtn) return;
@@ -133,7 +177,7 @@ class FunEventSystem {
         document.body.appendChild(snowContainer);
     }
 
-    // 4. アバター別版（5%）
+    //アバター別版
     event_avatarVariant() {
         const avatarImg = document.querySelector('.avatar-img');
         if (!avatarImg) return;
@@ -143,9 +187,7 @@ class FunEventSystem {
         img.src = 'images/icons/hr-variant.png';
     }
 
-    // ===== レアイベント (8-15%) =====
-
-    // 5. タイムライン虹色（8%）
+    //タイムライン虹色
     event_timelineRainbow() {
         const style = document.createElement('style');
         style.textContent = `
@@ -164,7 +206,7 @@ class FunEventSystem {
         document.head.appendChild(style);
     }
 
-    // 6. ハンバーガー🍔（10%）
+    // ハンバーガー🍔
     event_hamburgerIcon() {
         const btn = document.getElementById('hamburgerBtn');
         if (!btn) return;
@@ -179,7 +221,7 @@ class FunEventSystem {
         }
     }
 
-    // 7. 桜吹雪（12%）
+    //桜吹雪
     event_sakura() {
         const container = document.createElement('div');
         container.style.cssText = `
@@ -214,9 +256,7 @@ class FunEventSystem {
         document.body.appendChild(container);
     }
 
-    // ===== アンコモンイベント (18-30%) =====
-
-    // 9. カード浮遊（18%）
+    // カード浮遊（
     event_floatingCards() {
         const style = document.createElement('style');
         style.textContent = `
@@ -229,7 +269,7 @@ class FunEventSystem {
         document.head.appendChild(style);
     }
 
-    // 10. スキル揺れ（20%）
+    // スキル揺れ
     event_skillShake() {
         const style = document.createElement('style');
         style.textContent = `
@@ -245,7 +285,7 @@ class FunEventSystem {
         document.head.appendChild(style);
     }
 
-    // 12. 高専祭カラー（30%）
+    // 高専祭カラー
     event_hisayoshiColor() {
         const project = projects.find(p => p.id === 'p1');
         if (project) {
@@ -255,10 +295,7 @@ class FunEventSystem {
             }
         }
     }
-
-    // ===== コモンイベント (35-50%) =====
-
-    // 13. ヘッダーグラデーション（35%）
+    // ヘッダーグラデーション
     event_headerGradient() {
         const header = document.getElementById('stickyHeader');
         if (!header) return;
@@ -266,7 +303,7 @@ class FunEventSystem {
         header.style.background = 'linear-gradient(90deg, rgba(94, 234, 212, 0.1) 0%, transparent 100%)';
     }
 
-    // 15. 装飾ライン（50%）
+    //装飾ライン
     event_decorativeLines() {
         const style = document.createElement('style');
         style.textContent = `
