@@ -38,95 +38,95 @@ class FunEventSystem {
     }
 
  // スプラッシュ画面（Undertale/Flowey Style）
-event_splash() {
-    const splash = document.createElement('div');
-    
-    // スタイル定義（Google Fontsの読み込みを含む）
-    const style = document.createElement('style');
-    style.textContent = `
-        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+    event_splash() {
+        const splash = document.createElement('div');
+        
+        // スタイル定義（Google Fontsの読み込みを含む）
+        const style = document.createElement('style');
+        style.textContent = `
+            @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-        /* 全体のフェードアウト */
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            90% { opacity: 1; } /* 読む時間を確保するため、消える直前まで不透明 */
-            100% { opacity: 0; pointer-events: none; }
-        }
+            /* 全体のフェードアウト */
+            @keyframes fadeOut {
+                0% { opacity: 1; }
+                90% { opacity: 1; } /* 読む時間を確保するため、消える直前まで不透明 */
+                100% { opacity: 0; pointer-events: none; }
+            }
 
-        /* 花のゆらゆらアニメーション */
-        @keyframes sway {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
+            /* 花のゆらゆらアニメーション */
+            @keyframes sway {
+                0%, 100% { transform: rotate(-5deg); }
+                50% { transform: rotate(5deg); }
+            }
 
-        /* テキストの点滅（カーソル待ちのような表現） */
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-    `;
-    document.head.appendChild(style);
+            /* テキストの点滅（カーソル待ちのような表現） */
+            @keyframes blink {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
 
-    // スプラッシュ画面のコンテナスタイル
-    splash.style.cssText = `
-        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-        background-color: black;
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        z-index: 10000;
-        font-family: 'VT323', monospace; /* ドット絵風フォント */
-        animation: fadeOut 4s forwards; /* 少し時間を長めに確保 */
-        cursor: default;
-    `;
+        // スプラッシュ画面のコンテナスタイル
+        splash.style.cssText = `
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: black;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            z-index: 10000;
+            font-family: 'VT323', monospace; /* ドット絵風フォント */
+            animation: fadeOut 4s forwards; /* 少し時間を長めに確保 */
+            cursor: default;
+        `;
 
-    // Flowey風のセリフ
-    // "Howdy! Thanks for visiting my portfolio! Golly, make yourself at home!"
-    const funValue = Math.floor(Math.random() * 100);
+        // Flowey風のセリフ
+        // "Howdy! Thanks for visiting my portfolio! Golly, make yourself at home!"
+        const funValue = Math.floor(Math.random() * 100);
 
-    splash.innerHTML = `
-        <div style="font-size: 80px; margin-bottom: 20px; animation: sway 2s ease-in-out infinite;">
-            🌻
-        </div>
-
-        <div style="
-            border: 4px solid white;
-            padding: 20px;
-            width: 80%;
-            max-width: 600px;
-            background: black;
-            color: white;
-            position: relative;
-        ">
-            <div style="font-size: 28px; line-height: 1.4; text-align: left;">
-                * Howdy! Thanks for visiting!<br>
-                * Golly, take your time and<br>
-                &nbsp;&nbsp;have some <span style="color: #ffff00;">FUN</span> looking around!
+        splash.innerHTML = `
+            <div style="font-size: 80px; margin-bottom: 20px; animation: sway 2s ease-in-out infinite;">
+                🌻
             </div>
-            
+
             <div style="
-                position: absolute; bottom: 10px; right: 15px; 
-                font-size: 20px; animation: blink 1s infinite;
-            ">▼</div>
-        </div>
+                border: 4px solid white;
+                padding: 20px;
+                width: 80%;
+                max-width: 600px;
+                background: black;
+                color: white;
+                position: relative;
+            ">
+                <div style="font-size: 28px; line-height: 1.4; text-align: left;">
+                    * Howdy! Thanks for visiting!<br>
+                    * Golly, take your time and<br>
+                    &nbsp;&nbsp;have some <span style="color: #ffff00;">FUN</span> looking around!
+                </div>
+                
+                <div style="
+                    position: absolute; bottom: 10px; right: 15px; 
+                    font-size: 20px; animation: blink 1s infinite;
+                ">▼</div>
+            </div>
 
-        <div style="
-            color: gray; 
-            font-size: 16px; 
-            margin-top: 20px; 
-            font-family: monospace;
-        ">
-            FUN Value: ${funValue}
-        </div>
-    `;
+            <div style="
+                color: gray; 
+                font-size: 16px; 
+                margin-top: 20px; 
+                font-family: monospace;
+            ">
+                FUN Value: ${funValue}
+            </div>
+        `;
 
-    document.body.appendChild(splash);
+        document.body.appendChild(splash);
 
-    // アニメーションに合わせて要素を削除 (4000ms = 4s)
-    setTimeout(() => {
-        splash.remove();
-        style.remove(); // スタイルタグも掃除
-    }, 4000);
-}
+        // アニメーションに合わせて要素を削除 (4000ms = 4s)
+        setTimeout(() => {
+            splash.remove();
+            style.remove(); // スタイルタグも掃除
+        }, 4000);
+    }
 
     // 満月
     event_fullMoon() {
@@ -206,18 +206,34 @@ event_splash() {
         document.head.appendChild(style);
     }
 
-    // ハンバーガー🍔
+// ハンバーガー🍔
     event_hamburgerIcon() {
         const btn = document.getElementById('hamburgerBtn');
         if (!btn) return;
         
         const spans = btn.querySelectorAll('span');
         if (spans.length >= 3) {
+            // 1. 上下の線を非表示にする
             spans[0].style.display = 'none';
-            spans[1].innerHTML = '🍔';
-            spans[1].style.transform = 'none';
-            spans[1].style.fontSize = '24px';
             spans[2].style.display = 'none';
+
+            // 2. 真ん中の線を編集する
+            const target = spans[1];
+            target.innerHTML = '🍔';
+            
+            // ★修正ポイント: CSSで強制されている「線」としてのスタイルを打ち消す
+            target.style.width = 'auto';       // 幅20px固定を解除
+            target.style.height = 'auto';      // 高さ2px固定を解除（これがズレの主原因）
+            target.style.background = 'transparent'; // 線の色を消す
+            
+            // 絵文字用のスタイル
+            target.style.fontSize = '26px';    // ボタンサイズに合わせて調整
+            target.style.lineHeight = '1';     // 行間による余計な余白を排除
+            target.style.transform = 'none';
+            
+            // 念のためブロック要素のままにするが、余白等の影響をリセット
+            target.style.margin = '0';
+            target.style.padding = '0';
         }
     }
 
