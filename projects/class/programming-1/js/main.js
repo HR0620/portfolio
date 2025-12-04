@@ -6,10 +6,9 @@ let currentFileIndex = 0;
 let currentSubject = 'programming-1';
 
 // 科目データ
+// subjectId=フォルダ名
 const subjects = [
-    { id: 'programming-1', name: { ja: 'プログラミング1', en: 'Programming 1' }, icon: 'fa-code' },
-    { id: 'programming-2', name: { ja: 'プログラミング2', en: 'Programming 2' }, icon: 'fa-laptop-code' },
-    { id: 'programming-3', name: { ja: 'プログラミング3', en: 'Programming 3' }, icon: 'fa-terminal' }
+    { id: 'programming-1', name: { ja: 'プログラミング1', en: 'Programming 1' }, icon: 'fa-code' }
 ];
 
 // ===== 初期化処理 =====
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startTypingAnimation();
     }, 500);
     
-    // 【修正】最新の課題を確実に選択
+    // 最新の課題を確実に選択
     if (assignmentsData.length > 0) {
         // 課題番号でソート（降順）
         const sortedAssignments = [...assignmentsData].sort((a, b) => b.number - a.number);
@@ -89,7 +88,7 @@ function switchSubject(subjectId) {
     if (!subject) return;
     
     currentSubject = subjectId;
-    window.location.href = `../${subjectId}/index.html`;
+    window.location.href = `../${subjectId}/index.html`; //科目ごとのディレクトリを選択する
 }
 
 // ===== タブ初期化 =====
@@ -511,7 +510,6 @@ async function loadCodeFile(file, assignment) {
     }
 }
 
-// ===== コード表示 =====
 // ===== コード表示 =====
 function displayCode(code, language = 'python') {
     const modalCode = document.getElementById('modalCode');

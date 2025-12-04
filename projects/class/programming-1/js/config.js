@@ -87,7 +87,7 @@ const assignmentsData = [
             en: 'Gacha Simulation Using Random Numbers'
         },
         description: {
-            ja: 'Pythonの乱数機能を使ったガチャシミュレーション。',
+            ja: 'Pythonの乱数機能を使ったドラクエ風ガチャシミュレーション。',
             en: 'Gacha simulation using Python random functions.'
         },
         tags: ['Python', 'Random', 'Numpy'],
@@ -126,17 +126,17 @@ const assignmentsData = [
         id: 'assignment-5',
         number: 5,
         title: {
-            ja: '機械学習入門（自由課題）',
-            en: 'Introduction to Machine Learning (Free Assignment)'
+            ja: '自由課題',
+            en: 'Free Assignment'
         },
         description: {
-            ja: '機械学習の基礎として、線形回帰、ロジスティック回帰、決定木などのアルゴリズムを学習しました。',
-            en: 'As an introduction to machine learning, learned algorithms such as linear regression, logistic regression, and decision trees.'
+            ja: '自由課題として，複数のゲームが遊べるpythonプログラムを作成しました．',
+            en: 'As a free assignment, I created a Python program that allows you to play multiple games.'
         },
-        tags: ['Python', 'scikit-learn', '機械学習', 'データ分析'],
-        tagsEn: ['Python', 'scikit-learn', 'Machine Learning', 'Data Analysis'],
+        tags: ['Python', 'Numpy'],
+        tagsEn: ['Python', 'Numpy'],
         date: '2025/05/20',
-        colabLink: '#',
+        colabLink: 'https://colab.research.google.com/drive/1SqunrjrVl_XLKbrvY3-q5zhPI50zVjYk?hl=ja',
         images: [
             {
                 src: 'assignment/05/photos/memorize.gif',
