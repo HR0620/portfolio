@@ -1,4 +1,4 @@
-// timeline.js - タイムライン機能モジュール(足跡版)
+// timeline.js - タイムライン機能モジュール(石畳版)
 
 // タイムライン管理クラス
 class Timeline {
@@ -24,14 +24,17 @@ class Timeline {
                 itemEl.classList.add('hidden');
             }
             
-            // 足跡 + コンテンツのコンテナ
-            const footprint = document.createElement('div');
-            footprint.className = 'timeline-footprint';
+            // 石畳コンテナ(3つの石をランダムに配置)
+            const stones = document.createElement('div');
+            stones.className = 'timeline-stones';
             
-            // 足跡アイコン(Font Awesome)
-            const icon = document.createElement('div');
-            icon.className = 'timeline-footprint-icon';
-            icon.innerHTML = '<i class="fa-solid fa-shoe-prints"></i>';
+            // 3つの石を生成（ランダムなバリエーション）
+            for (let i = 0; i < 3; i++) {
+                const stone = document.createElement('div');
+                const stoneType = (index * 3 + i) % 3 + 1; // 1, 2, 3 をローテーション
+                stone.className = `timeline-stone stone-${stoneType}`;
+                stones.appendChild(stone);
+            }
             
             // コンテンツカード
             const content = document.createElement('div');
@@ -58,9 +61,8 @@ class Timeline {
                 content.appendChild(description);
             }
             
-            footprint.appendChild(icon);
-            footprint.appendChild(content);
-            itemEl.appendChild(footprint);
+            itemEl.appendChild(stones);
+            itemEl.appendChild(content);
             this.container.appendChild(itemEl);
         });
         

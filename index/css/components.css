@@ -572,7 +572,6 @@ html[data-theme="light"] .theme-toggle-btn {
     position: relative;
     margin-top: 20px;
     padding: 0 20px;
-    /* PC用の大きなボタンを削除したので余白縮小 */
 }
 
 /* スマホ用ボタンコンテナ(タイトル横に配置) */
@@ -596,9 +595,15 @@ html[data-theme="light"] .theme-toggle-btn {
     transition: all 0.3s ease;
 }
 
-.carousel-mobile-btn:hover {
+/* タップ時のフィードバック */
+.carousel-mobile-btn:active {
     background: var(--accent);
     color: var(--bg);
+    transform: scale(0.95);
+}
+
+.carousel-mobile-btn:hover {
+    background: rgba(94, 234, 212, 0.1);
 }
 
 /* スマホ時のみボタン表示 */
@@ -608,7 +613,7 @@ html[data-theme="light"] .theme-toggle-btn {
     }
 
     .certifications-carousel-wrapper {
-        padding: 0 20px;
+        padding: 0 15px;
     }
 }
 
@@ -660,7 +665,6 @@ html[data-theme="light"] .theme-toggle-btn {
     box-shadow: 0 12px 32px rgba(94, 234, 212, 0.25);
     z-index: 10;
     cursor: default;
-    /* 中央のカードはクリック不可 */
 }
 
 /* PC時: ホバー時に前後のカードを強調 */
@@ -776,7 +780,7 @@ html[data-theme="light"] .theme-toggle-btn {
     box-shadow: 0 0 8px rgba(94, 234, 212, 0.4);
 }
 
-/* スマホ対応 */
+/* スマホ対応(完全中央配置) */
 @media (max-width: 600px) {
     .certifications-carousel {
         padding: 20px 0;
@@ -787,7 +791,8 @@ html[data-theme="light"] .theme-toggle-btn {
     }
 
     .certification-card {
-        width: calc(100vw - 80px);
+        /* 画面幅から余白を引いた幅 */
+        width: calc(100vw - 30px);
         min-height: 180px;
         padding: 20px 16px;
         /* スマホでは中央のカードのみ表示 */
@@ -798,8 +803,7 @@ html[data-theme="light"] .theme-toggle-btn {
 
     /* スマホでは前後のカードを非表示 */
     .certification-card:not(.active) {
-        opacity: 0 !important;
-        pointer-events: none;
+        display: none;
     }
 
     .certification-card.active {
@@ -829,40 +833,6 @@ html[data-theme="light"] .theme-toggle-btn {
         padding: 4px 10px;
         font-size: 9px;
     }
-}
-
-/* カルーセルナビゲーションボタン */
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background: var(--card);
-    border: 1px solid rgba(128, 128, 128, 0.3);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text);
-    font-size: 18px;
-    transition: all 0.2s;
-    z-index: 10;
-}
-
-.carousel-btn:hover {
-    background: var(--accent);
-    color: var(--bg);
-    border-color: var(--accent);
-}
-
-.carousel-btn.prev {
-    left: 0;
-}
-
-.carousel-btn.next {
-    right: 0;
 }
 
 /* ===== Contact ===== */
