@@ -160,7 +160,7 @@ const assignmentsData = [
                 }
             }
         ],
-        // 単一ファイルパス（複数ファイル対応は将来的に実装）
+        // 単一ファイルパス
         codeFilePath: 'assignment/05/assignment-5.py',
         sections: [
             {
@@ -170,8 +170,8 @@ const assignmentsData = [
                     en: 'Technologies Used'
                 },
                 content: {
-                    ja: 'Python, scikit-learnを使用。データの前処理から予測モデルの構築までを実装しました。',
-                    en: 'Used Python and scikit-learn. Implemented everything from data preprocessing to predictive model construction.'
+                    ja: 'Pythonと，ユーザー設定にNumpyを使用しました．',
+                    en: 'Used Python and Numpy for user settings.'
                 }
             },
             {
@@ -181,7 +181,7 @@ const assignmentsData = [
                     en: 'Innovations'
                 },
                 content: {
-                    ja: '複数のアルゴリズムを比較検証し、最適なモデルを選定しました。',
+                    ja: '老若男女楽しめるように，難易度はだんだん難しくなるようにしました．ユーザー設定や得点計算を簡単にするためにNumpyを用いました．キーボード早押しゲームでは，どのようにすれば格闘ゲームのような対戦が可能になるかを工夫しました．',
                     en: 'Compared and verified multiple algorithms to select the optimal model.'
                 }
             }

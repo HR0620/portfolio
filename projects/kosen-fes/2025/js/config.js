@@ -36,8 +36,8 @@ const projectData = {
 const teamMembers = [
     {
         id: "higashi",
-        name: "東 達仁",
-        nameEn: "Tatsuhito Higashi",
+        name: "Tasukodx",
+        nameEn: "Tatsukodx",
         role: {
             ja: "企画・設計、コーディング、イラスト",
             en: "Planning, Design, Coding, Illustration"
@@ -59,8 +59,8 @@ const teamMembers = [
     },
     {
         id: "ishida",
-        name: "石田 和磨",
-        nameEn: "Kazuma Ishida",
+        name: "wakka",
+        nameEn: "wakka",
         role: {
             ja: "コーディング",
             en: "Coding"
@@ -70,8 +70,8 @@ const teamMembers = [
     },
     {
         id: "suzuki",
-        name: "鈴木 結愛",
-        nameEn: "Yume Suzuki",
+        name: "aru",
+        nameEn: "aru",
         role: {
             ja: "デザイン",
             en: "Desigin"
@@ -81,44 +81,44 @@ const teamMembers = [
     },
     {
         id: "okada",
-        name: "岡田 貫太郎",
-        nameEn: "Kantaro Okada",
+        name: "Unknown Oka",
+        nameEn: "Unknown Oka",
         role: {
-            ja: "監督",
-            en: "Director"
+            ja: "ゲームテスター",
+            en: "Game Tester"
         },
         github: null,
         avatar: null
     },
     {
         id: "kakitani",
-        name: "柿谷 耕太郎",
-        nameEn: "Kotaro Kakitani",
+        name: "kiru",
+        nameEn: "kiru",
         role: {
-            ja: "監督",
-            en: "Director"
+            ja: "ゲームテスター",
+            en: "Game Tester"
         },
         github: "KKotaro0840",
         avatar: null
     },
     {
         id: "katayama",
-        name: "片山 航志郎",
-        nameEn: "Koshiro Katayama",
+        name: "Unknoen Kat",
+        nameEn: "Unknown Kat",
         role: {
-            ja: "監督",
-            en: "Director"
+            ja: "ゲームテスター",
+            en: "Game Tester"
         },
         github: null,
         avatar: null
     },
     {
         id: "kishimoto",
-        name: "岸本 浬",
-        nameEn: "Kairi Kishimoto",
+        name: "Unknown Kis",
+        nameEn: "Unknown Kis",
         role: {
-            ja: "監督",
-            en: "Director"
+            ja: "ゲームテスター",
+            en: "Game Tester"
         },
         github: "dddd145",
         avatar: null
