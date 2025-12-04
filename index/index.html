@@ -1,26 +1,31 @@
 <!doctype html>
 <html lang="ja">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>原田連寿のPortfolio</title>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/icons/hr.png">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Devicon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-    
+
     <!-- CSS Files -->
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="css/timeline.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/carousel.css">
 </head>
+
 <body>
-    
+
     <!-- Fixed Header -->
     <header id="stickyHeader">
         <div class="header-content">
@@ -34,7 +39,7 @@
                     <div id="headerTitle" class="meta"></div>
                 </div>
             </div>
-            
+
             <div class="controls">
                 <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
                     <i class="fas fa-moon"></i>
@@ -78,13 +83,13 @@
             <div class="card">
                 <h2 id="timelineTitle"></h2>
                 <div class="meta" id="timelineMeta"></div>
-                
+
                 <div class="timeline-filters">
                     <button class="filter-btn active" data-filter="all" id="filterAll"></button>
                     <button class="filter-btn" data-filter="history" id="filterHistory"></button>
                     <button class="filter-btn" data-filter="qual" id="filterQual"></button>
                 </div>
-                
+
                 <div id="timelineContainer" class="timeline-container"></div>
             </div>
         </section>
@@ -94,23 +99,23 @@
             <div class="card">
                 <h2 id="certificationsTitle"></h2>
                 <div class="meta" id="certificationsMeta"></div>
-                
+
                 <div class="certifications-carousel-wrapper">
                     <button class="carousel-btn prev" id="carouselPrev" aria-label="前の資格">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    
+
                     <div class="certifications-carousel">
                         <div class="carousel-track" id="carouselTrack">
                             <!-- 資格カードはJSで動的に生成 -->
                         </div>
                     </div>
-                    
+
                     <button class="carousel-btn next" id="carouselNext" aria-label="次の資格">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
-                
+
                 <div class="carousel-indicators" id="carouselIndicators">
                     <!-- インジケーターはJSで動的に生成 -->
                 </div>
@@ -141,7 +146,7 @@
                 </template>
             </div>
         </section>
-        
+
         <!-- Skills Section -->
         <section id="skills-section" class="content-section">
             <div class="card">
@@ -200,13 +205,16 @@
                 </div>
 
                 <div class="social-links">
-                    <a href="https://github.com/HR0620" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
+                    <a href="https://github.com/HR0620" target="_blank" rel="noopener" class="social-icon"
+                        aria-label="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://www.facebook.com/share/174QV1iLUV/" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+                    <a href="https://www.facebook.com/share/174QV1iLUV/" target="_blank" rel="noopener"
+                        class="social-icon" aria-label="Facebook">
                         <i class="fab fa-facebook"></i>
                     </a>
-                    <a href="https://qiita.com/harada_0602" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+                    <a href="https://qiita.com/harada_0602" target="_blank" rel="noopener" class="social-icon"
+                        aria-label="Facebook">
                         <i class="fa-solid fa-q"></i>
                     </a>
                 </div>
@@ -226,7 +234,7 @@
                 <h3 id="modalSkillName"></h3>
                 <button id="modalCloseBtn" class="close-btn"></button>
             </div>
-            
+
             <div class="modal-body">
                 <div id="modalProficiencySection">
                     <h4><i class="fas fa-chart-bar"></i> <span id="modalProficiencyLevel"></span>:</h4>
@@ -237,26 +245,28 @@
                         <span id="modalProficiencyText">0%</span>
                     </div>
                 </div>
-                
-                <h4 style="margin-top: 15px;"><i class="fas fa-book"></i> <span id="modalExperienceSummary"></span>:</h4>
+
+                <h4 style="margin-top: 15px;"><i class="fas fa-book"></i> <span id="modalExperienceSummary"></span>:
+                </h4>
                 <p id="modalProficiencyLevelText" class="modal-level-text"></p>
                 <p id="modalExperienceContent" class="modal-summary-content"></p>
             </div>
         </div>
     </div>
 
-<!-- JavaScript Files -->
-<script src="js/config.js"></script>
-<script src="js/i18n.js"></script>
-<script src="js/icon-utils.js"></script>
-<script src="js/theme.js"></script>
-<script src="js/timeline.js"></script>
-<script src="js/projects.js"></script>
-<script src="js/skills.js"></script>
-<script src="js/certifications.js"></script>
-<script src="js/modal.js"></script>
-<script src="js/contact.js"></script>
-<script src="js/main.js"></script>
-<script src="js/activities.js"></script>
+    <!-- JavaScript Files -->
+    <script src="js/config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/icon-utils.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/skills.js"></script>
+    <script src="js/certifications.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/contact.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/activities.js"></script>
 </body>
+
 </html>

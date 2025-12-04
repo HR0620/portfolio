@@ -1,30 +1,28 @@
-// certifications.js - 資格カルーセル(スマホ完全中央配置版)
+// certifications.js - 資格カルーセル(スマホ完全修正版)
 // ============================================
-// 【改善内容】
-// 1. スマホ: カードを完全中央表示、前後のカードを非表示
-// 2. スマホ: ボタンタップ後に塗りつぶし解除
-// 3. PC: 前後のカードをクリックで移動
+// スマホ: 1枚ずつ中央表示、シンプルなスライド
+// PC: 前後1枚表示、クリックで移動
 
 class Certifications {
     constructor() {
         this.track = document.getElementById("carouselTrack");
         this.indicators = document.getElementById("carouselIndicators");
         this.wrapper = document.querySelector(".certifications-carousel-wrapper");
-        
+
         this.currentIndex = 0;
         this.totalCards = 0;
         this.isAnimating = false;
         this.newestIndex = 0;
-        
+
         // スマホ用ボタンコンテナを作成
         this.createMobileControls();
     }
-    
+
     // スマホ用のボタンコンテナを作成(タイトル横)
     createMobileControls() {
         const section = document.getElementById("certifications-section");
         const title = section.querySelector("h2");
-        
+
         // ボタンコンテナ
         const controls = document.createElement("div");
         controls.className = "carousel-mobile-controls";
@@ -36,11 +34,11 @@ class Certifications {
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
         `;
-        
+
         // タイトルの横に配置
         const titleContainer = document.createElement("div");
         titleContainer.style.cssText = "display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;";
-        
+
         title.parentNode.insertBefore(titleContainer, title);
         titleContainer.appendChild(title);
         titleContainer.appendChild(controls);
@@ -50,17 +48,17 @@ class Certifications {
     findNewestCertification() {
         let newestDate = new Date(0);
         let newestIdx = 0;
-        
+
         certificationsData.forEach((cert, index) => {
             const parts = cert.date.split('/');
             const date = new Date(parts[0], parseInt(parts[1]) - 1);
-            
+
             if (date > newestDate) {
                 newestDate = date;
                 newestIdx = index;
             }
         });
-        
+
         return newestIdx;
     }
 
@@ -69,7 +67,7 @@ class Certifications {
         const card = document.createElement('div');
         card.className = 'certification-card';
         card.setAttribute('data-index', index);
-        
+
         // NEWバッジ
         if (isNewest) {
             const badge = document.createElement('div');
@@ -77,23 +75,23 @@ class Certifications {
             badge.textContent = 'NEW';
             card.appendChild(badge);
         }
-        
+
         const name = document.createElement('div');
         name.className = 'certification-name';
         name.textContent = cert.name[currentLang];
-        
+
         const organization = document.createElement('div');
         organization.className = 'certification-organization';
         organization.textContent = cert.organization[currentLang];
-        
+
         const date = document.createElement('div');
         date.className = 'certification-date';
         date.textContent = cert.date;
-        
+
         card.appendChild(name);
         card.appendChild(organization);
         card.appendChild(date);
-        
+
         return card;
     }
 
@@ -101,15 +99,14 @@ class Certifications {
     render() {
         this.track.innerHTML = "";
         this.indicators.innerHTML = "";
-        
+
         this.newestIndex = this.findNewestCertification();
         this.totalCards = certificationsData.length;
-        
-        // スマホとPCで異なるレンダリング
+
         const isMobile = window.innerWidth <= 600;
-        
+
         if (isMobile) {
-            // スマホ: クローンなし、シンプルな構造
+            // スマホ: シンプルにカードを並べる
             certificationsData.forEach((cert, index) => {
                 const card = this.createCard(cert, index, this.newestIndex === index);
                 this.track.appendChild(card);
@@ -117,7 +114,7 @@ class Certifications {
         } else {
             // PC: 前後のクローンを配置
             const cardsToRender = [];
-            
+
             // 前方3枚のクローン
             for (let i = 3; i > 0; i--) {
                 const idx = (this.totalCards - i + this.totalCards) % this.totalCards;
@@ -128,7 +125,7 @@ class Certifications {
                     isClone: true
                 });
             }
-            
+
             // メインのカード
             certificationsData.forEach((cert, index) => {
                 cardsToRender.push({
@@ -138,7 +135,7 @@ class Certifications {
                     isClone: false
                 });
             });
-            
+
             // 後方3枚のクローン
             for (let i = 0; i < 3; i++) {
                 const idx = i % this.totalCards;
@@ -149,7 +146,7 @@ class Certifications {
                     isClone: true
                 });
             }
-            
+
             // カードを生成
             cardsToRender.forEach(item => {
                 const card = this.createCard(item.cert, item.index, item.isNewest);
@@ -159,7 +156,7 @@ class Certifications {
                 this.track.appendChild(card);
             });
         }
-        
+
         // インジケーター生成
         certificationsData.forEach((_, index) => {
             const dot = document.createElement('div');
@@ -167,7 +164,7 @@ class Certifications {
             dot.addEventListener('click', () => this.goToSlide(index));
             this.indicators.appendChild(dot);
         });
-        
+
         // 初期位置を設定
         this.currentIndex = 0;
         this.updateCarousel(false);
@@ -176,19 +173,18 @@ class Certifications {
     // カルーセル表示を更新
     updateCarousel(animate = true) {
         const isMobile = window.innerWidth <= 600;
-        
+
         // トランジション制御
-        if (animate) {
+        if (animate && !isMobile) {
             this.track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         } else {
             this.track.style.transition = 'none';
         }
-        
+
         if (isMobile) {
-            // スマホ: シンプルな横スライド
-            const cardWidth = window.innerWidth - 30;
-            const offset = this.currentIndex * (cardWidth + 15); // カード幅 + gap
-            this.track.style.transform = `translateX(calc(50% - ${offset}px - ${cardWidth / 2}px))`;
+            // スマホ: transformを使わず、activeクラスの切り替えのみで制御
+            // CSSで .active 以外は display: none になる
+            this.track.style.transform = 'none';
         } else {
             // PC: クローンを考慮した配置
             const cardWidth = 320;
@@ -197,19 +193,19 @@ class Certifications {
             const offset = actualIndex * cardWidth;
             this.track.style.transform = `translateX(calc(50% - ${offset}px - ${cardWidth / 2}px))`;
         }
-        
+
         // activeクラスの更新
         const allCards = this.track.querySelectorAll('.certification-card');
         const normalizedIndex = ((this.currentIndex % this.totalCards) + this.totalCards) % this.totalCards;
-        
-        allCards.forEach((card, idx) => {
+
+        allCards.forEach((card) => {
             card.classList.remove('active');
             const cardIndex = parseInt(card.getAttribute('data-index'));
             if (cardIndex === normalizedIndex) {
                 card.classList.add('active');
             }
         });
-        
+
         // インジケーターの更新
         const dots = this.indicators.querySelectorAll('.carousel-dot');
         dots.forEach((dot, idx) => {
@@ -221,12 +217,12 @@ class Certifications {
     next() {
         if (this.isAnimating) return;
         this.isAnimating = true;
-        
+
         this.currentIndex++;
         this.updateCarousel(true);
-        
+
         const isMobile = window.innerWidth <= 600;
-        
+
         setTimeout(() => {
             // ループ処理
             if (this.currentIndex >= this.totalCards) {
@@ -244,12 +240,12 @@ class Certifications {
     prev() {
         if (this.isAnimating) return;
         this.isAnimating = true;
-        
+
         this.currentIndex--;
         this.updateCarousel(true);
-        
+
         const isMobile = window.innerWidth <= 600;
-        
+
         setTimeout(() => {
             // ループ処理
             if (this.currentIndex < 0) {
@@ -267,37 +263,35 @@ class Certifications {
     goToSlide(index) {
         if (this.isAnimating) return;
         this.isAnimating = true;
-        
+
         this.currentIndex = index;
         this.updateCarousel(true);
-        
+
         setTimeout(() => {
             this.isAnimating = false;
         }, 500);
     }
 
-    // カードクリックイベント(PC版のみ、前後のカードのみ)
+    // カードクリックイベント(PC版のみ)
     setupCardClick() {
         const allCards = this.track.querySelectorAll('.certification-card');
         allCards.forEach((card) => {
             card.addEventListener('click', () => {
                 // スマホでは無効
                 if (window.innerWidth <= 600) return;
-                
+
                 // アクティブなカード(中央)のクリックは無視
                 if (card.classList.contains('active')) return;
-                
+
                 const cardIndex = parseInt(card.getAttribute('data-index'));
-                
-                // 現在のインデックスと比較して前/次を判定
                 const normalizedCurrent = ((this.currentIndex % this.totalCards) + this.totalCards) % this.totalCards;
-                
+
                 if (cardIndex === normalizedCurrent) return;
-                
+
                 // 最短距離で移動
                 const diff = cardIndex - normalizedCurrent;
                 const totalCards = this.totalCards;
-                
+
                 if (Math.abs(diff) === 1 || Math.abs(diff) === totalCards - 1) {
                     // 隣接カード
                     if (diff === 1 || diff === -(totalCards - 1)) {
@@ -318,33 +312,31 @@ class Certifications {
         // スマホボタン
         const prevBtn = document.getElementById('mobilePrev');
         const nextBtn = document.getElementById('mobileNext');
-        
+
         if (prevBtn) {
             prevBtn.addEventListener('click', () => {
                 this.prev();
-                // タップフィードバック(CSSで処理)
             });
         }
-        
+
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
                 this.next();
-                // タップフィードバック(CSSで処理)
             });
         }
-        
+
         // タッチスワイプ対応
         let touchStartX = 0;
         let touchEndX = 0;
-        
+
         this.track.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
-        
+
         this.track.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
             const diff = touchStartX - touchEndX;
-            
+
             if (Math.abs(diff) > 50) {
                 if (diff > 0) {
                     this.next();
@@ -360,13 +352,13 @@ class Certifications {
         this.render();
         this.setupEventListeners();
         this.setupCardClick();
-        
+
         // ウィンドウリサイズ時に更新
         let resizeTimer;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
-                this.render(); // スマホ/PC切り替え時は再レンダリング
+                this.render();
                 this.setupCardClick();
             }, 100);
         });

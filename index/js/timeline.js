@@ -1,4 +1,4 @@
-// timeline.js - タイムライン機能モジュール(石畳版)
+// timeline.js - タイムライン機能モジュール（テック系デザイン版）
 
 // タイムライン管理クラス
 class Timeline {
@@ -10,7 +10,7 @@ class Timeline {
 
     // タイムラインをレンダリングする
     render() {
-        this.container.innerHTML = ''; 
+        this.container.innerHTML = '';
 
         timelineData.forEach((item, index) => {
             // タイムラインアイテム
@@ -18,29 +18,21 @@ class Timeline {
             itemEl.className = 'timeline-item';
             itemEl.setAttribute('data-type', item.type);
             itemEl.setAttribute('data-index', index);
-            
-            // フィルター適用(現在のフィルターに応じて表示/非表示)
+
+            // フィルター適用
             if (this.currentFilter !== 'all' && item.type !== this.currentFilter) {
                 itemEl.classList.add('hidden');
             }
-            
-            // 石畳コンテナ(3つの石をランダムに配置)
-            const stones = document.createElement('div');
-            stones.className = 'timeline-stones';
-            
-            // 3つの石を生成（ランダムなバリエーション）
-            for (let i = 0; i < 3; i++) {
-                const stone = document.createElement('div');
-                const stoneType = (index * 3 + i) % 3 + 1; // 1, 2, 3 をローテーション
-                stone.className = `timeline-stone stone-${stoneType}`;
-                stones.appendChild(stone);
-            }
-            
+
+            // ノード（円）を作成
+            const node = document.createElement('div');
+            node.className = 'timeline-node';
+
             // コンテンツカード
             const content = document.createElement('div');
             content.className = 'timeline-content';
-            
-            // 日付バッジ
+
+            // 年バッジ
             const year = document.createElement('div');
             year.className = 'timeline-year';
             year.textContent = item.year;
@@ -49,47 +41,49 @@ class Timeline {
             const title = document.createElement('h3');
             title.className = 'timeline-title';
             title.textContent = item.title[currentLang];
-            
+
             // 説明文
             const description = document.createElement('p');
             description.textContent = item.description[currentLang];
-            
+
             // 組み立て
             content.appendChild(year);
             content.appendChild(title);
             if (item.description[currentLang]) {
                 content.appendChild(description);
             }
-            
-            itemEl.appendChild(stones);
+
+            itemEl.appendChild(node);
             itemEl.appendChild(content);
             this.container.appendChild(itemEl);
         });
-        
-        this.setupScrollReveal(); 
+
+        this.setupScrollReveal();
     }
 
     // フィルターを適用する
     applyFilter(filter) {
         this.currentFilter = filter;
-        
+
         // フィルターボタンのアクティブ状態を更新
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.classList.remove('active');
         });
         document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
-        
+
         // タイムラインアイテムの表示/非表示を切り替え
         const items = document.querySelectorAll('.timeline-item');
         items.forEach(item => {
             const itemType = item.getAttribute('data-type');
             if (filter === 'all' || itemType === filter) {
                 item.classList.remove('hidden');
+                // 再表示時にアニメーションをリセット
+                item.classList.remove('visible');
             } else {
                 item.classList.add('hidden');
             }
         });
-        
+
         // スクロールアニメーションを再設定
         this.setupScrollReveal();
     }
@@ -100,19 +94,22 @@ class Timeline {
         if (this.observer) {
             this.observer.disconnect();
         }
-        
+
         const timelineItems = document.querySelectorAll('.timeline-item:not(.hidden)');
-        
+
         const options = {
-            root: null, 
+            root: null,
             rootMargin: '0px',
-            threshold: 0.2
+            threshold: 0.15
         };
 
         const callback = (entries, observer) => {
-            entries.forEach(entry => {
+            entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    // 遅延を付けて順番にアニメーション
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
                     observer.unobserve(entry.target);
                 }
             });
