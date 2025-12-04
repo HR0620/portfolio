@@ -1,4 +1,4 @@
-// timeline.js - タイムライン機能モジュール
+// timeline.js - タイムライン機能モジュール(足跡版)
 
 // タイムライン管理クラス
 class Timeline {
@@ -9,38 +9,58 @@ class Timeline {
     }
 
     // タイムラインをレンダリングする
-// タイムラインをレンダリングする
     render() {
         this.container.innerHTML = ''; 
 
-        timelineData.forEach(item => {
+        timelineData.forEach((item, index) => {
+            // タイムラインアイテム
             const itemEl = document.createElement('div');
             itemEl.className = 'timeline-item';
             itemEl.setAttribute('data-type', item.type);
+            itemEl.setAttribute('data-index', index);
             
             // フィルター適用(現在のフィルターに応じて表示/非表示)
             if (this.currentFilter !== 'all' && item.type !== this.currentFilter) {
                 itemEl.classList.add('hidden');
             }
             
+            // 足跡 + コンテンツのコンテナ
+            const footprint = document.createElement('div');
+            footprint.className = 'timeline-footprint';
+            
+            // 足跡アイコン(Font Awesome)
+            const icon = document.createElement('div');
+            icon.className = 'timeline-footprint-icon';
+            icon.innerHTML = '<i class="fa-solid fa-shoe-prints"></i>';
+            
+            // コンテンツカード
             const content = document.createElement('div');
             content.className = 'timeline-content';
             
+            // 日付バッジ
             const year = document.createElement('div');
             year.className = 'timeline-year';
             year.textContent = item.year;
 
+            // タイトル
             const title = document.createElement('h3');
             title.className = 'timeline-title';
             title.textContent = item.title[currentLang];
             
+            // 説明文
             const description = document.createElement('p');
             description.textContent = item.description[currentLang];
             
+            // 組み立て
             content.appendChild(year);
             content.appendChild(title);
-            content.appendChild(description);
-            itemEl.appendChild(content); 
+            if (item.description[currentLang]) {
+                content.appendChild(description);
+            }
+            
+            footprint.appendChild(icon);
+            footprint.appendChild(content);
+            itemEl.appendChild(footprint);
             this.container.appendChild(itemEl);
         });
         

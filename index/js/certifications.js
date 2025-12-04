@@ -1,21 +1,42 @@
-// certifications.js - 資格カルーセル（完全版・回転テーブル方式）
-// ============================================
-// 【改善内容】
-// 1. 前後1枚ずつ表示される中央揃えレイアウト
-// 2. 回転テーブル方式の無限ループ（要素を循環させる）
-// 3. スマホでの完璧な表示
-
 class Certifications {
     constructor() {
         this.track = document.getElementById("carouselTrack");
         this.indicators = document.getElementById("carouselIndicators");
-        this.prevBtn = document.getElementById("carouselPrev");
-        this.nextBtn = document.getElementById("carouselNext");
+        this.wrapper = document.querySelector(".certifications-carousel-wrapper");
         
         this.currentIndex = 0;
         this.totalCards = 0;
         this.isAnimating = false;
         this.newestIndex = 0;
+        
+        // スマホ用ボタンコンテナを作成
+        this.createMobileControls();
+    }
+    
+    // スマホ用のボタンコンテナを作成(タイトル横)
+    createMobileControls() {
+        const section = document.getElementById("certifications-section");
+        const title = section.querySelector("h2");
+        
+        // ボタンコンテナ
+        const controls = document.createElement("div");
+        controls.className = "carousel-mobile-controls";
+        controls.innerHTML = `
+            <button class="carousel-mobile-btn" id="mobilePrev" aria-label="前の資格">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="carousel-mobile-btn" id="mobileNext" aria-label="次の資格">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        `;
+        
+        // タイトルの横に配置
+        const titleContainer = document.createElement("div");
+        titleContainer.style.cssText = "display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;";
+        
+        title.parentNode.insertBefore(titleContainer, title);
+        titleContainer.appendChild(title);
+        titleContainer.appendChild(controls);
     }
 
     // 最新の資格を特定
@@ -69,7 +90,7 @@ class Certifications {
         return card;
     }
 
-    // 【新方式】カルーセルをレンダリング（回転テーブル方式）
+    // カルーセルをレンダリング(回転テーブル方式)
     render() {
         this.track.innerHTML = "";
         this.indicators.innerHTML = "";
@@ -77,7 +98,7 @@ class Certifications {
         this.newestIndex = this.findNewestCertification();
         this.totalCards = certificationsData.length;
         
-        // 【回転テーブル方式】前後のクローンを多めに配置
+        // 前後のクローンを配置
         const cardsToRender = [];
         
         // 前方3枚のクローン
@@ -129,7 +150,7 @@ class Certifications {
             this.indicators.appendChild(dot);
         });
         
-        // 初期位置を設定（クローン3枚分オフセット）
+        // 初期位置を設定(クローン3枚分オフセット)
         this.currentIndex = 0;
         this.updateCarousel(false);
     }
@@ -139,18 +160,18 @@ class Certifications {
         const isMobile = window.innerWidth <= 600;
         if (isMobile) {
             // スマホ時は画面幅いっぱい
-            return window.innerWidth - 120;
+            return window.innerWidth - 60;
         }
-        // PC時は320px（カード300px + gap 20px）
+        // PC時は320px(カード300px + gap 20px)
         return 320;
     }
 
-    // 【新方式】カルーセル表示を更新
+    // カルーセル表示を更新
     updateCarousel(animate = true) {
         const cardWidth = this.getCardWidth();
         const cloneOffset = 3; // 前方クローン数
         
-        // 実際の位置（クローンを考慮）
+        // 実際の位置(クローンを考慮)
         const actualIndex = this.currentIndex + cloneOffset;
         
         // トランジション制御
@@ -160,7 +181,7 @@ class Certifications {
             this.track.style.transition = 'none';
         }
         
-        // 中央揃えの計算（前後1枚ずつ表示）
+        // 中央揃えの計算(前後1枚ずつ表示)
         const offset = actualIndex * cardWidth;
         this.track.style.transform = `translateX(calc(50% - ${offset}px - ${cardWidth / 2}px))`;
         
@@ -181,7 +202,7 @@ class Certifications {
         });
     }
 
-    // 【新方式】次のスライドへ（回転テーブル方式）
+    // 次のスライドへ(回転テーブル方式)
     next() {
         if (this.isAnimating) return;
         this.isAnimating = true;
@@ -200,7 +221,7 @@ class Certifications {
         }, 500);
     }
 
-    // 【新方式】前のスライドへ（回転テーブル方式）
+    // 前のスライドへ(回転テーブル方式)
     prev() {
         if (this.isAnimating) return;
         this.isAnimating = true;
@@ -232,15 +253,38 @@ class Certifications {
         }, 500);
     }
 
-    // カードクリックイベント（PC版のみ）
+    // カードクリックイベント(PC版のみ、前後のカードのみ)
     setupCardClick() {
         const allCards = this.track.querySelectorAll('.certification-card');
         allCards.forEach((card) => {
             card.addEventListener('click', () => {
+                // スマホでは無効
                 if (window.innerWidth <= 600) return;
                 
+                // アクティブなカード(中央)のクリックは無視
+                if (card.classList.contains('active')) return;
+                
                 const cardIndex = parseInt(card.getAttribute('data-index'));
-                if (cardIndex !== this.currentIndex) {
+                
+                // 現在のインデックスと比較して前/次を判定
+                const normalizedCurrent = ((this.currentIndex % this.totalCards) + this.totalCards) % this.totalCards;
+                
+                // 前後どちらかを判定
+                if (cardIndex === normalizedCurrent) return; // 同じなら何もしない
+                
+                // 最短距離で移動
+                const diff = cardIndex - normalizedCurrent;
+                const totalCards = this.totalCards;
+                
+                if (Math.abs(diff) === 1 || Math.abs(diff) === totalCards - 1) {
+                    // 隣接カード
+                    if (diff === 1 || diff === -(totalCards - 1)) {
+                        this.next();
+                    } else {
+                        this.prev();
+                    }
+                } else {
+                    // 直接ジャンプ
                     this.goToSlide(cardIndex);
                 }
             });
@@ -249,8 +293,9 @@ class Certifications {
 
     // イベントリスナー設定
     setupEventListeners() {
-        this.prevBtn.addEventListener('click', () => this.prev());
-        this.nextBtn.addEventListener('click', () => this.next());
+        // スマホボタン
+        document.getElementById('mobilePrev')?.addEventListener('click', () => this.prev());
+        document.getElementById('mobileNext')?.addEventListener('click', () => this.next());
         
         // タッチスワイプ対応
         let touchStartX = 0;

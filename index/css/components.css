@@ -567,11 +567,54 @@ html[data-theme="light"] .theme-toggle-btn {
     font-weight: 600;
 }
 
-/* ===== 資格カルーセル（前後1枚表示対応版） ===== */
+/* ===== 資格カルーセル(改善版) ===== */
 .certifications-carousel-wrapper {
     position: relative;
     margin-top: 20px;
-    padding: 0 60px;
+    padding: 0 20px;
+    /* PC用の大きなボタンを削除したので余白縮小 */
+}
+
+/* スマホ用ボタンコンテナ(タイトル横に配置) */
+.carousel-mobile-controls {
+    display: none;
+    gap: 8px;
+}
+
+.carousel-mobile-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--card);
+    border: 2px solid var(--accent);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.carousel-mobile-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+/* スマホ時のみボタン表示 */
+@media (max-width: 600px) {
+    .carousel-mobile-controls {
+        display: flex;
+    }
+
+    .certifications-carousel-wrapper {
+        padding: 0 20px;
+    }
+}
+
+/* PC用の大きなボタンは完全削除 */
+.carousel-btn {
+    display: none !important;
 }
 
 .certifications-carousel {
@@ -589,7 +632,7 @@ html[data-theme="light"] .theme-toggle-btn {
     align-items: center;
 }
 
-/* 【改善】カードデザイン（前後が見えるように） */
+/* カードデザイン(前後が見えるように) */
 .certification-card {
     background: linear-gradient(135deg, rgba(94, 234, 212, 0.05) 0%, rgba(94, 234, 212, 0.02) 100%);
     padding: 24px;
@@ -616,13 +659,17 @@ html[data-theme="light"] .theme-toggle-btn {
     background: linear-gradient(135deg, rgba(94, 234, 212, 0.08) 0%, rgba(94, 234, 212, 0.03) 100%);
     box-shadow: 0 12px 32px rgba(94, 234, 212, 0.25);
     z-index: 10;
+    cursor: default;
+    /* 中央のカードはクリック不可 */
 }
 
-/* ホバー時（PC） */
-.certification-card:not(.active):hover {
-    opacity: 0.6;
-    transform: scale(0.9);
-    border-color: rgba(94, 234, 212, 0.4);
+/* PC時: ホバー時に前後のカードを強調 */
+@media (min-width: 601px) {
+    .certification-card:not(.active):hover {
+        opacity: 0.6;
+        transform: scale(0.9);
+        border-color: rgba(94, 234, 212, 0.4);
+    }
 }
 
 /* 資格名 */
@@ -680,7 +727,7 @@ html[data-theme="light"] .theme-toggle-btn {
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: 
+    box-shadow:
         0 4px 12px rgba(255, 107, 107, 0.4),
         0 0 0 3px rgba(255, 107, 107, 0.1);
     animation: pulse-badge 2s infinite;
@@ -688,49 +735,15 @@ html[data-theme="light"] .theme-toggle-btn {
 }
 
 @keyframes pulse-badge {
-    0%, 100% { 
+
+    0%,
+    100% {
         transform: scale(1);
     }
-    50% { 
+
+    50% {
         transform: scale(1.05);
     }
-}
-
-/* ナビゲーションボタン */
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
-    background: var(--card);
-    border: 2px solid rgba(94, 234, 212, 0.3);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text);
-    font-size: 20px;
-    transition: all 0.3s ease;
-    z-index: 20;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.carousel-btn:hover {
-    background: var(--accent);
-    color: var(--bg);
-    border-color: var(--accent);
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 8px 20px rgba(94, 234, 212, 0.3);
-}
-
-.carousel-btn.prev {
-    left: 0;
-}
-
-.carousel-btn.next {
-    right: 0;
 }
 
 /* インジケーター */
@@ -763,22 +776,18 @@ html[data-theme="light"] .theme-toggle-btn {
     box-shadow: 0 0 8px rgba(94, 234, 212, 0.4);
 }
 
-/* 【改善】スマホ対応 */
+/* スマホ対応 */
 @media (max-width: 600px) {
-    .certifications-carousel-wrapper {
-        padding: 0 55px;
-    }
-    
     .certifications-carousel {
         padding: 20px 0;
     }
-    
+
     .carousel-track {
         gap: 15px;
     }
-    
+
     .certification-card {
-        width: calc(100vw - 130px);
+        width: calc(100vw - 80px);
         min-height: 180px;
         padding: 20px 16px;
         /* スマホでは中央のカードのみ表示 */
@@ -786,51 +795,40 @@ html[data-theme="light"] .theme-toggle-btn {
         transform: scale(1) !important;
         cursor: default;
     }
-    
+
     /* スマホでは前後のカードを非表示 */
     .certification-card:not(.active) {
         opacity: 0 !important;
         pointer-events: none;
     }
-    
+
     .certification-card.active {
         box-shadow: 0 8px 20px rgba(94, 234, 212, 0.2);
     }
-    
+
     .certification-name {
         font-size: 17px;
         min-height: auto;
         margin-bottom: 10px;
     }
-    
+
     .certification-organization {
         font-size: 11px;
         padding: 6px 10px;
     }
-    
+
     .certification-date {
         font-size: 12px;
         margin-top: 12px;
         padding-top: 10px;
     }
-    
+
     .certification-badge {
         top: -8px;
         right: -8px;
         padding: 4px 10px;
         font-size: 9px;
     }
-    
-    .carousel-btn {
-        width: 44px;
-        height: 44px;
-        font-size: 18px;
-    }
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
 }
 
 /* カルーセルナビゲーションボタン */
@@ -865,28 +863,6 @@ html[data-theme="light"] .theme-toggle-btn {
 
 .carousel-btn.next {
     right: 0;
-}
-
-/* カルーセルインジケーター */
-.carousel-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 15px;
-}
-
-.carousel-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(128, 128, 128, 0.3);
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.carousel-dot.active {
-    background: var(--accent);
-    transform: scale(1.2);
 }
 
 /* ===== Contact ===== */
