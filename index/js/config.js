@@ -1,9 +1,9 @@
 // config.js - データ設定ファイル
 // ============================================
 // iconType の種類:
-//   - 'devicon'     : Deviconのクラス名を指定(例: 'devicon-python-plain')
-//   - 'fontawesome' : Font Awesomeのクラス名を指定(例: 'fa-solid fa-question')
-//   - 'original'    : 画像パスを指定(例: './images/icon.png')
+//   - 'devicon'     : Deviconのクラス名を指定（例: 'devicon-python-plain'）
+//   - 'fontawesome' : Font Awesomeのクラス名を指定（例: 'fa-solid fa-question'）
+//   - 'original'    : 画像パスを指定（例: './images/icon.png'）
 
 // タイムラインデータ
 const timelineData = [
@@ -243,6 +243,15 @@ const skillsData = [
             }
         }
     }
+    // 画像アイコンを使う場合の例:
+    // {
+    //     id: 'custom',
+    //     name: 'カスタムスキル',
+    //     iconType: 'original',
+    //     icon: './images/custom_icon.png',
+    //     proficiency: 50,
+    //     details: { ... }
+    // }
 ];
 
 // ===== 開発ツールデータ =====

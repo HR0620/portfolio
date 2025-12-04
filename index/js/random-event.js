@@ -1,4 +1,4 @@
-// random-event.js - Undertale & ドラクエ風FUN値イベントシステム
+// random-event.js - Undertale風FUN値イベントシステム
 
 class FunEventSystem {
     constructor() {
@@ -10,6 +10,17 @@ class FunEventSystem {
     checkAndTriggerEvents() {
         const events = [
             { prob: 1, name: 'スプラッシュ画面', fn: () => this.event_splash() },
+            { prob: 2, name: '満月', fn: () => this.event_fullMoon(), cond: () => document.documentElement.getAttribute('data-theme') === 'dark' },
+            { prob: 3, name: '雪が降る', fn: () => this.event_snow() },
+            { prob: 3, name: 'アバター別版', fn: () => this.event_avatarVariant() },
+            { prob: 5, name: 'カード浮遊', fn: () => this.event_floatingCards() },
+            { prob: 5, name: 'ヘッダーグラデーション', fn: () => this.event_headerGradient() },
+            { prob: 8, name: 'タイムライン虹色', fn: () => this.event_timelineRainbow() },
+            { prob: 10, name: 'ハンバーガー🍔', fn: () => this.event_hamburgerIcon() },
+            { prob: 10, name: '桜吹雪', fn: () => this.event_sakura() },
+            { prob: 10, name: '高専祭カラー', fn: () => this.event_hisayoshiColor() },
+            { prob: 10, name: '装飾ライン', fn: () => this.event_decorativeLines() },
+            { prob: 20, name: 'スキル揺れ', fn: () => this.event_skillShake() }
             { prob: 1, name: 'ドラクエ風ステータス', fn: () => this.event_dqStatus() },
             { prob: 1, name: 'マトリックス降下', fn: () => this.event_matrix() },
             { prob: 1, name: '満月', fn: () => this.event_fullMoon(), cond: () => document.documentElement.getAttribute('data-theme') === 'dark' },
@@ -43,11 +54,11 @@ class FunEventSystem {
         });
     }
 
-    // スプラッシュ画面(Undertale/Flowey Style)
+ // スプラッシュ画面（Undertale/Flowey Style）
     event_splash() {
         const splash = document.createElement('div');
         
-        // スタイル定義(Google Fontsの読み込みを含む)
+        // スタイル定義（Google Fontsの読み込みを含む）
         const style = document.createElement('style');
         style.textContent = `
             @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
@@ -55,7 +66,7 @@ class FunEventSystem {
             /* 全体のフェードアウト */
             @keyframes fadeOut {
                 0% { opacity: 1; }
-                90% { opacity: 1; }
+                90% { opacity: 1; } /* 読む時間を確保するため、消える直前まで不透明 */
                 100% { opacity: 0; pointer-events: none; }
             }
 
@@ -65,7 +76,7 @@ class FunEventSystem {
                 50% { transform: rotate(5deg); }
             }
 
-            /* テキストの点滅 */
+            /* テキストの点滅（カーソル待ちのような表現） */
             @keyframes blink {
                 0%, 100% { opacity: 1; }
                 50% { opacity: 0; }
@@ -80,11 +91,13 @@ class FunEventSystem {
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             z-index: 10000;
-            font-family: 'VT323', monospace;
-            animation: fadeOut 4s forwards;
+            font-family: 'VT323', monospace; /* ドット絵風フォント */
+            animation: fadeOut 4s forwards; /* 少し時間を長めに確保 */
             cursor: default;
         `;
 
+        // Flowey風のセリフ
+        // "Howdy! Thanks for visiting my portfolio! Golly, make yourself at home!"
         const funValue = Math.floor(Math.random() * 100);
 
         splash.innerHTML = `
@@ -125,274 +138,11 @@ class FunEventSystem {
 
         document.body.appendChild(splash);
 
+        // アニメーションに合わせて要素を削除 (4000ms = 4s)
         setTimeout(() => {
             splash.remove();
-            style.remove();
+            style.remove(); // スタイルタグも掃除
         }, 4000);
-    }
-
-    // ドラクエ風ステータス画面
-    event_dqStatus() {
-        const status = document.createElement('div');
-        
-        const style = document.createElement('style');
-        style.textContent = `
-            @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-            
-            @keyframes dqFadeIn {
-                0% { opacity: 0; transform: scale(0.8); }
-                100% { opacity: 1; transform: scale(1); }
-            }
-            
-            @keyframes dqFadeOut {
-                0% { opacity: 1; }
-                100% { opacity: 0; pointer-events: none; }
-            }
-        `;
-        document.head.appendChild(style);
-
-        const level = Math.floor(Math.random() * 50) + 1;
-        const exp = Math.floor(Math.random() * 9999);
-
-        status.style.cssText = `
-            position: fixed; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%);
-            background: #000080;
-            border: 4px solid #ffffff;
-            padding: 30px;
-            z-index: 10000;
-            font-family: 'Press Start 2P', monospace;
-            color: #ffffff;
-            box-shadow: 0 0 30px rgba(0, 0, 255, 0.8);
-            animation: dqFadeIn 0.3s ease-out, dqFadeOut 3s 2s forwards;
-            min-width: 300px;
-        `;
-
-        status.innerHTML = `
-            <div style="text-align: center; margin-bottom: 20px; font-size: 10px;">
-                *** PORTFOLIO STATUS ***
-            </div>
-            <div style="font-size: 8px; line-height: 2;">
-                NAME:  Harada Renju<br>
-                LEVEL: ${level}<br>
-                HP:    ████████████<br>
-                MP:    ██████████<br>
-                EXP:   ${exp}<br>
-                <br>
-                SKILLS:<br>
-                - Python<br>
-                - JavaScript<br>
-                - HTML/CSS<br>
-                <br>
-                <div style="text-align: center; margin-top: 15px;">
-                    Press Any Key...
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(status);
-
-        const removeStatus = () => {
-            status.remove();
-            style.remove();
-            document.removeEventListener('keydown', removeStatus);
-            document.removeEventListener('click', removeStatus);
-        };
-
-        document.addEventListener('keydown', removeStatus);
-        document.addEventListener('click', removeStatus);
-
-        setTimeout(() => {
-            removeStatus();
-        }, 5000);
-    }
-
-    // マトリックス風コード降下
-    event_matrix() {
-        const canvas = document.createElement('canvas');
-        canvas.style.cssText = `
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none; z-index: 9998;
-            opacity: 0.7;
-        `;
-        document.body.appendChild(canvas);
-
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-
-        let frameCount = 0;
-        const maxFrames = 300;
-
-        const draw = () => {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#0f0';
-            ctx.font = `${fontSize}px monospace`;
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-
-            frameCount++;
-            if (frameCount < maxFrames) {
-                requestAnimationFrame(draw);
-            } else {
-                canvas.style.opacity = '0';
-                canvas.style.transition = 'opacity 1s';
-                setTimeout(() => canvas.remove(), 1000);
-            }
-        };
-
-        draw();
-    }
-
-    // レベルアップ通知
-    event_levelUp() {
-        const notification = document.createElement('div');
-        
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes levelUpSlide {
-                0% { transform: translateY(-100%); opacity: 0; }
-                10% { transform: translateY(0); opacity: 1; }
-                90% { transform: translateY(0); opacity: 1; }
-                100% { transform: translateY(-100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-
-        notification.style.cssText = `
-            position: fixed; top: 20px; left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 16px;
-            z-index: 10000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            animation: levelUpSlide 3s ease-in-out;
-        `;
-
-        notification.innerHTML = `
-            🎉 LEVEL UP! スキルが向上しました! 🎉
-        `;
-
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-            notification.remove();
-            style.remove();
-        }, 3000);
-    }
-
-    // ターミナル風フッター
-    event_terminalFooter() {
-        const footer = document.querySelector('footer');
-        if (!footer) return;
-
-        footer.style.cssText = `
-            background: #1e1e1e;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            padding: 15px;
-            border-top: 2px solid #00ff00;
-            text-align: left;
-            font-size: 12px;
-        `;
-
-        footer.innerHTML = `
-            <div>$ cd /portfolio/harada-renju</div>
-            <div>$ cat LICENSE.txt</div>
-            <div style="margin-top: 5px;">© 2024 Renju Harada. All rights reserved.</div>
-            <div>$ █</div>
-        `;
-    }
-
-    // ドット絵風アバター
-    event_pixelAvatar() {
-        const avatarImg = document.querySelector('.avatar-img');
-        if (!avatarImg) return;
-        
-        avatarImg.style.imageRendering = 'pixelated';
-        avatarImg.style.filter = 'contrast(1.2) brightness(1.1)';
-    }
-
-    // スライムカーソル
-    event_slimeCursor() {
-        const style = document.createElement('style');
-        style.textContent = `
-            * {
-                cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">🟦</text></svg>'), auto !important;
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    // ピクセルエフェクト
-    event_pixelEffect() {
-        const style = document.createElement('style');
-        style.textContent = `
-            .project-image {
-                image-rendering: pixelated;
-                filter: contrast(1.1);
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    // コンボカウンター(クリック時)
-    event_comboCounter() {
-        let combo = 0;
-        let comboTimer = null;
-        const comboDisplay = document.createElement('div');
-        
-        comboDisplay.style.cssText = `
-            position: fixed; top: 100px; right: 30px;
-            background: rgba(255, 215, 0, 0.9);
-            color: #000;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 24px;
-            z-index: 9999;
-            display: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            font-family: 'Arial Black', sans-serif;
-        `;
-        
-        document.body.appendChild(comboDisplay);
-        
-        document.addEventListener('click', () => {
-            combo++;
-            comboDisplay.textContent = `${combo} COMBO!`;
-            comboDisplay.style.display = 'block';
-            comboDisplay.style.animation = 'none';
-            setTimeout(() => {
-                comboDisplay.style.animation = 'pulse 0.3s ease-out';
-            }, 10);
-            
-            clearTimeout(comboTimer);
-            comboTimer = setTimeout(() => {
-                combo = 0;
-                comboDisplay.style.display = 'none';
-            }, 2000);
-        });
     }
 
     // 満月
@@ -408,7 +158,103 @@ class FunEventSystem {
         }
     }
 
-    // 桜吹雪
+    // 3. 雪が降る（3%）
+    event_snow() {
+        const snowContainer = document.createElement('div');
+        snowContainer.style.cssText = `
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none; z-index: 9999; overflow: hidden;
+        `;
+        
+        for (let i = 0; i < 50; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.textContent = '❄️';
+            snowflake.style.cssText = `
+                position: absolute;
+                top: -20px;
+                left: ${Math.random() * 100}%;
+                font-size: ${Math.random() * 10 + 10}px;
+                animation: fall ${Math.random() * 3 + 2}s linear infinite;
+                animation-delay: ${Math.random() * 2}s;
+                opacity: ${Math.random() * 0.6 + 0.4};
+            `;
+            snowContainer.appendChild(snowflake);
+        }
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to { 
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(snowContainer);
+    }
+
+    //アバター別版
+    event_avatarVariant() {
+        const avatarImg = document.querySelector('.avatar-img');
+        if (!avatarImg) return;
+        
+        const img = new Image();
+        img.onload = () => avatarImg.src = 'images/icons/hr-variant.png';
+        img.src = 'images/icons/hr-variant.png';
+    }
+
+    //タイムライン虹色
+    event_timelineRainbow() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .timeline-container::before {
+                background: linear-gradient(180deg,
+                    #ff0000 0%, #ff7f00 16.66%, #ffff00 33.33%,
+                    #00ff00 50%, #0000ff 66.66%, #4b0082 83.33%, #9400d3 100%
+                ) !important;
+                width: 3px !important;
+            }
+            .timeline-item::before {
+                border-color: #ff00ff !important;
+                box-shadow: 0 0 10px rgba(255, 0, 255, 0.5) !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+// ハンバーガー🍔
+    event_hamburgerIcon() {
+        const btn = document.getElementById('hamburgerBtn');
+        if (!btn) return;
+        
+        const spans = btn.querySelectorAll('span');
+        if (spans.length >= 3) {
+            // 1. 上下の線を非表示にする
+            spans[0].style.display = 'none';
+            spans[2].style.display = 'none';
+
+            // 2. 真ん中の線を編集する
+            const target = spans[1];
+            target.innerHTML = '🍔';
+            
+            // ★修正ポイント: CSSで強制されている「線」としてのスタイルを打ち消す
+            target.style.width = 'auto';       // 幅20px固定を解除
+            target.style.height = 'auto';      // 高さ2px固定を解除（これがズレの主原因）
+            target.style.background = 'transparent'; // 線の色を消す
+            
+            // 絵文字用のスタイル
+            target.style.fontSize = '26px';    // ボタンサイズに合わせて調整
+            target.style.lineHeight = '1';     // 行間による余計な余白を排除
+            target.style.transform = 'none';
+            
+            // 念のためブロック要素のままにするが、余白等の影響をリセット
+            target.style.margin = '0';
+            target.style.padding = '0';
+        }
+    }
+
+    //桜吹雪
     event_sakura() {
         const container = document.createElement('div');
         container.style.cssText = `
@@ -443,51 +289,7 @@ class FunEventSystem {
         document.body.appendChild(container);
     }
 
-    //タイムライン虹色
-    event_timelineRainbow() {
-        const style = document.createElement('style');
-        style.textContent = `
-            .timeline-container::before {
-                background: linear-gradient(180deg,
-                    #ff0000 0%, #ff7f00 16.66%, #ffff00 33.33%,
-                    #00ff00 50%, #0000ff 66.66%, #4b0082 83.33%, #9400d3 100%
-                ) !important;
-            }
-            .timeline-item::before {
-                filter: hue-rotate(0deg);
-                animation: rainbow-footstep 3s linear infinite;
-            }
-            @keyframes rainbow-footstep {
-                100% { filter: hue-rotate(360deg); }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    // ハンバーガー🍔
-    event_hamburgerIcon() {
-        const btn = document.getElementById('hamburgerBtn');
-        if (!btn) return;
-        
-        const spans = btn.querySelectorAll('span');
-        if (spans.length >= 3) {
-            spans[0].style.display = 'none';
-            spans[2].style.display = 'none';
-
-            const target = spans[1];
-            target.innerHTML = '🍔';
-            target.style.width = 'auto';
-            target.style.height = 'auto';
-            target.style.background = 'transparent';
-            target.style.fontSize = '26px';
-            target.style.lineHeight = '1';
-            target.style.transform = 'none';
-            target.style.margin = '0';
-            target.style.padding = '0';
-        }
-    }
-
-    // カード浮遊
+    // カード浮遊（
     event_floatingCards() {
         const style = document.createElement('style');
         style.textContent = `
@@ -526,7 +328,6 @@ class FunEventSystem {
             }
         }
     }
-
     // ヘッダーグラデーション
     event_headerGradient() {
         const header = document.getElementById('stickyHeader');
@@ -567,19 +368,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// デバッグ用テスト関数
+// デバッグ
 window.testEvent = (name) => {
     const map = {
         'splash': () => funSystem.event_splash(),
-        'dq': () => funSystem.event_dqStatus(),
-        'matrix': () => funSystem.event_matrix(),
-        'levelup': () => funSystem.event_levelUp(),
-        'terminal': () => funSystem.event_terminalFooter(),
-        'pixel': () => funSystem.event_pixelAvatar(),
-        'slime': () => funSystem.event_slimeCursor(),
-        'combo': () => funSystem.event_comboCounter(),
         'moon': () => funSystem.event_fullMoon(),
-        'avatar': () => funSystem.event_pixelAvatar(),
+        'snow': () => funSystem.event_snow(),
+        'avatar': () => funSystem.event_avatarVariant(),
         'rainbow': () => funSystem.event_timelineRainbow(),
         'hamburger': () => funSystem.event_hamburgerIcon(),
         'sakura': () => funSystem.event_sakura(),
@@ -587,19 +382,15 @@ window.testEvent = (name) => {
         'shake': () => funSystem.event_skillShake(),
         'hisayoshi': () => funSystem.event_hisayoshiColor(),
         'header': () => funSystem.event_headerGradient(),
-        'lines': () => funSystem.event_decorativeLines(),
-        'pixeleffect': () => funSystem.event_pixelEffect()
+        'lines': () => funSystem.event_decorativeLines()
     };
     
     if (map[name]) {
         map[name]();
         console.log(`🔧 Tested: ${name}`);
     } else {
-        console.log('📋 Available events:');
-        console.log('  DQ系: dq, levelup, slime, terminal, pixel');
-        console.log('  Tech系: matrix, combo, pixeleffect');
-        console.log('  その他: splash, moon, rainbow, hamburger, sakura, float, shake, hisayoshi, header, lines');
+        console.log('Available:', Object.keys(map).join(', '));
     }
 };
 
-console.log('🎲 Type testEvent("dq") to test events!');
+console.log('🎲 Type testEvent("splash") to test events!');

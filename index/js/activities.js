@@ -1,3 +1,5 @@
+// activities.js - アクティビティ管理モジュール
+// ============================================
 // IconUtils を使用してアイコン生成を共通化
 
 // ===== アクティビティ管理クラス =====
@@ -16,11 +18,11 @@ class Activities {
             activityCard.setAttribute('data-activity-id', a.id);
             activityCard.addEventListener('click', () => this.showModal(a.id));
 
-            // アイコン/画像を表示(IconUtilsを使用)
+            // アイコン/画像を表示（IconUtilsを使用）
             const iconContainer = document.createElement('div');
             iconContainer.className = 'activity-icon-container';
             
-            // iconTypeを判定(指定がなければ自動判定)
+            // iconTypeを判定（指定がなければ自動判定）
             const iconType = a.iconType || IconUtils.detectIconType(a.icon || a.image);
             
             if (iconType === 'original') {
@@ -57,7 +59,7 @@ class Activities {
 
         const lang = currentLang;
 
-        // モーダルアイコンを設定(IconUtilsを使用)
+        // モーダルアイコンを設定（IconUtilsを使用）
         const modalIcon = document.getElementById('modalSkillIcon');
         modalIcon.innerHTML = IconUtils.createFromData(activity, { size: 'large' });
         
