@@ -9,16 +9,16 @@ class Timeline {
     }
 
     // タイムラインをレンダリングする
+// タイムラインをレンダリングする
     render() {
         this.container.innerHTML = ''; 
 
         timelineData.forEach(item => {
             const itemEl = document.createElement('div');
-            const typeClass = item.type === 'qual' ? 'timeline-item-left' : 'timeline-item-right';
-            itemEl.className = `timeline-item ${typeClass}`;
+            itemEl.className = 'timeline-item';
             itemEl.setAttribute('data-type', item.type);
             
-            // フィルター適用（現在のフィルターに応じて表示/非表示）
+            // フィルター適用(現在のフィルターに応じて表示/非表示)
             if (this.currentFilter !== 'all' && item.type !== this.currentFilter) {
                 itemEl.classList.add('hidden');
             }
