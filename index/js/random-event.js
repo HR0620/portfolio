@@ -11,22 +11,22 @@ class FunEventSystem {
         const events = [
             { prob: 1, name: 'スプラッシュ画面', fn: () => this.event_splash() },
             { prob: 1, name: 'ドラクエ風ステータス', fn: () => this.event_dqStatus() },
-            { prob: 2, name: 'マトリックス降下', fn: () => this.event_matrix() },
-            { prob: 2, name: '満月', fn: () => this.event_fullMoon(), cond: () => document.documentElement.getAttribute('data-theme') === 'dark' },
-            { prob: 3, name: 'レベルアップ通知', fn: () => this.event_levelUp() },
-            { prob: 3, name: 'ターミナル風フッター', fn: () => this.event_terminalFooter() },
-            { prob: 5, name: 'ドット絵アバター', fn: () => this.event_pixelAvatar() },
-            { prob: 5, name: 'スライムカーソル', fn: () => this.event_slimeCursor() },
-            { prob: 5, name: 'カード浮遊', fn: () => this.event_floatingCards() },
-            { prob: 5, name: 'ヘッダーグラデーション', fn: () => this.event_headerGradient() },
-            { prob: 8, name: 'タイムライン虹色', fn: () => this.event_timelineRainbow() },
-            { prob: 10, name: 'ピクセルエフェクト', fn: () => this.event_pixelEffect() },
-            { prob: 10, name: 'ハンバーガー🍔', fn: () => this.event_hamburgerIcon() },
-            { prob: 10, name: '桜吹雪', fn: () => this.event_sakura() },
-            { prob: 10, name: '高専祭カラー', fn: () => this.event_hisayoshiColor() },
-            { prob: 10, name: '装飾ライン', fn: () => this.event_decorativeLines() },
-            { prob: 15, name: 'コンボカウンター', fn: () => this.event_comboCounter() },
-            { prob: 20, name: 'スキル揺れ', fn: () => this.event_skillShake() }
+            { prob: 1, name: 'マトリックス降下', fn: () => this.event_matrix() },
+            { prob: 1, name: '満月', fn: () => this.event_fullMoon(), cond: () => document.documentElement.getAttribute('data-theme') === 'dark' },
+            { prob: 1, name: 'レベルアップ通知', fn: () => this.event_levelUp() },
+            { prob: 1, name: 'ターミナル風フッター', fn: () => this.event_terminalFooter() },
+            { prob: 1, name: 'ドット絵アバター', fn: () => this.event_pixelAvatar() },
+            { prob: 1, name: 'スライムカーソル', fn: () => this.event_slimeCursor() },
+            { prob: 1, name: 'カード浮遊', fn: () => this.event_floatingCards() },
+            { prob: 1, name: 'ヘッダーグラデーション', fn: () => this.event_headerGradient() },
+            { prob: 1, name: 'タイムライン虹色', fn: () => this.event_timelineRainbow() },
+            { prob: 1, name: 'ピクセルエフェクト', fn: () => this.event_pixelEffect() },
+            { prob: 1, name: 'ハンバーガー🍔', fn: () => this.event_hamburgerIcon() },
+            { prob: 1, name: '桜吹雪', fn: () => this.event_sakura() },
+            { prob: 1, name: '高専祭カラー', fn: () => this.event_hisayoshiColor() },
+            { prob: 1, name: '装飾ライン', fn: () => this.event_decorativeLines() },
+            { prob: 1, name: 'コンボカウンター', fn: () => this.event_comboCounter() },
+            { prob: 1, name: 'スキル揺れ', fn: () => this.event_skillShake() }
         ];
         
         events.forEach(event => {
