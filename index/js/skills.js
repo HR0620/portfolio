@@ -1,5 +1,3 @@
-// skills.js - スキル・ツール機能モジュール
-// ============================================
 // IconUtils を使用してアイコン生成を共通化
 
 // ===== スキル管理クラス =====
@@ -18,7 +16,7 @@ class Skills {
             skillCard.setAttribute('data-skill-id', skill.id);
             skillCard.addEventListener('click', () => this.showModal(skill.id));
 
-            // アイコンを生成（IconUtilsを使用）
+            // アイコンを生成(IconUtilsを使用)
             const iconDiv = document.createElement('div');
             iconDiv.className = 'skill-icon';
             iconDiv.innerHTML = IconUtils.createFromData(skill, { size: 'medium' });
@@ -40,7 +38,7 @@ class Skills {
 
         const lang = currentLang;
 
-        // モーダルにアイコンを表示（IconUtilsを使用）
+        // モーダルにアイコンを表示(IconUtilsを使用)
         const modalIcon = document.getElementById('modalSkillIcon');
         modalIcon.innerHTML = IconUtils.createFromData(skill, { size: 'large' });
         
@@ -87,7 +85,7 @@ class DevTools {
             toolCard.setAttribute('data-tool-id', tool.id);
             toolCard.addEventListener('click', () => this.showModal(tool.id));
 
-            // アイコンを生成（IconUtilsを使用）
+            // アイコンを生成(IconUtilsを使用)
             const iconDiv = document.createElement('div');
             iconDiv.className = 'tool-icon';
             iconDiv.innerHTML = IconUtils.createFromData(tool, { size: 'medium' });
@@ -109,7 +107,7 @@ class DevTools {
 
         const lang = currentLang;
 
-        // モーダルにアイコンを表示（IconUtilsを使用）
+        // モーダルにアイコンを表示(IconUtilsを使用)
         const modalIcon = document.getElementById('modalSkillIcon');
         modalIcon.innerHTML = IconUtils.createFromData(tool, { size: 'large' });
         

@@ -110,7 +110,7 @@ const i18n = {
     }
 };
 
-// 現在の言語設定（デフォルトは日本語）
+// 現在の言語設定(デフォルトは日本語)
 let currentLang = 'ja';
 
 // 言語を適用する関数
@@ -181,7 +181,7 @@ function applyLanguage(lang) {
     renderSkills();
     renderDevTools();
 
-    // 言語ボタンの表示を更新（JP/ENに短縮）
+    // 言語ボタンの表示を更新(JP/ENに短縮)
     document.getElementById('langToggle').textContent = lang === 'ja' ? 'EN' : 'JP';
     document.getElementById('langToggle').setAttribute('aria-label', 
         lang === 'ja' ? 'Switch to English' : '日本語に切り替える');
