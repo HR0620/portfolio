@@ -27,41 +27,12 @@
     position: relative;
 }
 
-/* テック系コーナー */
-.project::before,
-.project::after {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    border: 2px solid var(--accent);
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-
-.project::before {
-    top: -1px;
-    left: -1px;
-    border-right: none;
-    border-bottom: none;
-}
-
-.project::after {
-    bottom: -1px;
-    right: -1px;
-    border-left: none;
-    border-top: none;
-}
+/* プロジェクトカードはシンプルなデザイン（コーナー装飾なし） */
 
 .project:hover {
     transform: translateY(-5px);
     border-color: var(--accent);
     box-shadow: 0 12px 40px rgba(94, 234, 212, 0.15);
-}
-
-.project:hover::before,
-.project:hover::after {
-    opacity: 0.6;
 }
 
 /* --- 画像/アイコンコンテナ --- */
@@ -332,6 +303,7 @@
     position: relative;
 }
 
+/* メールカードはコーナー装飾あり */
 .email-card::before,
 .email-card::after {
     content: '';

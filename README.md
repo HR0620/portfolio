@@ -9,28 +9,49 @@
 
 - 📱 **レスポンシブデザイン** - モバイル/タブレット/デスクトップに対応
 - 🌍 **多言語対応** - 日本語と英語の言語切り替え機能
-- 🎨 **ダークテーマ対応** - 目にやさしいデザイン
+- 🎨 **ダーク/ライトテーマ** - 目にやさしいテーマ切り替え機能
+- ✨ **テック系デザイン** - グロー効果やアニメーションを取り入れたモダンなUI
 - ♿ **アクセシブル** - セマンティックHTMLとARIA属性に対応
 
 ## 構成
 
 ```
 portfolio/
-├── index.html          # メインHTMLファイル
-├── css/
-│   └── style.css       # スタイルシート
-├── js/
-│   └── script.js       # JavaScriptロジック
-├── projects/           # プロジェクト詳細ページ
-├── README.md           # このファイル
-└── License             # MITライセンス
+├── index/
+│   ├── index.html          # メインHTMLファイル
+│   ├── css/
+│   │   ├── themes.css      # テーマカラー定義
+│   │   ├── style.css       # 基本レイアウト
+│   │   ├── ui.css          # Header, Menu, Modal
+│   │   ├── timeline.css    # タイムライン
+│   │   ├── cards.css       # カードコンポーネント
+│   │   └── carousel.css    # 資格カルーセル
+│   ├── js/
+│   │   ├── main.js         # メインロジック
+│   │   ├── config.js       # データ設定
+│   │   ├── i18n.js         # 多言語対応
+│   │   ├── theme.js        # テーマ制御
+│   │   ├── timeline.js     # タイムライン機能
+│   │   ├── certifications.js # 資格カルーセル
+│   │   ├── projects.js     # プロジェクト表示
+│   │   ├── skills.js       # スキル表示
+│   │   └── ...             # その他モジュール
+│   └── assets/             # 画像等のアセット
+├── projects/               # プロジェクト詳細ページ
+│   ├── class/              # 授業関連プロジェクト
+│   └── kosen-fes/          # 高専祭プロジェクト
+├── README.md               # このファイル
+├── README.en.md            # 英語版README
+└── License                 # MITライセンス
 ```
 
 ## 使用技術
 
 - **HTML5** - セマンティックマークアップ
-- **CSS3** - グリッドレイアウト、カスタムプロパティ
+- **CSS3** - グリッドレイアウト、カスタムプロパティ、アニメーション
 - **Vanilla JavaScript** - フレームワーク不要
+- **Font Awesome** - アイコン
+- **Prism.js** - コードシンタックスハイライト
 
 ## License
 
@@ -40,7 +61,3 @@ portfolio/
 ## Author
 
 **原田 連寿** (Renju Harada)
-
-メモ
-日英変換
-沿革を左側資格、右側学校関係で枝分かれさせる

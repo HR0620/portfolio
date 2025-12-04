@@ -43,31 +43,7 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* テック系コーナー装飾 */
-.certification-card::before,
-.certification-card::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--accent);
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-
-.certification-card::before {
-    top: -1px;
-    left: -1px;
-    border-right: none;
-    border-bottom: none;
-}
-
-.certification-card::after {
-    bottom: -1px;
-    right: -1px;
-    border-left: none;
-    border-top: none;
-}
+/* 資格カードはコーナー装飾なし（シンプルなデザイン） */
 
 /* アクティブカード */
 .certification-card.active {
@@ -79,10 +55,7 @@
     z-index: 10;
 }
 
-.certification-card.active::before,
-.certification-card.active::after {
-    opacity: 0.6;
-}
+/* シンプルデザインのためコーナー装飾なし */
 
 /* PC時のホバーエフェクト */
 @media (min-width: 601px) {
@@ -260,26 +233,20 @@
     /* スマホ：全カードを非表示にしてからactiveのみ表示 */
     .certification-card {
         display: none !important;
-        width: calc(100vw - 48px);
-        max-width: 380px;
-        min-height: 200px;
-        padding: 24px 20px;
+        width: 90%;
+        max-width: 320px;
+        min-height: 160px;
+        padding: 18px 14px;
         margin: 0 auto;
         opacity: 1;
-        transform: scale(1);
+        transform: scale(0.95);
+        border-radius: 10px;
     }
 
     /* アクティブカードのみ表示（中央配置） */
     .certification-card.active {
         display: flex !important;
-        box-shadow: 0 8px 30px rgba(94, 234, 212, 0.15);
-    }
-
-    .certification-card::before,
-    .certification-card::after {
-        opacity: 0.5;
-        width: 16px;
-        height: 16px;
+        box-shadow: 0 4px 20px rgba(94, 234, 212, 0.1);
     }
 
     .certification-name {
