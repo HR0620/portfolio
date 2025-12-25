@@ -142,7 +142,19 @@ const certificationsData = [
             en: "Information-technology Promotion Agency (IPA)" 
         },
         date: "2025/10"
-    }
+    },
+    {
+        id: "cert5",
+        name: { 
+            ja: "基本情報技術者試験", 
+            en: "Fundamental Information Technology Engineer Examination" 
+        },
+        organization: { 
+            ja: "独立行政法人 情報処理推進機構(IPA)", 
+            en: "Information-technology Promotion Agency (IPA)" 
+        },
+        date: "2026/1"
+    },
 ];
 
 // プロジェクトデータ
@@ -163,11 +175,11 @@ const projects = [
         id: "p2", 
         title: { ja: "プログラミング1", en: "Programming1" }, 
         desc: { 
-            ja: "2I担任である室谷先生公認のOnly Up風室谷先生ゲーム、Hisayoshi。高専祭で展示しました。", 
-            en: "A game inspired by 'Only Up,' officially recognized by homeroom teacher Muroya-sensei, exhibited at the Kosen Festival." 
+            ja: "プログラミング1の授業で作成したプロジェクト。", 
+            en: "A project created in Programming 1 class." 
         }, 
         tags: ["python","Numpy"],
-        date: "2025/11/8,9", 
+        date: "2025/04-2026/03", 
         url: "../projects/class/programming-1/index.html",
         image: 'fa-solid fa-laptop-code'
     }

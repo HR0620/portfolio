@@ -1,6 +1,6 @@
 [日本語版を読む](README.md)
 
-# Renju Harada's Portfolio
+# HR's Portfolio
 
 A responsive multilingual portfolio website (Japanese/English). A simple yet extensible personal project showcase built with only HTML, CSS, and JavaScript.
 
@@ -56,7 +56,6 @@ portfolio/
 
 ## License
 
-MIT License
 For details, see the [License](./License) file.
 
 ## Author

@@ -3,9 +3,9 @@
 // 多言語テキストデータ
 const i18n = {
     ja: {
-        title: "原田連寿のポートフォリオ",
+        title: "HRのポートフォリオ",
         meta: "これまでに制作したプロジェクトを紹介しています。",
-        header_name: "原田連寿",
+        header_name: "HR",
         header_title: "公大高専-I / 2年",
         link_detail: "詳細",
         

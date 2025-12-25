@@ -1,5 +1,5 @@
 [Read in English](README.en.md)
-# 原田連寿(Harada Renju)のポートフォリオ
+# HRのポートフォリオ
 
 多言語対応（日本語/英語）のレスポンシブポートフォリオサイト。HTML/CSS/JavaScriptのみで構成されたシンプルで拡張性の高い個人プロジェクト紹介サイトです。
 
@@ -55,7 +55,6 @@ portfolio/
 
 ## License
 
-このプロジェクトはMITライセンスの下で配布されています。
 詳細は [License](./License) ファイルを参照してください。
 
 ## Author
