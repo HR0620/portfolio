@@ -182,7 +182,19 @@ const projects = [
         date: "2025/04-2026/03", 
         url: "../projects/class/programming-1/index.html",
         image: 'fa-solid fa-laptop-code'
-    }
+    },
+    { 
+        id: "p3", 
+        title: { ja: "ATMシミュレータ", en: "ATM Simulator" }, 
+        desc: { 
+            ja: "画像認識(Teachable Machine)を使用してATMの操作を模倣したアプリ", 
+            en: "An ATM simulator app that uses image recognition (Teachable Machine)." 
+        }, 
+        tags: ["python","tkinter","teachable machine","open cv","Pillow","pyYAML","h5py","tensor flow"], 
+        date: "2025/12/25,2026/01/18", 
+        url: "https://github.com/HR0620/ATM-simulator.git",
+        image: "bi bi-cash-coin"
+    },
 ];
 
 // ===== アクティビティデータ =====
