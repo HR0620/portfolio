@@ -193,7 +193,7 @@ const projects = [
         tags: ["python","tkinter","teachable machine","open cv","Pillow","pyYAML","h5py","tensor flow"], 
         date: "2025/12/25,2026/01/18", 
         url: "https://github.com/HR0620/ATM-simulator.git",
-        image: "bi bi-cash-coin"
+        image: "fa-solid fa-sack-dollar"
     },
 ];
 
